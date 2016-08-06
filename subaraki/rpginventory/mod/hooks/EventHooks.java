@@ -10,7 +10,7 @@ import subaraki.rpginventory.gui.inventory.SerializableInventory;
 public class EventHooks {
 
 	@SubscribeEvent
-	public void stuff(AttachCapabilitiesEvent.Entity event){
+	public void attachCapabilitiesForEntities(AttachCapabilitiesEvent.Entity event){
 		final Entity entity = event.getEntity();
 
 		if (entity instanceof EntityPlayer)

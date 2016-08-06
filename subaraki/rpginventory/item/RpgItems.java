@@ -169,7 +169,7 @@ public class RpgItems {
 		ModelLoader.setCustomModelResourceLocation(
 				item,
 				0,
-				new ModelResourceLocation(RpgInventory.MODID+
+				new ModelResourceLocation(RpgInventory.MODID+":"+
 						((RpgInventoryItem)item).getModelLocation()));
 	}
 
