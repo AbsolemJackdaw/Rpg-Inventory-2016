@@ -36,16 +36,16 @@ public class RpgItems {
 		tab = new RpgInventoryTab();
 
 		gold_gloves = new RpgInventoryItem(
-				JewelTypes.NECKLACE,
+				JewelTypes.GLOVES,
 				LocalizeEnum.gold_gloves).setCreativeTab(tab);
 		diamond_gloves = new RpgInventoryItem(
-				JewelTypes.NECKLACE, 
+				JewelTypes.GLOVES, 
 				LocalizeEnum.diamond_gloves).setCreativeTab(tab);
 		emerald_gloves = new RpgInventoryItem(
-				JewelTypes.NECKLACE, 
+				JewelTypes.GLOVES, 
 				LocalizeEnum.emerald_gloves).setCreativeTab(tab);
 		lapis_gloves = new RpgInventoryItem(
-				JewelTypes.NECKLACE, 
+				JewelTypes.GLOVES, 
 				LocalizeEnum.lapis_gloves).setCreativeTab(tab);
 
 		emerald_necklace = new RpgInventoryItem(

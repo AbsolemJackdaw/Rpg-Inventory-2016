@@ -60,22 +60,22 @@ public class RpgInventory {
 
 		//Register events, from which registering a capability to the player is one
 		MinecraftForge.EVENT_BUS.register(new EventHooks());
-		
-//		if(FMLCommonHandler.instance().getSide().isClient())
-			MinecraftForge.EVENT_BUS.register(new KeyHandler());
+
+		//if(FMLCommonHandler.instance().getSide().isClient())
+		MinecraftForge.EVENT_BUS.register(new KeyHandler());
 
 		//register gui handler
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 
 		PacketHandler.NETWORK.registerMessage(HandlerOpenRpgInventory.class, PacketOpenRpgInventory.class, 0, Side.SERVER);
+		
+		new RpgInventoryCapability().register();
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event){
 		//register colors after preInit
 		proxy.registerColors();
-		
-		new RpgInventoryCapability().register();
 	}
 
 	@EventHandler

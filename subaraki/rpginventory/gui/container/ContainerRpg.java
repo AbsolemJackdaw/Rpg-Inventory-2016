@@ -1,25 +1,32 @@
 package subaraki.rpginventory.gui.container;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.WorldServer;
 import subaraki.rpginventory.capability.RpgPlayerInventory;
 import subaraki.rpginventory.capability.RpgStackHandler;
+import subaraki.rpginventory.enums.JewelTypes;
 import subaraki.rpginventory.gui.GuiRpg;
+import subaraki.rpginventory.item.RpgInventoryItem;
+import subaraki.rpginventory.mod.RpgInventory;
+import subaraki.rpginventory.network.PacketHandler;
 
 public class ContainerRpg extends Container {
 
-	GuiRpg inventory;
+	private RpgStackHandler stackHandler;
 
 	public ContainerRpg(EntityPlayer player, RpgPlayerInventory inv) {
-		RpgStackHandler sh = inv.getTheRpgInventory();
-		
-		this.addSlotToContainer(new SlotJewels(sh, 0, 6, 16));// necklace
-		this.addSlotToContainer(new SlotJewels(sh, 1, 6, 37));// crystal
-		this.addSlotToContainer(new SlotJewels(sh, 2, 82, 16));// cloak
-		this.addSlotToContainer(new SlotJewels(sh, 3, 82, 38));// gloves
-		this.addSlotToContainer(new SlotJewels(sh, 4, 82, 59));// ring
-		this.addSlotToContainer(new SlotJewels(sh, 5, 6, 58));// ring
+		stackHandler = inv.getTheRpgInventory();
+
+		this.addSlotToContainer(new SlotJewels(stackHandler, 0, 6, 16));// necklace
+		this.addSlotToContainer(new SlotJewels(stackHandler, 1, 6, 37));// crystal
+		this.addSlotToContainer(new SlotJewels(stackHandler, 2, 82, 16));// cloak
+		this.addSlotToContainer(new SlotJewels(stackHandler, 3, 82, 38));// gloves
+		this.addSlotToContainer(new SlotJewels(stackHandler, 4, 82, 59));// ring
+		this.addSlotToContainer(new SlotJewels(stackHandler, 5, 6, 58));// ring
 
 		// ADD THIS FIRST
 		// quickbar inventory
@@ -40,5 +47,78 @@ public class ContainerRpg extends Container {
 	@Override
 	public boolean canInteractWith(EntityPlayer playerIn) {
 		return true;
+	}
+
+	@Override
+	public ItemStack transferStackInSlot(EntityPlayer player, int slotnumber) {
+		// Shift clicked the players inventory
+		int indexPlayerInventory = slotnumber - 6; //6 is isze of custom inv
+		if ((indexPlayerInventory) >= 0) {
+			ItemStack tmp1 = player.inventory.getStackInSlot(indexPlayerInventory);
+			if ((tmp1 != null) && (tmp1.getItem() instanceof RpgInventoryItem)) {
+				RpgInventoryItem tmp = (RpgInventoryItem) tmp1.getItem();
+
+				switch (tmp.armorType) {
+				case NECKLACE:
+					if (((SlotJewels)getSlot(0)).getStack() != null)
+						return null;
+					player.inventory.setItemStack(player.inventory.getStackInSlot(indexPlayerInventory));
+					player.inventory.setInventorySlotContents(indexPlayerInventory, null);
+					this.slotClick(0, 0, ClickType.PICKUP, player);
+					break;
+				case CRYSTAL:
+					if (((SlotJewels) this.getSlot(1)).getStack() != null)
+						return null;
+					if (tmp1.getItemDamage() == 0)
+						return null;
+					player.inventory.setItemStack(player.inventory.getStackInSlot(indexPlayerInventory));
+					player.inventory.setInventorySlotContents(indexPlayerInventory,null);
+					this.slotClick(1, 0, ClickType.PICKUP, player);
+					break;
+				case CAPE:
+					if (((SlotJewels) this.getSlot(2)).getStack() != null)
+						return null;
+					player.inventory.setItemStack(player.inventory.getStackInSlot(indexPlayerInventory));
+					player.inventory.setInventorySlotContents(indexPlayerInventory,null);
+					this.slotClick(2, 0, ClickType.PICKUP, player);
+					break;
+				case GLOVES:
+					if (((SlotJewels) this.getSlot(3)).getStack() != null)
+						return null;
+					player.inventory.setItemStack(player.inventory.getStackInSlot(indexPlayerInventory));
+					player.inventory.setInventorySlotContents(indexPlayerInventory,null);
+					this.slotClick(3, 0, ClickType.PICKUP, player);
+					break;
+				case RING:
+					if ((((SlotJewels) this.getSlot(4)).getStack() != null) &&
+							(((SlotJewels) this.getSlot(5)).getStack() != null))
+						return null;
+					player.inventory.setItemStack(player.inventory.getStackInSlot(indexPlayerInventory));
+					player.inventory.setInventorySlotContents(indexPlayerInventory,null);
+					if (((SlotJewels) this.getSlot(4)).getStack() == null)
+						this.slotClick(4, 0, ClickType.PICKUP, player);
+					else
+						this.slotClick(5, 0, ClickType.PICKUP, player);
+					break;
+				}
+			}
+		} // Shift clicked the rpgarmor inventory
+		else if (stackHandler!= null) {
+			int i = 0;
+			for (ItemStack is : player.inventory.mainInventory) {
+				if (is == null) {
+					player.inventory.setInventorySlotContents(i,stackHandler.getStackInSlot(slotnumber));
+					stackHandler.setStackInSlot(slotnumber, null);
+
+					if(!player.worldObj.isRemote){
+						((WorldServer)player.worldObj).getEntityTracker().sendToAllTrackingEntity(
+								player, PacketHandler.NETWORK.getPacketFrom(/*new PacketSyncOtherInventory(player)*/null));
+					}
+					return null;
+				}
+				i++;
+			}
+		}
+		return null;
 	}
 }
