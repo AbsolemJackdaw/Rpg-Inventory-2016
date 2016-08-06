@@ -1,11 +1,9 @@
-package subaraki.rpginventory.gui.inventory.container;
+package subaraki.rpginventory.gui.container;
 
-import net.minecraft.item.ItemMonsterPlacer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import subaraki.rpginventory.capability.RpgStackHandler;
 import subaraki.rpginventory.enums.JewelTypes;
-import subaraki.rpginventory.gui.inventory.RpgPlayerInventory.RpgStackHandler;
 import subaraki.rpginventory.item.RpgInventoryItem;
 
 public class SlotJewels extends SlotItemHandler{
@@ -39,5 +37,4 @@ public class SlotJewels extends SlotItemHandler{
 		}
 		return false;
 	}
-
 }

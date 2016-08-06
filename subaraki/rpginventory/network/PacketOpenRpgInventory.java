@@ -1,4 +1,4 @@
-package subaraki.rpginventory.mod.network;
+package subaraki.rpginventory.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import subaraki.rpginventory.gui.handler.GuiHandler;
+import subaraki.rpginventory.handler.GuiHandler;
 import subaraki.rpginventory.mod.RpgInventory;
 
 public class PacketOpenRpgInventory implements IMessage{

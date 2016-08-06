@@ -12,11 +12,16 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import subaraki.rpginventory.gui.handler.GuiHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import subaraki.rpginventory.capability.RpgInventoryCapability;
+import subaraki.rpginventory.handler.GuiHandler;
+import subaraki.rpginventory.handler.KeyHandler;
+import subaraki.rpginventory.hooks.EventHooks;
 import subaraki.rpginventory.item.RpgItems;
-import subaraki.rpginventory.mod.hooks.EventHooks;
-import subaraki.rpginventory.mod.network.PacketHandler;
-import subaraki.rpginventory.mod.server.ServerProxy;
+import subaraki.rpginventory.network.PacketHandler;
+import subaraki.rpginventory.network.PacketOpenRpgInventory;
+import subaraki.rpginventory.network.PacketOpenRpgInventory.HandlerOpenRpgInventory;
+import subaraki.rpginventory.server.ServerProxy;
 
 @Mod(modid = RpgInventory.MODID, name = RpgInventory.NAME, version = RpgInventory.VERSION)
 public class RpgInventory {
@@ -26,9 +31,9 @@ public class RpgInventory {
 	public static final String VERSION = "1.10.2 v1";
 
 	@SidedProxy(clientSide = 
-			"subaraki.rpginventory.mod.client.ClientProxy",
+			"subaraki.rpginventory.client.ClientProxy",
 			serverSide = 
-			"subaraki.rpginventory.mod.server.ServerProxy")
+			"subaraki.rpginventory.server.ServerProxy")
 	public static ServerProxy proxy;
 
 	public static RpgInventory INSTANCE;
@@ -52,17 +57,25 @@ public class RpgInventory {
 		RpgItems.init();
 		RpgItems.register();
 		proxy.registerRenders();
-		
-		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-		
+
+		//Register events, from which registering a capability to the player is one
 		MinecraftForge.EVENT_BUS.register(new EventHooks());
-		FMLCommonHandler.instance().bus().register(new EventHooks());
+		
+//		if(FMLCommonHandler.instance().getSide().isClient())
+			MinecraftForge.EVENT_BUS.register(new KeyHandler());
+
+		//register gui handler
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+
+		PacketHandler.NETWORK.registerMessage(HandlerOpenRpgInventory.class, PacketOpenRpgInventory.class, 0, Side.SERVER);
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event){
 		//register colors after preInit
 		proxy.registerColors();
+		
+		new RpgInventoryCapability().register();
 	}
 
 	@EventHandler

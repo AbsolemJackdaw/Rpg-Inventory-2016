@@ -1,7 +1,7 @@
-package subaraki.rpginventory.mod.client;
+package subaraki.rpginventory.client;
 
 import subaraki.rpginventory.item.RpgItems;
-import subaraki.rpginventory.mod.server.ServerProxy;
+import subaraki.rpginventory.server.ServerProxy;
 
 public class ClientProxy extends ServerProxy {
 

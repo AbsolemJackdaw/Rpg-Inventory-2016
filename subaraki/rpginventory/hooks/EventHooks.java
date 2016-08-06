@@ -1,11 +1,10 @@
-package subaraki.rpginventory.mod.hooks;
+package subaraki.rpginventory.hooks;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import subaraki.rpginventory.gui.inventory.RpgPlayerInventory;
-import subaraki.rpginventory.gui.inventory.SerializableInventory;
+import subaraki.rpginventory.capability.CapabilityInventoryProvider;
 
 public class EventHooks {
 
@@ -14,6 +13,6 @@ public class EventHooks {
 		final Entity entity = event.getEntity();
 
 		if (entity instanceof EntityPlayer)
-			event.addCapability(RpgPlayerInventory.PROP_KEY, new SerializableInventory()); 
+			event.addCapability(CapabilityInventoryProvider.KEY, new CapabilityInventoryProvider((EntityPlayer)entity)); 
 	}
 }

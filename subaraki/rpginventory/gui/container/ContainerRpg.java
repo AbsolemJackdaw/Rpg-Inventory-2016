@@ -1,19 +1,18 @@
-package subaraki.rpginventory.gui.inventory.container;
+package subaraki.rpginventory.gui.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import net.minecraftforge.items.ItemStackHandler;
+import subaraki.rpginventory.capability.RpgPlayerInventory;
+import subaraki.rpginventory.capability.RpgStackHandler;
 import subaraki.rpginventory.gui.GuiRpg;
-import subaraki.rpginventory.gui.inventory.RpgPlayerInventory;
-import subaraki.rpginventory.gui.inventory.RpgPlayerInventory.RpgStackHandler;
 
 public class ContainerRpg extends Container {
 
 	GuiRpg inventory;
 
 	public ContainerRpg(EntityPlayer player, RpgPlayerInventory inv) {
-		RpgStackHandler sh = inv.getInventory(player);
+		RpgStackHandler sh = inv.getTheRpgInventory();
 		
 		this.addSlotToContainer(new SlotJewels(sh, 0, 6, 16));// necklace
 		this.addSlotToContainer(new SlotJewels(sh, 1, 6, 37));// crystal
@@ -40,7 +39,6 @@ public class ContainerRpg extends Container {
 
 	@Override
 	public boolean canInteractWith(EntityPlayer playerIn) {
-		return false;
+		return true;
 	}
-
 }

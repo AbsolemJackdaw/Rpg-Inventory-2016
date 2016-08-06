@@ -1,4 +1,4 @@
-package subaraki.rpginventory.mod.server;
+package subaraki.rpginventory.server;
 
 public class ServerProxy {
 
