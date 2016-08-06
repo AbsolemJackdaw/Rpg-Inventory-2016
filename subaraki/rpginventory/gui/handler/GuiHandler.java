@@ -3,8 +3,8 @@ package subaraki.rpginventory.gui.handler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-import subaraki.rpginventory.gui.ContainerRpg;
 import subaraki.rpginventory.gui.GuiRpg;
+import subaraki.rpginventory.gui.inventory.container.ContainerRpg;
 
 public class GuiHandler implements IGuiHandler {
 

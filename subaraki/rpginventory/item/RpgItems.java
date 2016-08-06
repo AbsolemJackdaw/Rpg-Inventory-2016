@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import subaraki.rpginventory.enums.JewelTypes;
+import subaraki.rpginventory.mod.RpgInventory;
 
 public class RpgItems {
 
@@ -168,20 +169,20 @@ public class RpgItems {
 		ModelLoader.setCustomModelResourceLocation(
 				item,
 				0,
-				new ModelResourceLocation("subaraki:"+
+				new ModelResourceLocation(RpgInventory.MODID+
 						((RpgInventoryItem)item).getModelLocation()));
 	}
 
 	public static enum LocalizeEnum{
-		gold_gloves("gold_glove","jewels/gold_glove", "subaraki:armor/textures/jewels/gold_glove.png"),
-		diamond_gloves("diamond_glove","jewels/endented_glove", "subaraki:armor/textures/jewels/diamond_glove.png"),
-		emerald_gloves("emerald_glove","jewels/endented_glove", "subaraki:armor/textures/jewels/emerald_gloves.png"),
-		lapis_gloves("lapis_glove","jewels/endented_glove", "subaraki:armor/textures/jewels/lapis_gloves.png"),
+		gold_gloves("gold_glove","jewels/gold_glove", "armor/textures/jewels/gold_glove.png"),
+		diamond_gloves("diamond_glove","jewels/endented_glove", "armor/textures/jewels/diamond_glove.png"),
+		emerald_gloves("emerald_glove","jewels/endented_glove", "armor/textures/jewels/emerald_gloves.png"),
+		lapis_gloves("lapis_glove","jewels/endented_glove", "armor/textures/jewels/lapis_gloves.png"),
 
-		gold_necklace("gold_necklace","jewels/gold_necklace","subaraki:armor/textures/jewels/gold_necklace.png"),
-		diamond_necklace("diamond_necklace","jewels/endented_necklace","subaraki:armor/textures/jewels/diamond_necklace.png"),
-		emerald_necklace("emerald_necklace","jewels/endented_necklace","subaraki:armor/textures/jewels/emerald_necklace.png"),
-		lapis_necklace("lapis_necklace","jewels/endented_necklace","subaraki:armor/textures/jewels/lapis_necklace.png"),
+		gold_necklace("gold_necklace","jewels/gold_necklace","armor/textures/jewels/gold_necklace.png"),
+		diamond_necklace("diamond_necklace","jewels/endented_necklace","armor/textures/jewels/diamond_necklace.png"),
+		emerald_necklace("emerald_necklace","jewels/endented_necklace","armor/textures/jewels/emerald_necklace.png"),
+		lapis_necklace("lapis_necklace","jewels/endented_necklace","armor/textures/jewels/lapis_necklace.png"),
 
 		gold_ring("gold_ring","jewels/gold_ring",""),
 		diamond_ring("diamond_ring","jewels/endented_ring",""),
