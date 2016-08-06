@@ -1,0 +1,144 @@
+#capes
+item.whi.capeGrey.name= Cape Blanche
+item.bla.capeGrey.name = Cape Noire
+item.red.capeGrey.name = Cape Rouge
+item.gre.capeGrey.name = Cape Verte
+item.bro.capeGrey.name = Cape Marron
+item.ble.capeGrey.name = Cape Bleue
+item.pur.capeGrey.name = Cape Violette
+item.cya.capeGrey.name = Cape Cyan
+item.sil.capeGrey.name = Cape Argentee
+item.gra.capeGrey.name = Cape Grise
+item.pin.capeGrey.name = Cape Rose
+item.lim.capeGrey.name = Cape Lime
+item.yel.capeGrey.name = Cape Jaune
+item.lig.capeGrey.name = Cape Bleue Claire
+item.mag.capeGrey.name = Cape Magenta
+item.ora.capeGrey.name = Cape Orange
+item.i.capeGrey.name=Cape d'invisibilité
+
+#jewels necklace
+item.neckDia.name=Amulette de soin
+item.neckEm.name=Amulette d'amélioration
+item.neckLap.name=Amulette de force
+item.neckGold.name=Amulette de vitesse
+
+#jewels ring
+item.ringDia.name=Anneau de soin
+item.ringEm.name=Anneau d'amélioration
+item.ringLap.name=Anneau de force
+item.ringGold.name=Anneau de vitesse
+
+#jewels gloves
+item.gloveDia.name=Gants de soin
+item.gloveEm.name=Gants d'amélioration
+item.gloveLap.name=Gants de force
+item.gloveGold.name=Gants de vitesse
+
+#molds
+item.moldRing.name=Moule d'anneau
+item.moldNeck.name=Moule de collier
+item.moldGlove.name=Moule de gants
+
+#block
+tile.MoldForge.name=Fourneau à bijoux
+
+#armor materials
+item.n.leather.name=Peau de Nécromancien
+item.p.iron_ingot.name=Acier paladin
+item.r.leather.name=Peau de scélérat
+item.b.leather.name=Maître des bêtes caché
+item.a.leather.name=Peau de maître des bêtes
+item.t.leather.name=Peau d'archer
+item.m.leather.name=Peau de magie
+
+
+#armor
+item.necro1.name=Capuche de Nécromancien
+item.necro2.name=Gilet de Nécromancien
+item.necro3.name=Pantalon de Nécromancien
+item.necro4.name=Bottes de Nécromancien
+
+item.paladin1.name=Casque de Paladin
+item.paladin2.name=Plastron de Paladin
+item.paladin3.name=Jambières de Paladin
+item.paladin4.name=Bottes de Paladin
+
+item.beast1.name=Capuche de Maître des bêtes
+item.beast2.name=Corsage de Maître des bêtes
+item.beast3.name=Cuissardes de Maître des bêtes
+item.beast4.name=Chaussures de Maître des bêtes
+
+item.rogue1.name=Capuche de scélérat
+item.rogue2.name=Plastron de scélérat
+item.rogue3.name=Cuissardes de scélérat
+item.rogue4.name=Bottes de scélérat
+
+item.archMage1.name=Chapeau d'archimage
+item.archMage2.name=Toge d'archimage
+item.archMage3.name=Juste au corps d'archimage
+item.archMage4.name=Bottes d'archimage
+
+item.archer1.name=Cape d'archer
+item.archer2.name=Plastron d'archer
+item.archer3.name=Jambière d'archer
+item.archer4.name=Bottes d'archer
+
+item.mage1.name=Chapeau de mage
+item.mage2.name=Toge de mage
+item.mage3.name=Juste au corps de mage
+item.mage4.name=Chaussures de mage
+
+item.berserk1.name=Cape de maître des bêtes
+item.berserk2.name=Plastron de maître des bêtes
+item.berserk3.name=Cuissardes de maître des bêtes
+item.bersker4.name=Chaussures de maître des bêtes
+
+
+#shields
+item.shieldPaladin.name=Bouclier de Paladin
+item.shieldNecro.name=Bouclier de Nécromancien
+
+item.shieldBeastMaster.name=Bouclier tête de lion
+
+item.shieldWood.name=Bouclier en bois
+item.shieldIron.name=Bouclier en fer
+item.shieldGold.name=Bouclier en or
+item.shieldDiamond.name=Bouclier en diamant
+
+item.archTome.name=Aura d'archimage
+
+item.shieldMage.name=Aura de mage
+item.shieldBerserker.name=Epines de fer
+item.shieldArcher.name=Petit bouclier en bois
+
+
+#weapons
+item.paladinPride.name=Espadon de Paladin
+item.Skull.name=Crâne de Nécromancien
+
+item.forestAxe.name=Hache de Maître des bêtes
+item.dagger.name=Poignard de scélérat
+
+item.staffFire.name=Bâton de Feu
+item.staffIce.name=Bâton de glace
+item.staffEarth.name=Bâton de terre
+item.staffWind.name=Bâton de vent
+item.staffElemental.name=Bâton des éléments
+
+item.elmBow.name=Ultra-arc d'archer
+item.claymore.name=Claymore
+item.rageBreaker.name=Casseur de Rage
+item.soulsphere.name=Sphere d'Âme
+item.lunarStaff.name=Bâton lunaire
+
+
+
+#various items
+item.petCrystal.name=Crystal
+item.petCandy.name=Friandise pour animal rare
+item.whistle.name=Sifflement d'animal
+item.tangledBrench.name=Bâtons entremêlés
+item.PetXPBottle.name=Bouteille d'XP pour animal
+item.r.seeds_melon.name=Graine de rage
+item.a.book_normal.name=Livre de sort

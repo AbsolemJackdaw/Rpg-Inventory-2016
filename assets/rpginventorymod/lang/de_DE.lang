@@ -1,0 +1,144 @@
+#capes
+item.whi.capeGrey.name = Weisser Umhang
+item.bla.capeGrey.name = Schwarzer Umhang
+item.red.capeGrey.name = Roter Umhang
+item.gre.capeGrey.name = Grüner Umhang
+item.bro.capeGrey.name = Brauner Umhang
+item.ble.capeGrey.name = Blauer Umhang
+item.pur.capeGrey.name = Lila Umhang
+item.cya.capeGrey.name = Türkiser Umhang
+item.sil.capeGrey.name = Silberner Umhang
+item.gra.capeGrey.name = Grauer Umhang
+item.pin.capeGrey.name = Pinker Umhang
+item.lim.capeGrey.name = Hellgrüner Umhang
+item.yel.capeGrey.name = Gelber Umhang
+item.lig.capeGrey.name = Hellblauer Umhang
+item.mag.capeGrey.name = Magenta Umhang
+item.ora.capeGrey.name = Oranger Umhang
+item.i.capeGrey.name=Unsichtbarkeits Umhang
+
+#jewels necklace
+item.neckDia.name=Lebenshalskette
+item.neckEm.name=Polierte Halskette
+item.neckLap.name=Stärkehalskette
+item.neckGold.name=SDchnelligkeitshalskette
+
+#jewels ring
+item.ringDia.name=Lebensring
+item.ringEm.name=Polierter Ring
+item.ringLap.name=Stärkering
+item.ringGold.name=Schnelligkeitsring
+
+#jewels gloves
+item.gloveDia.name=Lebenshandschuhe
+item.gloveEm.name=Aufgebesserte Handschuhe
+item.gloveLap.name=Stärkehandschuhe
+item.gloveGold.name=Schnelligkeitshandschuhe
+
+#molds
+item.moldRing.name=Ringform
+item.moldNeck.name=Halsbandform
+item.moldGlove.name=Handschuhform
+
+#block
+tile.MoldForge.name=Edelsteinofen
+
+#armor materials
+item.n.leather.name=Geisterbeschwörerleder
+item.p.iron_ingot.name=Beschözerstahl
+item.r.leather.name=Schurkenleder
+item.b.leather.name=Befreierfell
+item.a.leather.name=Berserkerleder
+item.t.leather.name=Bogenschözenleder
+item.m.leather.name=Magisches Leder
+
+
+#armor
+item.necro1.name=Geisterbeschwörerkapuze
+item.necro2.name=Geisterbeschwörerweste
+item.necro3.name=Geisterbeschwörerhose
+item.necro4.name=Geisterbeschwörerschuhe
+
+item.paladin1.name=Beschözerhelm
+item.paladin2.name=Beschözerbrustpanzer
+item.paladin3.name=Beschözerhosen
+item.paladin4.name=Beschözerschuhe
+
+item.beast1.name=Befreierkapuze 
+item.beast2.name=Befreier Leibchen
+item.beast3.name=Befreierbeinkleider
+item.beast4.name=Befreierschuhe
+
+item.rogue1.name=Berserkerkapuze
+item.rogue2.name=Berserkerbrustpanzer
+item.rogue3.name=Berserkerbeinkleider
+item.rogue4.name=Berserkerschuhe
+
+item.archMage1.name=Erzmagierhut
+item.archMage2.name=Erzmagiergewand
+item.archMage3.name=Erzmagieruntergewand
+item.archMage4.name=Erzmagierstiefel
+
+item.archer1.name=Bogenschözenkappe
+item.archer2.name=Bogenschözenbrustpanzer
+item.archer3.name=Bogenschözenhose
+item.archer4.name=Bogenschözenschuhe
+
+item.mage1.name=Magierhut
+item.mage2.name=Magiergewand
+item.mage3.name=Magieruntergewand
+item.mage4.name=Magierstiefel
+
+item.berserk1.name=Berserkerkappe
+item.berserk2.name=Berserkerbrusdtpanzer 
+item.berserk3.name=Berserkerbeinkleider
+item.bersker4.name=Berserkerschuhe
+
+
+#shields
+item.shieldPaladin.name=Beschözerschild
+item.shieldNecro.name=Geisterbeschwörerschild
+
+item.shieldBeastMaster.name=Löwenkopfschild
+
+item.shieldWood.name=Hölzernes Schild
+item.shieldIron.name=Eisernes Schild
+item.shieldGold.name=Goldenes Schild
+item.shieldDiamond.name=Diamantenes Schild
+
+item.archTome.name=Erzmagierschleier
+
+item.shieldMage.name=Magierschleier
+item.shieldBerserker.name=Stachelschild
+item.shieldArcher.name=Kleines hölzernes Schild
+
+
+#weapons
+item.paladinPride.name=BeschözergroSSschwert
+item.Skull.name=Geisterbeschwörerschädel
+
+item.forestAxe.name=Befreieraxt
+item.dagger.name=Dolch
+
+item.staffFire.name=Feuerzauberstab
+item.staffIce.name=Eiszauberstab
+item.staffEarth.name=Erdzauberstab
+item.staffWind.name=Windzauberstab
+item.staffElemental.name=Zauberstab der Elemente
+
+item.elmBow.name=Ultrabogen
+item.claymore.name=Breitschwert
+item.rageBreaker.name=Riesenhammber
+item.soulsphere.name=Seelensphäre
+item.lunarStaff.name=Mondzauberstab
+
+
+
+#various items
+item.petCrystal.name=Kristall
+item.petCandy.name=Seltene SüSSigkeit für Haustiere
+item.whistle.name=Pfeife
+item.tangledBrench.name=Zusammengesetzter Ast
+item.PetXPBottle.name=Haustiererfahrungsfläschchen
+item.r.seeds_melon.name=Wutstab
+item.a.book_normal.name=Zauberbuch

@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "subaraki:item/jewels/gold_ring",
+        "layer1": "subaraki:item/jewels/ring_over"
+    }
+}
