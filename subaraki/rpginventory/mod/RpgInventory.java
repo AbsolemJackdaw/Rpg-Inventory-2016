@@ -21,6 +21,7 @@ import subaraki.rpginventory.enums.JewelTypes;
 import subaraki.rpginventory.item.RpgInventoryItem;
 import subaraki.rpginventory.item.RpgInventoryTab;
 import subaraki.rpginventory.item.RpgItems;
+import subaraki.rpginventory.mod.network.PacketHandler;
 import subaraki.rpginventory.mod.server.ServerProxy;
 
 @Mod(modid = RpgInventory.MODID, name = RpgInventory.NAME, version = RpgInventory.VERSION)
@@ -50,10 +51,14 @@ public class RpgInventory {
 		modMeta.description = "Expanded Inventory, Class Armor, and Ultra Fine 3D weapons !";
 		modMeta.url = "http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1287896-/";
 
+		//inititate networking
+		new PacketHandler();
+		
 		//always register items in preInit
 		RpgItems.init();
 		RpgItems.register();
 		proxy.registerRenders();
+		
 	}
 
 	@EventHandler
