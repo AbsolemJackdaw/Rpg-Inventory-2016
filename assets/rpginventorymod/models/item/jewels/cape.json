@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "rpginventorymoditem/cape"
+        "layer0": "rpginventorymod:item/cape"
     }
 }
