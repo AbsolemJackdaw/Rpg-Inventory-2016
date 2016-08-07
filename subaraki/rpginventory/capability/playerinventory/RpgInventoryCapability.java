@@ -1,4 +1,4 @@
-package subaraki.rpginventory.capability;
+package subaraki.rpginventory.capability.playerinventory;
 
 import java.util.concurrent.Callable;
 
@@ -57,7 +57,7 @@ public class RpgInventoryCapability {
 	public static class DefaultInstanceFactory implements Callable<RpgPlayerInventory>{
 		@Override
 		public RpgPlayerInventory call() throws Exception{
-			return null;
+			return new RpgPlayerInventory();
 		}
 	}
 }

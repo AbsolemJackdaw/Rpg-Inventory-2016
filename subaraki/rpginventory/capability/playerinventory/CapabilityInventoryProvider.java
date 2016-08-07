@@ -1,4 +1,4 @@
-package subaraki.rpginventory.capability;
+package subaraki.rpginventory.capability.playerinventory;
 
 import javax.annotation.Nullable;
 
@@ -12,18 +12,18 @@ import subaraki.rpginventory.mod.RpgInventory;
 
 public class CapabilityInventoryProvider implements ICapabilitySerializable<NBTTagCompound>
 {
-    /*
+    /**
      * Unique key to identify the attached provider from others
      */
     public static final ResourceLocation KEY = new ResourceLocation(RpgInventory.MODID, "rpg_player_inventory");
 
-    /*
+    /**
      * The instance that we are providing
      */
     final RpgPlayerInventory slots = new RpgPlayerInventory();
 
-    public CapabilityInventoryProvider(EntityPlayer player)
-    {
+    /**gets called before world is initiated. player.worldObj will return null here !*/
+    public CapabilityInventoryProvider(EntityPlayer player){
         slots.setPlayer(player);
     }
 
@@ -37,22 +37,19 @@ public class CapabilityInventoryProvider implements ICapabilitySerializable<NBTT
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing)
-    {
+    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing){
         if (capability == RpgInventoryCapability.CAPABILITY)
             return (T)slots;
         return null;
     }
 
     @Override
-    public NBTTagCompound serializeNBT()
-    {
+    public NBTTagCompound serializeNBT(){
         return (NBTTagCompound) RpgInventoryCapability.CAPABILITY.writeNBT(slots, null);
     }
 
     @Override
-    public void deserializeNBT(NBTTagCompound nbt)
-    {
+    public void deserializeNBT(NBTTagCompound nbt){
     	RpgInventoryCapability.CAPABILITY.readNBT(slots, null, nbt);
     }
 }

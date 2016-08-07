@@ -65,4 +65,8 @@ public class RpgInventoryItem extends Item {
 	{
 		return stack.getItem().equals(RpgItems.cloak_Invisible);
 	}
+	
+	public ResourceLocation getRenderPlayerTexture() {
+		return RENDER3D_TEXTURE;
+	}
 }

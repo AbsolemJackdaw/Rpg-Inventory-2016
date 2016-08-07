@@ -2,8 +2,6 @@ package subaraki.rpginventory.mod;
 
 import java.util.Arrays;
 
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.ModMetadata;
@@ -13,15 +11,20 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
-import subaraki.rpginventory.capability.RpgInventoryCapability;
+import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
 import subaraki.rpginventory.handler.GuiHandler;
 import subaraki.rpginventory.handler.KeyHandler;
+import subaraki.rpginventory.handler.RenderHandler;
+import subaraki.rpginventory.handler.proxy.ServerProxy;
 import subaraki.rpginventory.hooks.EventHooks;
 import subaraki.rpginventory.item.RpgItems;
 import subaraki.rpginventory.network.PacketHandler;
 import subaraki.rpginventory.network.PacketOpenRpgInventory;
 import subaraki.rpginventory.network.PacketOpenRpgInventory.HandlerOpenRpgInventory;
-import subaraki.rpginventory.server.ServerProxy;
+import subaraki.rpginventory.network.PacketSyncOtherInventory;
+import subaraki.rpginventory.network.PacketSyncOtherInventory.HandlerSyncOtherInventory;
+import subaraki.rpginventory.network.PacketSyncOwnInventory;
+import subaraki.rpginventory.network.PacketSyncOwnInventory.HandlerSyncOwnInventory;
 
 @Mod(modid = RpgInventory.MODID, name = RpgInventory.NAME, version = RpgInventory.VERSION)
 public class RpgInventory {
@@ -31,9 +34,9 @@ public class RpgInventory {
 	public static final String VERSION = "1.10.2 v1";
 
 	@SidedProxy(clientSide = 
-			"subaraki.rpginventory.client.ClientProxy",
+			"subaraki.rpginventory.handler.proxy.ClientProxy",
 			serverSide = 
-			"subaraki.rpginventory.server.ServerProxy")
+			"subaraki.rpginventory.handler.proxy.ServerProxy")
 	public static ServerProxy proxy;
 
 	public static RpgInventory INSTANCE;
@@ -58,17 +61,18 @@ public class RpgInventory {
 		RpgItems.register();
 		proxy.registerRenders();
 
-		//Register events, from which registering a capability to the player is one
-		MinecraftForge.EVENT_BUS.register(new EventHooks());
-
-		//if(FMLCommonHandler.instance().getSide().isClient())
-		MinecraftForge.EVENT_BUS.register(new KeyHandler());
+		//queue subscribed events
+		new EventHooks();
+		new KeyHandler();
+		new RenderHandler();
 
 		//register gui handler
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 
 		PacketHandler.NETWORK.registerMessage(HandlerOpenRpgInventory.class, PacketOpenRpgInventory.class, 0, Side.SERVER);
-		
+		PacketHandler.NETWORK.registerMessage(HandlerSyncOtherInventory.class, PacketSyncOtherInventory.class, 1, Side.CLIENT);
+		PacketHandler.NETWORK.registerMessage(HandlerSyncOwnInventory.class, PacketSyncOwnInventory.class, 2, Side.CLIENT);
+
 		new RpgInventoryCapability().register();
 	}
 

@@ -1,32 +1,30 @@
 package subaraki.rpginventory.gui.container;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.WorldServer;
-import subaraki.rpginventory.capability.RpgPlayerInventory;
-import subaraki.rpginventory.capability.RpgStackHandler;
-import subaraki.rpginventory.enums.JewelTypes;
-import subaraki.rpginventory.gui.GuiRpg;
+import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
 import subaraki.rpginventory.item.RpgInventoryItem;
-import subaraki.rpginventory.mod.RpgInventory;
 import subaraki.rpginventory.network.PacketHandler;
+import subaraki.rpginventory.network.PacketSyncOwnInventory;
 
 public class ContainerRpg extends Container {
 
-	private RpgStackHandler stackHandler;
+	private RpgPlayerInventory inventory;
 
 	public ContainerRpg(EntityPlayer player, RpgPlayerInventory inv) {
-		stackHandler = inv.getTheRpgInventory();
+		inventory = inv;
 
-		this.addSlotToContainer(new SlotJewels(stackHandler, 0, 6, 16));// necklace
-		this.addSlotToContainer(new SlotJewels(stackHandler, 1, 6, 37));// crystal
-		this.addSlotToContainer(new SlotJewels(stackHandler, 2, 82, 16));// cloak
-		this.addSlotToContainer(new SlotJewels(stackHandler, 3, 82, 38));// gloves
-		this.addSlotToContainer(new SlotJewels(stackHandler, 4, 82, 59));// ring
-		this.addSlotToContainer(new SlotJewels(stackHandler, 5, 6, 58));// ring
+		this.addSlotToContainer(new SlotJewels(inventory, 0, 6, 16));// necklace
+		this.addSlotToContainer(new SlotJewels(inventory, 1, 6, 37));// crystal
+		this.addSlotToContainer(new SlotJewels(inventory, 2, 82, 16));// cloak
+		this.addSlotToContainer(new SlotJewels(inventory, 3, 82, 38));// gloves
+		this.addSlotToContainer(new SlotJewels(inventory, 4, 82, 59));// ring
+		this.addSlotToContainer(new SlotJewels(inventory, 5, 6, 58));// ring
 
 		// ADD THIS FIRST
 		// quickbar inventory
@@ -47,6 +45,15 @@ public class ContainerRpg extends Container {
 	@Override
 	public boolean canInteractWith(EntityPlayer playerIn) {
 		return true;
+	}
+
+	@Override
+	public ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn, EntityPlayer player) {
+
+//		if (!player.worldObj.isRemote)
+//			PacketHandler.NETWORK.sendTo(new PacketSyncOwnInventory(player), (EntityPlayerMP) player);
+
+		return super.slotClick(slotId, dragType, clickTypeIn, player);
 	}
 
 	@Override
@@ -103,12 +110,12 @@ public class ContainerRpg extends Container {
 				}
 			}
 		} // Shift clicked the rpgarmor inventory
-		else if (stackHandler!= null) {
+		else if (inventory!= null) {
 			int i = 0;
 			for (ItemStack is : player.inventory.mainInventory) {
 				if (is == null) {
-					player.inventory.setInventorySlotContents(i,stackHandler.getStackInSlot(slotnumber));
-					stackHandler.setStackInSlot(slotnumber, null);
+					player.inventory.setInventorySlotContents(i,inventory.getTheRpgInventory().getStackInSlot(slotnumber));
+					inventory.setStackInSlot(slotnumber, null);
 
 					if(!player.worldObj.isRemote){
 						((WorldServer)player.worldObj).getEntityTracker().sendToAllTrackingEntity(
