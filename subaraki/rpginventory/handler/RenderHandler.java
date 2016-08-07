@@ -9,6 +9,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -17,6 +18,7 @@ import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
 import subaraki.rpginventory.enums.SlotIndex;
 import subaraki.rpginventory.item.RpgInventoryItem;
 import subaraki.rpginventory.item.RpgItems;
+import subaraki.rpginventory.render.RenderCapeLayer;
 
 public class RenderHandler {
 
@@ -40,8 +42,7 @@ public class RenderHandler {
 		}
 	}
 
-	@SubscribeEvent
-	public void PlayerRender(RenderPlayerEvent.SetArmorModel evt) {
+	public void PlayerRender(RenderPlayerEvent.Post evt) {
 
 		if(main == null){
 			RenderPlayer r = evt.getRenderer();
@@ -96,7 +97,7 @@ public class RenderHandler {
 		if (itemstack.getItem() != Items.ELYTRA){
 
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-			rp.bindTexture(item.getRenderPlayerTexture());
+			rp.bindTexture(item.getRenderOnPlayerTexture());
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(0.0F, 0.0F, 0.125F);
 			double d0 = player.prevChasingPosX + (player.chasingPosX - player.prevChasingPosX) * (double)partialTicks - (player.prevPosX + (player.posX - player.prevPosX) * (double)partialTicks);

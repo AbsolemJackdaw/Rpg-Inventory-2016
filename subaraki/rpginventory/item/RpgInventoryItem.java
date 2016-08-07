@@ -26,7 +26,7 @@ public class RpgInventoryItem extends Item {
 		setUnlocalizedName(le.getLocalName());
 		setRegistryName(le.getLocalName());
 		if(le.getRenderTexture().length() > 0)
-			RENDER3D_TEXTURE = new ResourceLocation(RpgInventory.MODID+":"+le.getRenderTexture());
+			RENDER3D_TEXTURE = new ResourceLocation(le.getRenderTexture());
 		else
 			RENDER3D_TEXTURE = null;
 
@@ -35,7 +35,6 @@ public class RpgInventoryItem extends Item {
 		colorState = color;
 		this.armorType = armorType;
 		this.maxStackSize = 1;
-		this.setCreativeTab(CreativeTabs.COMBAT);
 		this.setMaxDamage(maxDamage);
 	}
 
@@ -66,7 +65,7 @@ public class RpgInventoryItem extends Item {
 		return stack.getItem().equals(RpgItems.cloak_Invisible);
 	}
 	
-	public ResourceLocation getRenderPlayerTexture() {
+	public ResourceLocation getRenderOnPlayerTexture() {
 		return RENDER3D_TEXTURE;
 	}
 }

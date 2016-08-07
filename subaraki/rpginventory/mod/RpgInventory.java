@@ -2,6 +2,8 @@ package subaraki.rpginventory.mod;
 
 import java.util.Arrays;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.ModMetadata;
@@ -60,7 +62,7 @@ public class RpgInventory {
 		RpgItems.init();
 		RpgItems.register();
 		proxy.registerRenders();
-
+		
 		//queue subscribed events
 		new EventHooks();
 		new KeyHandler();
@@ -80,6 +82,9 @@ public class RpgInventory {
 	public void init(FMLInitializationEvent event){
 		//register colors after preInit
 		proxy.registerColors();
+		proxy.addRenderLayers();
+
+		
 	}
 
 	@EventHandler

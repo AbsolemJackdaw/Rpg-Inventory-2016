@@ -1,12 +1,15 @@
 package subaraki.rpginventory.item;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemDye;
+import net.minecraft.item.ItemShield;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -28,6 +31,7 @@ public class RpgItems {
 
 	/* ====molds==== */
 	mold_necklace, mold_ring, mold_gloves
+
 	;
 
 	public static CreativeTabs tab;
@@ -92,6 +96,7 @@ public class RpgItems {
 		cloakWhite = new RpgInventoryItem(JewelTypes.CAPE,15,LocalizeEnum.cape_white).setCreativeTab(tab);
 
 		cloak_Invisible = new RpgInventoryItem(JewelTypes.CAPE,LocalizeEnum.cape_invisible).setCreativeTab(tab);
+
 	}
 
 	public static void register(){
@@ -174,15 +179,15 @@ public class RpgItems {
 	}
 
 	public static enum LocalizeEnum{
-		gold_gloves("gold_glove","jewels/gold_glove", "armor/textures/jewels/gold_glove.png"),
-		diamond_gloves("diamond_glove","jewels/endented_glove", "armor/textures/jewels/diamond_glove.png"),
-		emerald_gloves("emerald_glove","jewels/endented_glove", "armor/textures/jewels/emerald_gloves.png"),
-		lapis_gloves("lapis_glove","jewels/endented_glove", "armor/textures/jewels/lapis_gloves.png"),
+		gold_gloves("gold_glove","jewels/gold_glove", RpgInventory.MODID+":"+"armor/textures/jewels/gold_glove.png"),
+		diamond_gloves("diamond_glove","jewels/endented_glove", RpgInventory.MODID+":"+"armor/textures/jewels/diamond_glove.png"),
+		emerald_gloves("emerald_glove","jewels/endented_glove", RpgInventory.MODID+":"+"armor/textures/jewels/emerald_gloves.png"),
+		lapis_gloves("lapis_glove","jewels/endented_glove", RpgInventory.MODID+":"+"armor/textures/jewels/lapis_gloves.png"),
 
-		gold_necklace("gold_necklace","jewels/gold_necklace","armor/textures/jewels/gold_necklace.png"),
-		diamond_necklace("diamond_necklace","jewels/endented_necklace","armor/textures/jewels/diamond_necklace.png"),
-		emerald_necklace("emerald_necklace","jewels/endented_necklace","armor/textures/jewels/emerald_necklace.png"),
-		lapis_necklace("lapis_necklace","jewels/endented_necklace","armor/textures/jewels/lapis_necklace.png"),
+		gold_necklace("gold_necklace","jewels/gold_necklace",RpgInventory.MODID+":"+"armor/textures/jewels/gold_necklace.png"),
+		diamond_necklace("diamond_necklace","jewels/endented_necklace",RpgInventory.MODID+":"+"armor/textures/jewels/diamond_necklace.png"),
+		emerald_necklace("emerald_necklace","jewels/endented_necklace",RpgInventory.MODID+":"+"armor/textures/jewels/emerald_necklace.png"),
+		lapis_necklace("lapis_necklace","jewels/endented_necklace",RpgInventory.MODID+":"+"armor/textures/jewels/lapis_necklace.png"),
 
 		gold_ring("gold_ring","jewels/gold_ring",""),
 		diamond_ring("diamond_ring","jewels/endented_ring",""),
@@ -197,7 +202,7 @@ public class RpgItems {
 		cape_purple("purple_cape","jewels/cape","textures/blocks/wool_colored_purple.png"),
 		cape_cyan("cyan_cape","jewels/cape","textures/blocks/wool_colored_cyan.png"),
 		cape_silver("silver_cape","jewels/cape","textures/blocks/wool_colored_silver.png"),
-		cape_grey("grey_cape","jewels/cape","textures/blocks/wool_colored_grey.png"),
+		cape_grey("grey_cape","jewels/cape","textures/blocks/wool_colored_gray.png"),
 		cape_pink("pink_cape","jewels/cape","textures/blocks/wool_colored_pink.png"),
 		cape_lime("lime_cape","jewels/cape","textures/blocks/wool_colored_lime.png"),
 		cape_yellow("yellow_cape","jewels/cape","textures/blocks/wool_colored_yellow.png"),
@@ -208,6 +213,7 @@ public class RpgItems {
 
 		cape_invisible("invisible_cape","jewels/cape","textures/blocks/wool_colored_white.png"),
 
+		shield("test_shield","","textures/blocks/wool_colored_white.png"),
 		;
 
 		private final String name;
