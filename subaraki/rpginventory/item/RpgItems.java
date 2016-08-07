@@ -179,15 +179,15 @@ public class RpgItems {
 	}
 
 	public static enum LocalizeEnum{
-		gold_gloves("gold_glove","jewels/gold_glove", RpgInventory.MODID+":"+"armor/textures/jewels/gold_glove.png"),
-		diamond_gloves("diamond_glove","jewels/endented_glove", RpgInventory.MODID+":"+"armor/textures/jewels/diamond_glove.png"),
-		emerald_gloves("emerald_glove","jewels/endented_glove", RpgInventory.MODID+":"+"armor/textures/jewels/emerald_gloves.png"),
-		lapis_gloves("lapis_glove","jewels/endented_glove", RpgInventory.MODID+":"+"armor/textures/jewels/lapis_gloves.png"),
+		gold_gloves("gold_glove","jewels/gold_glove", RpgInventory.MODID+":"+"armor/jewels/textures/gold_glove.png"),
+		diamond_gloves("diamond_glove","jewels/endented_glove", RpgInventory.MODID+":"+"armor/jewels/textures/diamond_glove.png"),
+		emerald_gloves("emerald_glove","jewels/endented_glove", RpgInventory.MODID+":"+"armor/jewels/textures/emerald_gloves.png"),
+		lapis_gloves("lapis_glove","jewels/endented_glove", RpgInventory.MODID+":"+"armor/jewels/textures/lapis_gloves.png"),
 
-		gold_necklace("gold_necklace","jewels/gold_necklace",RpgInventory.MODID+":"+"armor/textures/jewels/gold_necklace.png"),
-		diamond_necklace("diamond_necklace","jewels/endented_necklace",RpgInventory.MODID+":"+"armor/textures/jewels/diamond_necklace.png"),
-		emerald_necklace("emerald_necklace","jewels/endented_necklace",RpgInventory.MODID+":"+"armor/textures/jewels/emerald_necklace.png"),
-		lapis_necklace("lapis_necklace","jewels/endented_necklace",RpgInventory.MODID+":"+"armor/textures/jewels/lapis_necklace.png"),
+		gold_necklace("gold_necklace","jewels/gold_necklace",RpgInventory.MODID+":"+"armor/jewels/textures/gold_necklace.png"),
+		diamond_necklace("diamond_necklace","jewels/endented_necklace",RpgInventory.MODID+":"+"armor/jewels/textures/diamond_necklace.png"),
+		emerald_necklace("emerald_necklace","jewels/endented_necklace",RpgInventory.MODID+":"+"armor/jewels/textures/emerald_necklace.png"),
+		lapis_necklace("lapis_necklace","jewels/endented_necklace",RpgInventory.MODID+":"+"armor/jewels/textures/lapis_necklace.png"),
 
 		gold_ring("gold_ring","jewels/gold_ring",""),
 		diamond_ring("diamond_ring","jewels/endented_ring",""),
