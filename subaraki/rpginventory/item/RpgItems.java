@@ -179,8 +179,8 @@ public class RpgItems {
 	}
 
 	public static enum LocalizeEnum{
-		gold_gloves("gold_glove","jewels/gold_glove", RpgInventory.MODID+":"+"armor/jewels/textures/gold_glove.png"),
-		diamond_gloves("diamond_glove","jewels/endented_glove", RpgInventory.MODID+":"+"armor/jewels/textures/diamond_glove.png"),
+		gold_gloves("gold_glove","jewels/gold_glove", RpgInventory.MODID+":"+"armor/jewels/textures/gold_gloves.png"),
+		diamond_gloves("diamond_glove","jewels/endented_glove", RpgInventory.MODID+":"+"armor/jewels/textures/diamond_gloves.png"),
 		emerald_gloves("emerald_glove","jewels/endented_glove", RpgInventory.MODID+":"+"armor/jewels/textures/emerald_gloves.png"),
 		lapis_gloves("lapis_glove","jewels/endented_glove", RpgInventory.MODID+":"+"armor/jewels/textures/lapis_gloves.png"),
 

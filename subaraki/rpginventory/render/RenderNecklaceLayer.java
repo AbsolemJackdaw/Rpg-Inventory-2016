@@ -58,6 +58,9 @@ public class RenderNecklaceLayer implements LayerRenderer<AbstractClientPlayer>{
 			GlStateManager.translate(0F, 0F, 0.0F);
 
 		GlStateManager.color(1,1,1,1);
+		/**offset when sneaking. copy of @Link ModelPlayer.render*/ 
+		if (entitylivingbaseIn.isSneaking())
+            GlStateManager.translate(0.0F, 0.2F, 0.0F);
 		NECKLACE_MODEL.renderNecklace(0.0625f);
 		GlStateManager.popMatrix();
 
