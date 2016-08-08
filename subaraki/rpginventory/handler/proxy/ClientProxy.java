@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import subaraki.rpginventory.item.RpgItems;
 import subaraki.rpginventory.render.RenderCapeLayer;
+import subaraki.rpginventory.render.RenderGloveLayer;
 import subaraki.rpginventory.render.RenderNecklaceLayer;
 
 public class ClientProxy extends ServerProxy {
@@ -37,10 +38,12 @@ public class ClientProxy extends ServerProxy {
 
 		//add one layer for both skins (steve and alex)
 		p.addLayer(new RenderCapeLayer(p));
-		p.addLayer(new RenderCapeLayer(p));
+		p2.addLayer(new RenderCapeLayer(p2));
 		
 		p.addLayer(new RenderNecklaceLayer(p));
-		p.addLayer(new RenderNecklaceLayer(p));
+		p2.addLayer(new RenderNecklaceLayer(p2));
 
+		p.addLayer(new RenderGloveLayer(p));
+		p2.addLayer(new RenderGloveLayer(p2));
 	}
 }
