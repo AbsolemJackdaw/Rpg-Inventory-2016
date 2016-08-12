@@ -115,7 +115,7 @@ public class ContainerRpg extends Container {
 			for (ItemStack is : player.inventory.mainInventory) {
 				if (is == null) {
 					player.inventory.setInventorySlotContents(i,inventory.getTheRpgInventory().getStackInSlot(slotnumber));
-					inventory.setStackInSlot(slotnumber, null);
+					inventory.getTheRpgInventory().setStackInSlot(slotnumber, null);
 
 					if(!player.worldObj.isRemote){
 						((WorldServer)player.worldObj).getEntityTracker().sendToAllTrackingEntity(

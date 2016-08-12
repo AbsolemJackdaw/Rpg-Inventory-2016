@@ -6,9 +6,9 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import subaraki.rpginventory.item.RpgItems;
-import subaraki.rpginventory.render.RenderCapeLayer;
-import subaraki.rpginventory.render.RenderGloveLayer;
-import subaraki.rpginventory.render.RenderNecklaceLayer;
+import subaraki.rpginventory.render.player.RenderCapeLayer;
+import subaraki.rpginventory.render.player.RenderGloveLayer;
+import subaraki.rpginventory.render.player.RenderNecklaceLayer;
 
 public class ClientProxy extends ServerProxy {
 

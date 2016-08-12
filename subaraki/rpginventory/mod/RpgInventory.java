@@ -19,6 +19,8 @@ import subaraki.rpginventory.handler.KeyHandler;
 import subaraki.rpginventory.handler.RenderHandler;
 import subaraki.rpginventory.handler.proxy.ServerProxy;
 import subaraki.rpginventory.hooks.EventHooks;
+import subaraki.rpginventory.hooks.JeweleryEffectsHandler;
+import subaraki.rpginventory.hooks.PlayerTracker;
 import subaraki.rpginventory.item.RpgItems;
 import subaraki.rpginventory.network.PacketHandler;
 import subaraki.rpginventory.network.PacketOpenRpgInventory;
@@ -62,20 +64,22 @@ public class RpgInventory {
 		RpgItems.init();
 		RpgItems.register();
 		proxy.registerRenders();
-		
-		//queue subscribed events
-		new EventHooks();
-		new KeyHandler();
-		new RenderHandler();
 
 		//register gui handler
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 
+		//register packets and capability before all handlers. some need this to not be null !
 		PacketHandler.NETWORK.registerMessage(HandlerOpenRpgInventory.class, PacketOpenRpgInventory.class, 0, Side.SERVER);
 		PacketHandler.NETWORK.registerMessage(HandlerSyncOtherInventory.class, PacketSyncOtherInventory.class, 1, Side.CLIENT);
 		PacketHandler.NETWORK.registerMessage(HandlerSyncOwnInventory.class, PacketSyncOwnInventory.class, 2, Side.CLIENT);
-
 		new RpgInventoryCapability().register();
+
+		//queue subscribed events
+		new EventHooks();
+		new KeyHandler();
+		new RenderHandler();
+		new JeweleryEffectsHandler();
+		new PlayerTracker();
 	}
 
 	@EventHandler
@@ -84,7 +88,7 @@ public class RpgInventory {
 		proxy.registerColors();
 		proxy.addRenderLayers();
 
-		
+
 	}
 
 	@EventHandler

@@ -1,4 +1,4 @@
-package subaraki.rpginventory.render;
+package subaraki.rpginventory.render.player;
 
 import org.lwjgl.opengl.GL11;
 

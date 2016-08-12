@@ -2,14 +2,19 @@ package subaraki.rpginventory.capability.playerinventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
 import subaraki.rpginventory.enums.SlotIndex;
 
 public class RpgPlayerInventory {
 
 	private RpgStackHandler inventory;
 
-	EntityPlayer player;
+	private EntityPlayer player;
 
+	/**an integer between 0-16 that determines what kind of wand this person has.*/
+	private int mageIndex = -1;
+	
 	public RpgPlayerInventory(){
 		inventory = new RpgStackHandler(new ItemStack[6]);
 	}
@@ -29,11 +34,18 @@ public class RpgPlayerInventory {
 		return inventory;
 	}
 
-	public void setStackInSlot(int slot, ItemStack stack)
-	{
-		// TODO: Remove old attribute modifiers from player
-		inventory.setStackInSlot(slot, stack);
-		// TODO: Add new attribute modifiers to player
+	public NBTBase writeData(){
+		//hook into the tagcompound of the ItemStackHandler
+		NBTTagCompound tag = getTheRpgInventory().serializeNBT();
+		//add our own tags
+		//tag.setInteger("mage_type", mageIndex);
+		//save mix of itemstacks and personal tags
+		return tag;
+	}
+	
+	public void readData(NBTBase nbt){
+		getTheRpgInventory().deserializeNBT((NBTTagCompound)nbt);
+		//mageIndex = ((NBTTagCompound)nbt).getInteger("mage_type");
 	}
 	
 	public ItemStack getCloak(){
@@ -57,5 +69,13 @@ public class RpgPlayerInventory {
 	
 	public ItemStack getGloves(){
 		return getTheRpgInventory().getStackInSlot(SlotIndex.SLOT_GLOVES.ordinal());
+	}
+	
+	public int getMageIndex() {
+		return mageIndex;
+	}
+	
+	public void setMageIndex(int mageIndex) {
+		this.mageIndex = mageIndex;
 	}
 }

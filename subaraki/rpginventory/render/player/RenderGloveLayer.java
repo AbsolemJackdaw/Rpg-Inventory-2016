@@ -1,4 +1,4 @@
-package subaraki.rpginventory.render;
+package subaraki.rpginventory.render.player;
 
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.GlStateManager;

@@ -45,7 +45,10 @@ public class PacketSyncOwnInventory implements IMessage {
 		public IMessage onMessage(PacketSyncOwnInventory message,MessageContext ctx) {
 			EntityPlayer player = RpgInventory.proxy.getClientPlayer();
 			
-			RpgPlayerInventory rpg = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
+			RpgPlayerInventory rpg = 
+					player.
+					getCapability(
+							RpgInventoryCapability.CAPABILITY, null);
 
 			for (int i = 0; i < message.stack.length; i++){
 				rpg.getTheRpgInventory().setStackInSlot(i,message.stack[i]);
