@@ -1,16 +1,8 @@
 package subaraki.rpginventory.item;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemDye;
-import net.minecraft.item.ItemShield;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import subaraki.rpginventory.enums.JewelTypes;
@@ -242,68 +234,4 @@ public class RpgItems {
 			return renderTexture;
 		}
 	}
-
-	public static void registerItemColor(){
-		ItemColors ic = Minecraft.getMinecraft().getItemColors();
-
-		//for capes
-		ic.registerItemColorHandler(new IItemColor() {
-			@Override
-			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
-				if(stack.getItem() != null)
-					if(stack.getItem() instanceof RpgInventoryItem){
-						RpgInventoryItem i = (RpgInventoryItem)stack.getItem();
-						if((i.colorState < 16) && (i.colorState >= 0)){
-							return ItemDye.DYE_COLORS[i.colorState];
-						}
-					}
-				return 0xffffff;
-			}
-		}, 
-				cloakBlack,
-				cloakBlue,
-				cloakBrown,
-				cloakCyan,
-				cloakGray,
-				cloakGreen,
-				cloakLightblue,
-				cloakLime,
-				cloakMagenta,
-				cloakOrange,
-				cloakPink,
-				cloakPurple,
-				cloakRed,
-				cloakSilver,
-				cloakWhite,
-				cloakYellow);
-
-		ic.registerItemColorHandler(new IItemColor() {
-			@Override
-			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
-				if(stack.getItem() != null)
-					if(stack.getItem() instanceof RpgInventoryItem){
-						RpgInventoryItem i = (RpgInventoryItem)stack.getItem();
-						if(tintIndex == 1){
-							if(i.getUnlocalizedName().contains("diamond"))
-								return 0x37b0a5;
-							else if (i.getUnlocalizedName().contains("lapis"))
-								return 0x0e3dad;
-							else if (i.getUnlocalizedName().contains("emerald"))
-								return 0x5cb55c;
-						}
-					}
-				return 0xffffff; //white
-			}
-		},
-				lapis_gloves,
-				diamond_gloves,
-				emerald_gloves,
-				lapis_necklace,
-				diamond_necklace,
-				emerald_necklace,
-				lapis_ring,
-				diamond_ring,
-				emerald_ring
-				);
-	}		
 }

@@ -9,13 +9,14 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import subaraki.rpginventory.mod.RpgInventory;
 
-public abstract class AbstractArmor extends ItemArmor {
+public abstract class ModeledArmor extends ItemArmor {
 
 	private ModelBiped armorModel;
 	private String tex_loc;
 
-	public AbstractArmor(EntityEquipmentSlot slot, ItemArmor.ArmorMaterial mats, String texture_name) {
+	public ModeledArmor(EntityEquipmentSlot slot, ItemArmor.ArmorMaterial mats, String texture_name) {
 		super(mats, 4, slot);
 
 		setRegistryName(texture_name);
@@ -29,6 +30,12 @@ public abstract class AbstractArmor extends ItemArmor {
 	/** returns the name of the class from this full set of armor */
 	public abstract String armorClassName();
 
+	/** 
+	 * if full armor is worn, and the item given in this method is worn in the offhandslot,
+	 * then the wielder will get the status of shielded class
+	 */
+	public abstract Item getLinkedShieldItem();
+	
 	/**
 	 * Called to set the 3D armor model. set models here, not in
 	 * getArmorModel(...) !*/

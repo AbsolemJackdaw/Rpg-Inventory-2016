@@ -44,6 +44,7 @@ public class RpgInventory {
 	public static ServerProxy proxy;
 
 	public static RpgInventory INSTANCE;
+	public static String playerClass = "";
 
 	@EventHandler 
 	public void preInit(FMLPreInitializationEvent event) {
@@ -68,16 +69,11 @@ public class RpgInventory {
 		//register gui handler
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 
-		//register packets and capability before all handlers. some need this to not be null !
-		PacketHandler.NETWORK.registerMessage(HandlerOpenRpgInventory.class, PacketOpenRpgInventory.class, 0, Side.SERVER);
-		PacketHandler.NETWORK.registerMessage(HandlerSyncOtherInventory.class, PacketSyncOtherInventory.class, 1, Side.CLIENT);
-		PacketHandler.NETWORK.registerMessage(HandlerSyncOwnInventory.class, PacketSyncOwnInventory.class, 2, Side.CLIENT);
 		new RpgInventoryCapability().register();
 
 		//queue subscribed events
 		new EventHooks();
 		new KeyHandler();
-		new RenderHandler();
 		new JeweleryEffectsHandler();
 		new PlayerTracker();
 	}

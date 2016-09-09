@@ -5,13 +5,19 @@ import java.util.Map;
 import java.util.UUID;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -21,6 +27,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
 import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
 import subaraki.rpginventory.item.RpgInventoryItem;
+import subaraki.rpginventory.item.RpgItems;
 
 public class JeweleryEffectsHandler {
 
@@ -63,15 +70,38 @@ public class JeweleryEffectsHandler {
 
 		getGoldenSpeedBoost(event.player);
 		getEmeraldRingEffect2(event);
-		//necklace : breath under water
-		//cannot acces needed methods to modify water breathing
 	}
 
-
+	@SubscribeEvent
+	public void onExpEvent(LivingExperienceDropEvent event){
+		getEmeraldNecklaceEffect(event);
+	}
+	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////End Of Subscribed Events///////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+	private void getEmeraldNecklaceEffect(LivingExperienceDropEvent event) {
+		EntityPlayer player = event.getAttackingPlayer();
+
+		if(player == null)
+			return;
+		if(player.getCapability(RpgInventoryCapability.CAPABILITY,null).getNecklace() == null)
+			return;
+
+		ItemStack necklace = player.getCapability(RpgInventoryCapability.CAPABILITY,null).getNecklace();
+
+		if(necklace.getItem() == null)
+			return;
+		if(!necklace.getItem().equals(RpgItems.emerald_necklace))
+			return;
+		
+		float exp = (float)event.getOriginalExperience();
+		float bonus = (float)exp/4f;
+		
+		event.setDroppedExperience((int)(exp+bonus));
+	}
 
 	private void getLapisJeweleryStrenghtBonus(LivingHurtEvent event){
 		Entity damager = event.getSource().getSourceOfDamage();
@@ -97,7 +127,7 @@ public class JeweleryEffectsHandler {
 			if(inventory.getRing_2().getItem().getUnlocalizedName().contains("lapis"))
 				extraDamage +=1.75;
 
-		//don't set the damage to the same damage if noting is worn
+		//don't set the damage to the same damage if nothing is worn
 		//just because that would be stupid i.m.o
 		if(extraDamage > 0)
 			event.setAmount(event.getAmount()+extraDamage);
@@ -165,6 +195,9 @@ public class JeweleryEffectsHandler {
 			if(inventory.getRing_2() != null)
 				if(inventory.getRing_2().getItem().getUnlocalizedName().contains("diamond"))
 					delay -=10;
+
+			if(delay == 75)
+				continue;
 
 			//at this point, the player needs healing, and the timer is zero 
 			if(healEffectMap.get(playername) == 0)
@@ -248,10 +281,10 @@ public class JeweleryEffectsHandler {
 
 		if(numberofgoldjewels == 0)
 			return;
-		
+
 		else{
 			IAttributeInstance attribute = player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
-			
+
 			//reset if number of gold objects worn doesn't match the speed boost
 			if(attribute.getModifier(speedUuid_low)!=null && numberofgoldjewels != 1)
 				attribute.removeModifier(speedUuid_low);
@@ -261,11 +294,11 @@ public class JeweleryEffectsHandler {
 				attribute.removeModifier(speedUuid_high);
 			if(attribute.getModifier(speedUuid_highest)!=null && numberofgoldjewels != 4)
 				attribute.removeModifier(speedUuid_highest);
-			
+
 			//apply speed boost if needed
 			switch (numberofgoldjewels){
 			case 1:
-				
+
 				if(attribute.getModifier(speedUuid_low)==null)
 					attribute.applyModifier(speed_low);
 				break;

@@ -12,6 +12,8 @@ public class GuiRpg extends GuiContainer {
 
 	public static final ResourceLocation gui = 
 			new ResourceLocation(RpgInventory.MODID,"textures/gui/gui_inventory.png");
+	private float oldMouseX;
+	private float oldMouseY;
 
 	public GuiRpg(EntityPlayer player, RpgPlayerInventory inv) {
 		super(new ContainerRpg(player, inv));
@@ -27,12 +29,19 @@ public class GuiRpg extends GuiContainer {
 		drawString(fontRendererObj, "Rpg", (this.width / 2) + 39,(this.height / 2) - 23, 0xffffff);
 		drawString(fontRendererObj, "Inventory", (this.width / 2) + 39,(this.height / 2) - 15, 0xffffff);
 
-		Util.drawEntityOnScreen(posX + 51, posY + 75, 30, (float)(posX + 51), (float)(posY + 75 - 50), this.mc.thePlayer);
+		Util.drawEntityOnScreen(posX + 51, posY + 75, 30, (float)(posX + 51)-oldMouseX, (float)(posY + 75 - 50)-oldMouseY, this.mc.thePlayer);
 
 	}
 
 	@Override
 	public boolean doesGuiPauseGame() {
 		return false;
+	}
+	
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		this.oldMouseX = (float)mouseX;
+        this.oldMouseY = (float)mouseY;
 	}
 }
