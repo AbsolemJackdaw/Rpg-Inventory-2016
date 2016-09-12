@@ -128,7 +128,7 @@ public class JeweleryEffectsHandler {
 				extraDamage +=1.75;
 
 		//don't set the damage to the same damage if nothing is worn
-		//just because that would be stupid i.m.o
+		//because that would be stupid i.m.o
 		if(extraDamage > 0)
 			event.setAmount(event.getAmount()+extraDamage);
 	}

@@ -57,17 +57,21 @@ public class EventHooks {
 		if (player.inventory.offHandInventory[0] != null)
 			if(player.inventory.offHandInventory[0].getItem() instanceof ItemShield){
 				shieldName = "_vanillaShield";
-				RpgInventory.playerClass = classname+shieldName;
-			}
+				RpgInventory.playerClass = classname+shieldName;//noclass vanilla shield
+			}else
+				RpgInventory.playerClass = classname+shieldName;//noclass noshield
 
 		/*checking armor...*/
 		for (ItemStack is : player.inventory.armorInventory) {
-			if (is == null) 
+			if (is == null) {
+				RpgInventory.playerClass = classname+shieldName;//noclass (no)vanilla shield
 				return;//if one of the items is null, jump out. all items need to be worn
+			}
 			else // if there is one item that is no AbstractArmor, skip the setting of the player class
-				if (!(is.getItem() instanceof ModeledArmor))
+				if (!(is.getItem() instanceof ModeledArmor)){
+					RpgInventory.playerClass = classname+shieldName;//noclass (no)vanilla shield
 					return;//no need to check for the next if one item is not class armour
-
+				}
 		}
 		//at this point, all armour is class armour ! no need to check for it.
 
@@ -79,9 +83,10 @@ public class EventHooks {
 
 		if(a.equals(b) && a.equals(c) && a.equals(d))
 			classname = a;
-		else
+		else{
+			RpgInventory.playerClass = classname+shieldName;//noclass (no)vanilla shield
 			return; //if there is a difference, jump out
-
+		}
 		//check if any other shields
 		ModeledArmor helm = ((ModeledArmor) player.inventory.getStackInSlot(HELM).getItem());
 		if (player.inventory.offHandInventory[0] != null && !shieldName.equals("_vanillaShield")) 

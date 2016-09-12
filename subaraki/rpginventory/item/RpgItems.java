@@ -2,7 +2,10 @@ package subaraki.rpginventory.item;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import subaraki.rpginventory.enums.JewelTypes;
@@ -10,7 +13,7 @@ import subaraki.rpginventory.mod.RpgInventory;
 
 public class RpgItems {
 
-	public static Item 
+	public static RpgInventoryItem 
 	/* ====jewels==== */
 	gold_necklace, diamond_necklace, emerald_necklace, lapis_necklace,
 	gold_gloves, diamond_gloves, emerald_gloves, lapis_gloves,
@@ -31,63 +34,63 @@ public class RpgItems {
 	public static void init(){
 		tab = new RpgInventoryTab();
 
-		gold_gloves = new RpgInventoryItem(
+		gold_gloves = (RpgInventoryItem) (RpgInventoryItem) new RpgInventoryItem(
 				JewelTypes.GLOVES,
 				LocalizeEnum.gold_gloves).setCreativeTab(tab);
-		diamond_gloves = new RpgInventoryItem(
+		diamond_gloves = (RpgInventoryItem) new RpgInventoryItem(
 				JewelTypes.GLOVES, 
 				LocalizeEnum.diamond_gloves).setCreativeTab(tab);
-		emerald_gloves = new RpgInventoryItem(
+		emerald_gloves = (RpgInventoryItem) new RpgInventoryItem(
 				JewelTypes.GLOVES, 
 				LocalizeEnum.emerald_gloves).setCreativeTab(tab);
-		lapis_gloves = new RpgInventoryItem(
+		lapis_gloves = (RpgInventoryItem) new RpgInventoryItem(
 				JewelTypes.GLOVES, 
 				LocalizeEnum.lapis_gloves).setCreativeTab(tab);
 
-		emerald_necklace = new RpgInventoryItem(
+		emerald_necklace = (RpgInventoryItem) new RpgInventoryItem(
 				JewelTypes.NECKLACE, 
 				LocalizeEnum.emerald_necklace).setCreativeTab(tab);
-		diamond_necklace = new RpgInventoryItem(
+		diamond_necklace = (RpgInventoryItem) new RpgInventoryItem(
 				JewelTypes.NECKLACE, 
 				LocalizeEnum.diamond_necklace).setCreativeTab(tab);
-		lapis_necklace = new RpgInventoryItem(
+		lapis_necklace = (RpgInventoryItem) new RpgInventoryItem(
 				JewelTypes.NECKLACE, 
 				LocalizeEnum.lapis_necklace).setCreativeTab(tab);
-		gold_necklace = new RpgInventoryItem(
+		gold_necklace = (RpgInventoryItem) new RpgInventoryItem(
 				JewelTypes.NECKLACE, 
 				LocalizeEnum.gold_necklace).setCreativeTab(tab);
 
-		gold_ring = new RpgInventoryItem(
+		gold_ring = (RpgInventoryItem) new RpgInventoryItem(
 				JewelTypes.RING,
 				LocalizeEnum.gold_ring).setCreativeTab(tab);
-		diamond_ring = new RpgInventoryItem(
+		diamond_ring = (RpgInventoryItem) new RpgInventoryItem(
 				JewelTypes.RING,
 				LocalizeEnum.diamond_ring).setCreativeTab(tab);
-		emerald_ring = new RpgInventoryItem(
+		emerald_ring = (RpgInventoryItem) new RpgInventoryItem(
 				JewelTypes.RING,
 				LocalizeEnum.emerald_ring).setCreativeTab(tab);
-		lapis_ring = new RpgInventoryItem(
+		lapis_ring = (RpgInventoryItem) new RpgInventoryItem(
 				JewelTypes.RING,
 				LocalizeEnum.lapis_ring).setCreativeTab(tab);
 
-		cloakBlack = new RpgInventoryItem(JewelTypes.CAPE,0,LocalizeEnum.cape_black).setCreativeTab(tab);
-		cloakRed = new RpgInventoryItem(JewelTypes.CAPE,1,LocalizeEnum.cape_red).setCreativeTab(tab);
-		cloakGreen = new RpgInventoryItem(JewelTypes.CAPE,2,LocalizeEnum.cape_green).setCreativeTab(tab);
-		cloakBrown = new RpgInventoryItem(JewelTypes.CAPE,3,LocalizeEnum.cape_brown).setCreativeTab(tab);
-		cloakBlue = new RpgInventoryItem(JewelTypes.CAPE,4,LocalizeEnum.cape_blue).setCreativeTab(tab);
-		cloakPurple = new RpgInventoryItem(JewelTypes.CAPE,5,LocalizeEnum.cape_purple).setCreativeTab(tab);
-		cloakCyan = new RpgInventoryItem(JewelTypes.CAPE,6,LocalizeEnum.cape_cyan).setCreativeTab(tab);
-		cloakSilver = new RpgInventoryItem(JewelTypes.CAPE,7,LocalizeEnum.cape_silver).setCreativeTab(tab);
-		cloakGray = new RpgInventoryItem(JewelTypes.CAPE,8,LocalizeEnum.cape_grey).setCreativeTab(tab);
-		cloakPink = new RpgInventoryItem(JewelTypes.CAPE,9,LocalizeEnum.cape_pink).setCreativeTab(tab);
-		cloakLime = new RpgInventoryItem(JewelTypes.CAPE,10,LocalizeEnum.cape_lime).setCreativeTab(tab);
-		cloakYellow = new RpgInventoryItem(JewelTypes.CAPE,11,LocalizeEnum.cape_yellow).setCreativeTab(tab);
-		cloakLightblue = new RpgInventoryItem(JewelTypes.CAPE,12,LocalizeEnum.cape_lightblue).setCreativeTab(tab);
-		cloakMagenta = new RpgInventoryItem(JewelTypes.CAPE,13,LocalizeEnum.cape_magenta).setCreativeTab(tab);
-		cloakOrange = new RpgInventoryItem(JewelTypes.CAPE,14,LocalizeEnum.cape_orange).setCreativeTab(tab);
-		cloakWhite = new RpgInventoryItem(JewelTypes.CAPE,15,LocalizeEnum.cape_white).setCreativeTab(tab);
+		cloakBlack = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.CAPE,0,LocalizeEnum.cape_black).setCreativeTab(tab);
+		cloakRed = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.CAPE,1,LocalizeEnum.cape_red).setCreativeTab(tab);
+		cloakGreen = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.CAPE,2,LocalizeEnum.cape_green).setCreativeTab(tab);
+		cloakBrown = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.CAPE,3,LocalizeEnum.cape_brown).setCreativeTab(tab);
+		cloakBlue = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.CAPE,4,LocalizeEnum.cape_blue).setCreativeTab(tab);
+		cloakPurple = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.CAPE,5,LocalizeEnum.cape_purple).setCreativeTab(tab);
+		cloakCyan = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.CAPE,6,LocalizeEnum.cape_cyan).setCreativeTab(tab);
+		cloakSilver = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.CAPE,7,LocalizeEnum.cape_silver).setCreativeTab(tab);
+		cloakGray = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.CAPE,8,LocalizeEnum.cape_grey).setCreativeTab(tab);
+		cloakPink = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.CAPE,9,LocalizeEnum.cape_pink).setCreativeTab(tab);
+		cloakLime = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.CAPE,10,LocalizeEnum.cape_lime).setCreativeTab(tab);
+		cloakYellow = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.CAPE,11,LocalizeEnum.cape_yellow).setCreativeTab(tab);
+		cloakLightblue = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.CAPE,12,LocalizeEnum.cape_lightblue).setCreativeTab(tab);
+		cloakMagenta = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.CAPE,13,LocalizeEnum.cape_magenta).setCreativeTab(tab);
+		cloakOrange = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.CAPE,14,LocalizeEnum.cape_orange).setCreativeTab(tab);
+		cloakWhite = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.CAPE,15,LocalizeEnum.cape_white).setCreativeTab(tab);
 
-		cloak_Invisible = new RpgInventoryItem(JewelTypes.CAPE,LocalizeEnum.cape_invisible).setCreativeTab(tab);
+		cloak_Invisible = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.CAPE,LocalizeEnum.cape_invisible).setCreativeTab(tab);
 
 	}
 
@@ -234,4 +237,43 @@ public class RpgItems {
 			return renderTexture;
 		}
 	}
+
+	public static void registerRecipes(){
+		RpgInventoryItem cloaks[] = new RpgInventoryItem[]{
+				cloakBlack,cloakRed,cloakGreen,cloakBrown,cloakBlue,
+				cloakPurple,cloakCyan,cloakSilver,cloakGray,cloakPink,cloakLime,
+				cloakYellow,cloakLightblue,cloakMagenta,cloakOrange,cloakWhite
+		};
+
+		for(int i = 0; i <16;i++)
+			GameRegistry.addRecipe(new ItemStack(cloaks[i], 1),
+					new Object[] {"SS", "WW", "WW", 
+							'S', Items.STRING,
+							'W', new ItemStack(Blocks.WOOL, 1, 15-i) });
+
+		for(int i = 0; i <15;i++)
+			GameRegistry.addRecipe(new ItemStack(cloaks[i], 1),
+					new Object[] {"DDD", "DCD", "DDD", 
+							'C', cloakWhite,
+							'D', new ItemStack(Items.DYE, 1, i) });
+
+		ItemStack component[] = new ItemStack[]{new ItemStack(Items.GOLD_NUGGET),new ItemStack(Items.EMERALD),new ItemStack(Items.DIAMOND),new ItemStack(Items.DYE, 4)};
+		String recipe[][] = new String[][]{{"#IM","I#I","#I#"},/*ring*/{"SS#","SI#","##M"},/*necklace*/{"II#","IMI","#II"}/*gloves*/};
+		ItemStack jewelry[][] = new ItemStack[][]{{new ItemStack(gold_ring),new ItemStack(emerald_ring),new ItemStack(diamond_ring),new ItemStack(lapis_ring)},
+			{new ItemStack(gold_necklace),new ItemStack(emerald_necklace),new ItemStack(diamond_necklace),new ItemStack(lapis_necklace)},
+			{new ItemStack(gold_gloves),new ItemStack(emerald_gloves),new ItemStack(diamond_gloves),new ItemStack(lapis_gloves)},
+		};
+
+		for(int i = 0; i < 3 ; i++)
+			for(int j = 0 ; j < 4 ;j++){
+				GameRegistry.addRecipe(jewelry[i][j],
+						new Object[]{
+								recipe[i][0],recipe[i][1],recipe[i][2],
+								'I',Items.GOLD_INGOT,
+								'S',Items.STRING,
+								'M',component[j]
+				});
+			}
+	}
+
 }

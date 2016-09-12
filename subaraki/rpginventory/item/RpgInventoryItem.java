@@ -1,6 +1,8 @@
 package subaraki.rpginventory.item;
 
-import net.minecraft.creativetab.CreativeTabs;
+import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -8,7 +10,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import subaraki.rpginventory.enums.JewelTypes;
 import subaraki.rpginventory.item.RpgItems.LocalizeEnum;
-import subaraki.rpginventory.mod.RpgInventory;
 
 public class RpgInventoryItem extends Item {
 
@@ -64,8 +65,47 @@ public class RpgInventoryItem extends Item {
 	{
 		return stack.getItem().equals(RpgItems.cloak_Invisible);
 	}
-	
+
 	public ResourceLocation getRenderOnPlayerTexture() {
 		return RENDER3D_TEXTURE;
+	}
+
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+		super.addInformation(stack, playerIn, tooltip, advanced);
+
+		if (stack.getItem() == RpgItems.emerald_ring) {
+			tooltip.add(("Left: Dispell Negative Effects"));
+			tooltip.add(("Right: Increased Mining Speed x4"));
+		}
+
+		if (stack.getItem() == RpgItems.emerald_necklace) {
+			tooltip.add(("1/4th Exp Bonus on Kill"));
+		}
+
+		if (stack.getItem() == RpgItems.emerald_gloves) {
+			tooltip.add(("Resistance"));
+			tooltip.add(("Damage reduced by 20%"));
+		}
+
+		if ((stack.getItem() == RpgItems.diamond_ring)
+				|| (stack.getItem() == RpgItems.diamond_gloves)
+				|| (stack.getItem() == RpgItems.diamond_necklace)) {
+			tooltip.add(("Healing"));
+			tooltip.add(("+15% Heal Speed"));
+		}
+
+		if ((stack.getItem() == RpgItems.gold_ring)
+				|| (stack.getItem() == RpgItems.gold_gloves)
+				|| (stack.getItem() == RpgItems.gold_necklace)) {
+			tooltip.add(("Speed + 12.5%"));
+		}
+
+		if ((stack.getItem() == RpgItems.lapis_ring)
+				|| (stack.getItem() == RpgItems.lapis_gloves)
+				|| (stack.getItem() == RpgItems.lapis_necklace)) {
+			tooltip.add(("Strength"));
+				tooltip.add(("+0.875"));
+		}
 	}
 }

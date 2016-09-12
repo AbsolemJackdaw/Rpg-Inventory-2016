@@ -1,7 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "rpginventorymod:item/jewels/gold_necklace",
-        "layer1": "rpginventorymod:item/jewels/necklace_over"
-    }
-}

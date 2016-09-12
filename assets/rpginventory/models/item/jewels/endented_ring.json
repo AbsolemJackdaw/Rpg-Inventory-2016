@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "rpginventory:item/jewels/gold_ring",
+        "layer1": "rpginventory:item/jewels/ring_over"
+    }
+}
