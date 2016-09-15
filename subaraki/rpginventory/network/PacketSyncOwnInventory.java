@@ -44,6 +44,9 @@ public class PacketSyncOwnInventory implements IMessage {
 		@Override
 		public IMessage onMessage(PacketSyncOwnInventory message,MessageContext ctx) {
 			EntityPlayer player = RpgInventory.proxy.getClientPlayer();
+
+			if(player == null)
+				return null;
 			
 			RpgPlayerInventory rpg = 
 					player.
