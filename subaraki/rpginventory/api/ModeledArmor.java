@@ -21,7 +21,7 @@ public abstract class ModeledArmor extends ItemArmor {
 
 		setRegistryName(texture_name);
 		setUnlocalizedName(texture_name);
-		tex_loc=texture_name;
+		tex_loc="armor/"+texture_name;
 	}
 
 	public String getModeltextureLocation() {

@@ -44,8 +44,11 @@ public class RpgInventory {
 	public static ServerProxy proxy;
 
 	public static RpgInventory INSTANCE;
+	
 	public static String playerClass = "";
-
+	public static String shielded_class = "_shielded";
+	public static String shielded_vanilla = "_vanillaShield";
+	
 	@EventHandler 
 	public void preInit(FMLPreInitializationEvent event) {
 

@@ -35,12 +35,12 @@ public class EventHooks {
 	public void onLivingUpdateEvent(LivingUpdateEvent event){
 		if (!(event.getEntityLiving() instanceof EntityPlayer))
 			return;
-		
+
 		EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-		
+
 		if (player == null)
 			return;
-		
+
 		determinePlayerClass(player);
 	}
 
@@ -56,7 +56,7 @@ public class EventHooks {
 
 		if (player.inventory.offHandInventory[0] != null)
 			if(player.inventory.offHandInventory[0].getItem() instanceof ItemShield){
-				shieldName = "_vanillaShield";
+				shieldName = RpgInventory.shielded_vanilla;
 				RpgInventory.playerClass = classname+shieldName;//noclass vanilla shield
 			}else
 				RpgInventory.playerClass = classname+shieldName;//noclass noshield
@@ -89,10 +89,11 @@ public class EventHooks {
 		}
 		//check if any other shields
 		ModeledArmor helm = ((ModeledArmor) player.inventory.getStackInSlot(HELM).getItem());
-		if (player.inventory.offHandInventory[0] != null && !shieldName.equals("_vanillaShield")) 
+		if (player.inventory.offHandInventory[0] != null && !shieldName.equals(RpgInventory.shielded_vanilla)) 
 			if (player.inventory.offHandInventory[0].getItem().equals(helm.getLinkedShieldItem()))
-				shieldName = "_shielded";
+				shieldName = RpgInventory.shielded_class;
 
-		RpgInventory.playerClass = classname+shieldName;
+		if(!RpgInventory.playerClass.equals(classname+shieldName))
+			RpgInventory.playerClass = classname+shieldName;
 	}
 }
