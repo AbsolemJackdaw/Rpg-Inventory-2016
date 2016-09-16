@@ -2,19 +2,19 @@ package subaraki.rpginventory.hooks;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.item.ItemShield;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent.Clone;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-import net.minecraftforge.items.wrapper.PlayerArmorInvWrapper;
 import subaraki.rpginventory.api.ModeledArmor;
 import subaraki.rpginventory.capability.playerinventory.CapabilityInventoryProvider;
+import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
+import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
 import subaraki.rpginventory.mod.RpgInventory;
 
 public class EventHooks {
@@ -43,6 +43,39 @@ public class EventHooks {
 
 		determinePlayerClass(player);
 	}
+
+	@SubscribeEvent
+	public void onDeathEvent(LivingDeathEvent event){
+		if(event.getEntityLiving() instanceof EntityPlayer){
+			EntityPlayer player = (EntityPlayer)event.getEntityLiving();
+
+			if (!player.worldObj.getGameRules().getBoolean("keepInventory")){
+				RpgPlayerInventory inventory = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
+
+				for(int i = 0; i < inventory.getTheRpgInventory().getStacks().length; i++){
+					ItemStack stack = inventory.getTheRpgInventory().getStacks()[i];
+					if(stack != null){
+						player.dropItem(stack, true, false);
+						inventory.getTheRpgInventory().getStacks()[i] = null;
+					}
+				}
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public void onClone(Clone event){
+
+		if (event.getEntityPlayer().worldObj.getGameRules().getBoolean("keepInventory")){
+			RpgPlayerInventory inventory = event.getEntityPlayer().getCapability(RpgInventoryCapability.CAPABILITY, null);
+			RpgPlayerInventory inventory_original = event.getOriginal().getCapability(RpgInventoryCapability.CAPABILITY, null);
+			NBTTagCompound tag = (NBTTagCompound) inventory.writeData();
+			inventory_original.readData(tag);
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public static final int BOOTS = 36;
 	public static final int LEGS = 37;
