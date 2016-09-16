@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
+import subaraki.rpginventory.enums.JewelTypes;
 import subaraki.rpginventory.enums.SlotIndex;
 
 public class RpgPlayerInventory {
@@ -91,5 +92,9 @@ public class RpgPlayerInventory {
 	
 	public void setCoreIndex(int coreIndex) {
 		this.coreIndex = coreIndex;
+	}
+	
+	public void setJewel(SlotIndex type, ItemStack stack){
+		getTheRpgInventory().setStackInSlot(type.ordinal(), stack);
 	}
 }
