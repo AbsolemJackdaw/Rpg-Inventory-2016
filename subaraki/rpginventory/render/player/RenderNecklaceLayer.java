@@ -1,12 +1,9 @@
 package subaraki.rpginventory.render.player;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
 import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;

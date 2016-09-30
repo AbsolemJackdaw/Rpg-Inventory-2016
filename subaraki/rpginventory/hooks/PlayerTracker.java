@@ -7,7 +7,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
 import subaraki.rpginventory.network.PacketHandler;
 import subaraki.rpginventory.network.PacketSyncOtherInventory;
 import subaraki.rpginventory.network.PacketSyncOwnInventory;

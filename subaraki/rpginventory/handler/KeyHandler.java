@@ -1,8 +1,5 @@
 package subaraki.rpginventory.handler;
 
-import org.apache.http.client.ClientProtocolException;
-import org.lwjgl.input.Keyboard;
-
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;

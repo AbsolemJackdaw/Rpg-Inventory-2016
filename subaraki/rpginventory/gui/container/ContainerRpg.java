@@ -1,16 +1,12 @@
 package subaraki.rpginventory.gui.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.WorldServer;
 import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
 import subaraki.rpginventory.item.RpgInventoryItem;
-import subaraki.rpginventory.network.PacketHandler;
-import subaraki.rpginventory.network.PacketSyncOwnInventory;
 
 public class ContainerRpg extends Container {
 
@@ -117,10 +113,6 @@ public class ContainerRpg extends Container {
 					player.inventory.setInventorySlotContents(i,inventory.getTheRpgInventory().getStackInSlot(slotnumber));
 					inventory.getTheRpgInventory().setStackInSlot(slotnumber, null);
 
-					if(!player.worldObj.isRemote){
-						((WorldServer)player.worldObj).getEntityTracker().sendToAllTrackingEntity(
-								player, PacketHandler.NETWORK.getPacketFrom(/*new PacketSyncOtherInventory(player)*/null));
-					}
 					return null;
 				}
 				i++;

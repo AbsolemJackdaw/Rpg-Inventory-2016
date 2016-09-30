@@ -1,12 +1,12 @@
 package subaraki.rpginventory.gui;
 
+import lib.util.DrawEntityOnScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
 import subaraki.rpginventory.gui.container.ContainerRpg;
 import subaraki.rpginventory.mod.RpgInventory;
-import subaraki.rpginventory.utility.Util;
 
 public class GuiRpg extends GuiContainer {
 
@@ -29,7 +29,7 @@ public class GuiRpg extends GuiContainer {
 		drawString(fontRendererObj, "Rpg", (this.width / 2) + 39,(this.height / 2) - 23, 0xffffff);
 		drawString(fontRendererObj, "Inventory", (this.width / 2) + 39,(this.height / 2) - 15, 0xffffff);
 
-		Util.drawEntityOnScreen(posX + 51, posY + 75, 30, (float)(posX + 51)-oldMouseX, (float)(posY + 75 - 50)-oldMouseY, this.mc.thePlayer);
+		DrawEntityOnScreen.drawEntityOnScreen(posX + 51, posY + 75, 30, (float)(posX + 51)-oldMouseX, (float)(posY + 75 - 50)-oldMouseY, this.mc.thePlayer);
 
 	}
 

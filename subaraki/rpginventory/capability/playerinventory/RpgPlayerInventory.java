@@ -4,7 +4,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import subaraki.rpginventory.enums.JewelTypes;
 import subaraki.rpginventory.enums.SlotIndex;
 
 public class RpgPlayerInventory {

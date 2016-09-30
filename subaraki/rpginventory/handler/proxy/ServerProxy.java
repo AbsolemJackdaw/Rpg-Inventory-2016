@@ -11,4 +11,5 @@ public class ServerProxy {
 	public World getClientWorld(){return null;}
 	public void addRenderLayers(){}
 	public void registerClientEvents() {};
+	public void registerKey(){}
 }

@@ -37,6 +37,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.client.settings.KeyConflictContext;
+import net.minecraftforge.client.settings.KeyModifier;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import subaraki.rpginventory.handler.RenderHandler;
 import subaraki.rpginventory.item.RpgInventoryItem;
 import subaraki.rpginventory.item.RpgItems;
@@ -46,14 +51,18 @@ import subaraki.rpginventory.render.player.RenderNecklaceLayer;
 
 public class ClientProxy extends ServerProxy {
 
-	public static KeyBinding keyInventory = 
-			new KeyBinding("RPG Inventory Key", Keyboard.KEY_R, "Rpg Inventory");
-
+	public static KeyBinding keyInventory;
+			
+	@Override
+	public void registerKey() {
+		keyInventory = new KeyBinding("RPG Inventory Key", KeyConflictContext.IN_GAME, KeyModifier.SHIFT, Minecraft.getMinecraft().gameSettings.keyBindInventory.getKeyCode(), "Rpg Inventory");
+		ClientRegistry.registerKeyBinding(keyInventory);
+	}
 	@Override
 	public void registerRenders(){
 		RpgItems.registerRenders();
 	}
-	
+
 	@Override
 	public void registerClientEvents(){
 		new RenderHandler();

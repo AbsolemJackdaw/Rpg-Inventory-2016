@@ -16,6 +16,7 @@ import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
 import subaraki.rpginventory.enums.JewelTypes;
 import subaraki.rpginventory.enums.SlotIndex;
 import subaraki.rpginventory.item.RpgItems.LocalizeEnum;
+import subaraki.rpginventory.mod.RpgInventory;
 
 public class RpgInventoryItem extends Item {
 
@@ -30,7 +31,7 @@ public class RpgInventoryItem extends Item {
 	public RpgInventoryItem(JewelTypes armorType, int maxDamage, int color, LocalizeEnum le) {
 		super();
 
-		setUnlocalizedName(le.getLocalName());
+		setUnlocalizedName(RpgInventory.MODID+"."+le.getLocalName());
 		setRegistryName(le.getLocalName());
 		if(le.getRenderTexture().length() > 0)
 			RENDER3D_TEXTURE = new ResourceLocation(le.getRenderTexture());

@@ -1,135 +1,45 @@
-﻿
 #capes
-item.r.capeGrey.name=红斗篷
-item.y.capeGrey.name=黄斗篷
-item.g.capeGrey.name=绿斗篷
-item.b.capeGrey.name=蓝斗篷
-item.s.capeGrey.name=黑斗篷
-item.capeGrey.name=灰斗篷
-item.i.capeGrey.name=隐身斗篷
+item.rpginventory.rpginventory.white_cape.name=White Cape
+item.rpginventory.black_cape.name=Black Cape
+item.rpginventory.red_cape.name=Red Cape
+item.rpginventory.green_cape.name=Green Cape
+item.rpginventory.brown_cape.name=Brown Cape
+item.rpginventory.blue_cape.name=Blue Cape
+item.rpginventory.purple_cape.name=Purple Cape
+item.rpginventory.cyan_cape.name=Cyan Cape
+item.rpginventory.silver_cape.name=Silver Cape
+item.rpginventory.grey_cape.name=Grey Cape
+item.rpginventory.pink_cape.name=Pink Cape
+item.rpginventory.lime_cape.name=Lime Cape
+item.rpginventory.yellow_cape.name=Yellow Cape
+item.rpginventory.lightblue_cape.name=Light Blue Cape
+item.rpginventory.magenta_cape.name=Magenta Cape
+item.rpginventory.orange_cape.name=Orange Cape
+item.rpginventory.invisible_cape.name=Invisibility Cloak
 
 #jewels necklace
-item.neckDia.name=治愈项链
-item.neckEm.name=特效项链
-item.neckLap.name=力量项链
-item.neckGold.name=速度项链
+item.rpginventory.diamond_necklace.name=Health Necklace
+item.rpginventory.emerald_necklace.name=Buffed Necklace
+item.rpginventory.lapis_necklace.name=Strength Necklace
+item.rpginventory.gold_necklace.name=Speed Necklace
 
 #jewels ring
-item.ringDia.name=治愈戒指
-item.ringEm.name=特效戒指
-item.ringLap.name=力量戒指
-item.ringGold.name=速度戒指
+item.rpginventory.diamond_ring.name=Health Ring
+item.rpginventory.emerald_ring.name=Buffed Ring
+item.rpginventory.lapis_ring.name=Strength Ring
+item.rpginventory.gold_ring.name=Speed Ring
 
 #jewels gloves
-item.gloveDia.name=治愈手套
-item.gloveEm.name=特效手套
-item.gloveLap.name=力量手套
-item.gloveGold.name=速度手套
+item.rpginventory.diamond_glove.name=Health Gloves
+item.rpginventory.emerald_glove.name=Buffed Gloves
+item.rpginventory.lapis_glove.name=Strength Gloves
+item.rpginventory.gold_glove.name=Speed Gloves
 
-#molds
-item.moldRing.name=戒指模具
-item.moldNeck.name=项链模具
-item.moldGlove.name=手套模具
-
-#block
-tile.MoldForge.name=锻造炉
-
-#armor materials
-item.n.leather.name=死灵法师皮革
-item.p.iron_ingot.name=圣骑士之钢
-item.r.leather.name=盗贼皮革
-item.b.leather.name=兽王皮革
-item.a.leather.name=狂战士皮革
-item.t.leather.name=弓箭手皮革
-item.m.leather.name=法师皮革
-
-
-#armor
-item.necro1.name=死灵法师之帽
-item.necro2.name=死灵法师之袍
-item.necro3.name=死灵法师之裙
-item.necro4.name=死灵法师之靴
-
-item.paladin1.name=圣骑士头盔
-item.paladin2.name=圣骑士胸甲
-item.paladin3.name=圣骑士护腿
-item.paladin4.name=圣骑士靴子
-
-item.beast1.name=兽王之帽
-item.beast2.name=兽王胸甲
-item.beast3.name=兽王护腿
-item.beast4.name=兽王之鞋
-
-item.rogue1.name=盗贼之帽
-item.rogue2.name=盗贼胸甲
-item.rogue3.name=盗贼护腿
-item.rogue4.name=盗贼靴子
-
-item.archMage1.name=魔导师之帽
-item.archMage2.name=魔导师之袍
-item.archMage3.name=魔导师护腿
-item.archMage4.name=魔导师之靴
-
-item.archer1.name=弓箭手之帽
-item.archer2.name=弓箭手胸甲
-item.archer3.name=弓箭手护腿
-item.archer4.name=弓箭手靴子
-
-item.mage1.name=法师帽
-item.mage2.name=法师衣袍
-item.mage3.name=法师裙袍
-item.mage4.name=法师鞋
-
-item.berserk1.name=狂战士的头盔
-item.berserk2.name=狂战士的护甲 
-item.berserk3.name=狂战士的护腿
-item.bersker4.name=狂战士的战靴
-
-
-#shields
-item.shieldPaladin.name=圣骑士之盾
-item.shieldNecro.name=死灵法师之盾
-
-item.shieldBeastMaster.name=兽王之盾
-
-item.shieldWood.name=木盾
-item.shieldIron.name=铁盾
-item.shieldGold.name=金盾
-item.shieldDiamond.name=钻石盾
-
-item.archTome.name=魔导师法盾
-
-item.shieldMage.name=法师法盾
-item.shieldBerserker.name=狂战士之铁刺
-item.shieldArcher.name=小型木盾
-
-
-#weapons
-item.paladinPride.name=圣骑士荣誉圣剑
-item.Skull.name=死灵法师邪灵骷髅
-
-item.forestAxe.name=兽王森林狂斧
-item.dagger.name=盗贼灭影匕首
-
-item.staffFire.name=火焰法杖
-item.staffIce.name=冰霜法杖
-item.staffEarth.name=大地法杖
-item.staffWind.name=风之法杖
-item.staffElemental.name=元素法杖
-
-item.elmBow.name=弓箭手穿杨神弓
-item.claymore.name=狂战士无畏巨剑
-item.rageBreaker.name=狂战士愤怒魔锤
-item.soulsphere.name=灵魂之球
-item.lunarStaff.name=基础法杖
+itemGroup.rpgi=Rpg Inventory Jewels
 
 
 
-#various items
-item.petCrystal.name=水晶
-item.petCandy.name=稀有的宠物糖果
-item.whistle.name=宠物口哨
-item.tangledBrench.name=缠绕木棍
-item.PetXPBottle.name=宠物经验瓶
-item.r.seeds_melon.name=愤怒之种
-item.a.book_normal.name=魔法书
+
+
+
+

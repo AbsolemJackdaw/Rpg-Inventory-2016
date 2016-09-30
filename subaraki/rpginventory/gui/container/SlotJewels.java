@@ -3,7 +3,6 @@ package subaraki.rpginventory.gui.container;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
 import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
-import subaraki.rpginventory.capability.playerinventory.RpgStackHandler;
 import subaraki.rpginventory.enums.JewelTypes;
 import subaraki.rpginventory.item.RpgInventoryItem;
 

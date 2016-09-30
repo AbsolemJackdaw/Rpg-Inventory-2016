@@ -2,14 +2,12 @@ package subaraki.rpginventory.api;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import subaraki.rpginventory.mod.RpgInventory;
 
 public abstract class ModeledArmor extends ItemArmor {
 

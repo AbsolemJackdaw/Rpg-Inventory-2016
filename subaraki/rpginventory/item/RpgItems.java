@@ -1,12 +1,13 @@
 package subaraki.rpginventory.item;
 
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import static lib.item.ItemRegistry.registerItem;
+
+import lib.item.ItemRegistry;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import subaraki.rpginventory.enums.JewelTypes;
 import subaraki.rpginventory.mod.RpgInventory;
@@ -95,38 +96,38 @@ public class RpgItems {
 	}
 
 	public static void register(){
-		GameRegistry.register(gold_gloves);
-		GameRegistry.register(diamond_gloves);
-		GameRegistry.register(emerald_gloves);
-		GameRegistry.register(lapis_gloves);
+		registerItem(gold_gloves);
+		registerItem(diamond_gloves);
+		registerItem(emerald_gloves);
+		registerItem(lapis_gloves);
 
-		GameRegistry.register(gold_necklace);
-		GameRegistry.register(diamond_necklace);
-		GameRegistry.register(emerald_necklace);
-		GameRegistry.register(lapis_necklace);
+		registerItem(gold_necklace);
+		registerItem(diamond_necklace);
+		registerItem(emerald_necklace);
+		registerItem(lapis_necklace);
 
-		GameRegistry.register(gold_ring);
-		GameRegistry.register(diamond_ring);
-		GameRegistry.register(emerald_ring);
-		GameRegistry.register(lapis_ring);
+		registerItem(gold_ring);
+		registerItem(diamond_ring);
+		registerItem(emerald_ring);
+		registerItem(lapis_ring);
 
-		GameRegistry.register(cloakBlack);
-		GameRegistry.register(cloakBlue);
-		GameRegistry.register(cloakBrown);
-		GameRegistry.register(cloakCyan);
-		GameRegistry.register(cloakGray);
-		GameRegistry.register(cloakGreen);
-		GameRegistry.register(cloakLightblue);
-		GameRegistry.register(cloakLime);
-		GameRegistry.register(cloakMagenta);
-		GameRegistry.register(cloakOrange);
-		GameRegistry.register(cloakPink);
-		GameRegistry.register(cloakPurple);
-		GameRegistry.register(cloakRed);
-		GameRegistry.register(cloakSilver);
-		GameRegistry.register(cloakWhite);
-		GameRegistry.register(cloakYellow);
-		GameRegistry.register(cloak_Invisible);
+		registerItem(cloakBlack);
+		registerItem(cloakBlue);
+		registerItem(cloakBrown);
+		registerItem(cloakCyan);
+		registerItem(cloakGray);
+		registerItem(cloakGreen);
+		registerItem(cloakLightblue);
+		registerItem(cloakLime);
+		registerItem(cloakMagenta);
+		registerItem(cloakOrange);
+		registerItem(cloakPink);
+		registerItem(cloakPurple);
+		registerItem(cloakRed);
+		registerItem(cloakSilver);
+		registerItem(cloakWhite);
+		registerItem(cloakYellow);
+		registerItem(cloak_Invisible);
 
 	}
 
@@ -166,11 +167,8 @@ public class RpgItems {
 	}
 
 	public static void registerRender(Item item){
-		ModelLoader.setCustomModelResourceLocation(
-				item,
-				0,
-				new ModelResourceLocation(RpgInventory.MODID+":"+
-						((RpgInventoryItem)item).getModelLocation()));
+		String mod = RpgInventory.MODID;
+		ItemRegistry.registerRender(item, ((RpgInventoryItem)item).getModelLocation(), mod);
 	}
 
 	public static enum LocalizeEnum{
