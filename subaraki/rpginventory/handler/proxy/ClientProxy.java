@@ -26,8 +26,6 @@ import static subaraki.rpginventory.item.RpgItems.lapis_gloves;
 import static subaraki.rpginventory.item.RpgItems.lapis_necklace;
 import static subaraki.rpginventory.item.RpgItems.lapis_ring;
 
-import org.lwjgl.input.Keyboard;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
@@ -37,10 +35,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.client.settings.KeyModifier;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import subaraki.rpginventory.handler.RenderHandler;
 import subaraki.rpginventory.item.RpgInventoryItem;
