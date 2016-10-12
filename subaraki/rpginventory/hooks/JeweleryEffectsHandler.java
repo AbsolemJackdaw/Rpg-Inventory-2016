@@ -158,7 +158,7 @@ public class JeweleryEffectsHandler {
 
 			if(player == null){
 				healEffectMap.remove(playername);
-				continue;
+				break;//break to prevent concurrent modification
 			}
 
 			//if the player has a counter, subtract 1 from counter
