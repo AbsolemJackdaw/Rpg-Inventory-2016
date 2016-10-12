@@ -1,6 +1,7 @@
 package subaraki.rpginventory.network;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
@@ -20,7 +21,7 @@ public class PacketSyncOwnInventory implements IMessage {
 
 	public PacketSyncOwnInventory(EntityPlayer player) {
 		RpgPlayerInventory inv = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
-		
+
 		for(int i = 0; i < stack.length; i ++)
 			stack[i] = inv.getTheRpgInventory().getStackInSlot(i);
 	}
@@ -43,19 +44,21 @@ public class PacketSyncOwnInventory implements IMessage {
 
 		@Override
 		public IMessage onMessage(PacketSyncOwnInventory message,MessageContext ctx) {
-			EntityPlayer player = RpgInventory.proxy.getClientPlayer();
+			Minecraft.getMinecraft().addScheduledTask( ()->{
+				EntityPlayer player = RpgInventory.proxy.getClientPlayer();
 
-			if(player == null)
-				return null;
-			
-			RpgPlayerInventory rpg = 
-					player.
-					getCapability(
-							RpgInventoryCapability.CAPABILITY, null);
+				if(player == null)
+					return;
 
-			for (int i = 0; i < message.stack.length; i++){
-				rpg.getTheRpgInventory().setStackInSlot(i,message.stack[i]);
-			}
+				RpgPlayerInventory rpg = 
+						player.
+						getCapability(
+								RpgInventoryCapability.CAPABILITY, null);
+
+				for (int i = 0; i < message.stack.length; i++){
+					rpg.getTheRpgInventory().setStackInSlot(i,message.stack[i]);
+				}
+			});
 			return null;
 		}
 	}

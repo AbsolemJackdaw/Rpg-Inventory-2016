@@ -1,6 +1,7 @@
 package subaraki.rpginventory.network;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.FMLLog;
@@ -59,19 +60,19 @@ public class PacketSyncOtherInventory implements IMessage {
 
 		@Override
 		public IMessage onMessage(PacketSyncOtherInventory message,MessageContext ctx) {
+			Minecraft.getMinecraft().addScheduledTask( ()->{
+				EntityPlayer other = (EntityPlayer)RpgInventory.proxy.getClientWorld().getEntityByID(message.otherUser);
 
-			EntityPlayer other = (EntityPlayer)RpgInventory.proxy.getClientWorld().getEntityByID(message.otherUser);
-
-			if(other != null){
-				RpgPlayerInventory rpg = other.getCapability(RpgInventoryCapability.CAPABILITY, null);
-				if(rpg != null)
-					for (int i = 0; i < message.stack.length; i++)
-						rpg.getTheRpgInventory().setStackInSlot(i,message.stack[i]);
-				else
-					FMLLog.getLogger().info("packet info. 'inventory' was null. dropping packet");
-			}else
-				FMLLog.getLogger().info("packet info. 'other' was null. dropping packet");
-
+				if(other != null){
+					RpgPlayerInventory rpg = other.getCapability(RpgInventoryCapability.CAPABILITY, null);
+					if(rpg != null)
+						for (int i = 0; i < message.stack.length; i++)
+							rpg.getTheRpgInventory().setStackInSlot(i,message.stack[i]);
+					else
+						FMLLog.getLogger().info("packet info. 'inventory' was null. dropping packet");
+				}else
+					FMLLog.getLogger().info("packet info. 'other' was null. dropping packet");
+			});
 			return null;
 		}
 	}

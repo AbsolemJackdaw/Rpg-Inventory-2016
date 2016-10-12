@@ -3,6 +3,7 @@ package subaraki.rpginventory.network;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -29,16 +30,17 @@ public class PacketOpenRpgInventory implements IMessage{
 
 		@Override
 		public IMessage onMessage(PacketOpenRpgInventory message, MessageContext ctx) {
-			EntityPlayerMP player_mp = ctx.getServerHandler().playerEntity;
-			World world = player_mp.worldObj;
+			((WorldServer)ctx.getServerHandler().playerEntity.worldObj).addScheduledTask(() -> {
+				EntityPlayerMP player_mp = ctx.getServerHandler().playerEntity;
+				World world = player_mp.worldObj;
 
-			FMLNetworkHandler.openGui(
-					player_mp, 
-					RpgInventory.INSTANCE, 
-					GuiHandler.RPG_PLAYER_INVENTORY,
-					world, 
-					(int)player_mp.posX, (int)player_mp.posY, (int)player_mp.posZ);
-
+				FMLNetworkHandler.openGui(
+						player_mp, 
+						RpgInventory.INSTANCE, 
+						GuiHandler.RPG_PLAYER_INVENTORY,
+						world, 
+						(int)player_mp.posX, (int)player_mp.posY, (int)player_mp.posZ);
+			});
 			return null;
 		}
 	}
