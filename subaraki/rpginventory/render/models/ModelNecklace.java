@@ -129,5 +129,4 @@ public class ModelNecklace extends ModelBase {
 			float f4, float f5, Entity ent) {
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, ent);
 	}
-
 }

@@ -41,23 +41,20 @@ public class RenderNecklaceLayer implements LayerRenderer<AbstractClientPlayer>{
 		rp.bindTexture(item.getRenderOnPlayerTexture());
 		
 		GlStateManager.pushMatrix();
-		for (int i = 0; i < NECKLACE_MODEL.parts.size(); i++) {
-			NECKLACE_MODEL.parts.get(i).rotateAngleX = rp.getMainModel().bipedBody.rotateAngleX;
-			NECKLACE_MODEL.parts.get(i).rotateAngleY = rp.getMainModel().bipedBody.rotateAngleY;
-			NECKLACE_MODEL.parts.get(i).rotateAngleZ = rp.getMainModel().bipedBody.rotateAngleZ;
-			NECKLACE_MODEL.parts.get(i).rotationPointX = rp.getMainModel().bipedBody.rotationPointX;
-			NECKLACE_MODEL.parts.get(i).rotationPointY = rp.getMainModel().bipedBody.rotationPointY;
-			NECKLACE_MODEL.parts.get(i).rotationPointZ = rp.getMainModel().bipedBody.rotationPointZ;
-		}
-		if (chest != null)
-			GlStateManager.translate(0F, 0F, -0.06F);
-		else
-			GlStateManager.translate(0F, 0F, 0.0F);
-
-		GlStateManager.color(1,1,1,1);
+		
 		/**offset when sneaking. copy of @Link ModelPlayer.render*/ 
 		if (entitylivingbaseIn.isSneaking())
             GlStateManager.translate(0.0F, 0.2F, 0.0F);
+		
+		rp.getMainModel().bipedBody.postRender(0.0625f);
+	
+		if (chest != null)
+			GlStateManager.translate(0F, -0.005F, -0.06F);
+		else
+			GlStateManager.translate(0F, -0.005F, 0.0F);
+
+		GlStateManager.color(1,1,1,1);
+		
 		NECKLACE_MODEL.renderNecklace(0.0625f);
 		GlStateManager.popMatrix();
 
