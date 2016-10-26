@@ -75,8 +75,8 @@ public class ClientProxy extends ServerProxy {
 				if(stack.getItem() != null)
 					if(stack.getItem() instanceof RpgInventoryItem){
 						RpgInventoryItem i = (RpgInventoryItem)stack.getItem();
-						if((i.colorState < 16) && (i.colorState >= 0)){
-							return ItemDye.DYE_COLORS[i.colorState];
+						if((i.getColorState() < 16) && (i.getColorState() >= 0)){
+							return ItemDye.DYE_COLORS[i.getColorState()];
 						}
 					}
 				return 0xffffff;

@@ -25,14 +25,25 @@ public class RpgInventoryItem extends Item {
 	private final ResourceLocation RENDER3D_TEXTURE;
 
 	/**for capes*/
-	public final int colorState;
+	private int colorState;
 
 	private String modelLocation;
-	public RpgInventoryItem(JewelTypes armorType, int maxDamage, int color, LocalizeEnum le) {
+	
+	/**Constructor for external items*/
+	public RpgInventoryItem(JewelTypes armortype, String registerylocalizeName){
 		super();
-
+		setUnlocalizedName(registerylocalizeName);
+		setRegistryName(registerylocalizeName);
+		RENDER3D_TEXTURE = null;
+		this.armorType = armortype;
+		this.maxStackSize = 1;
+	}
+	
+	public RpgInventoryItem(JewelTypes armorType, LocalizeEnum le) {
+		super();
 		setUnlocalizedName(RpgInventory.MODID+"."+le.getLocalName());
 		setRegistryName(le.getLocalName());
+		
 		if(le.getRenderTexture().length() > 0)
 			RENDER3D_TEXTURE = new ResourceLocation(le.getRenderTexture());
 		else
@@ -40,19 +51,19 @@ public class RpgInventoryItem extends Item {
 
 		modelLocation = le.getModelPath();
 
-		colorState = color;
 		this.armorType = armorType;
 		this.maxStackSize = 1;
-		this.setMaxDamage(maxDamage);
 	}
-
-	public RpgInventoryItem(JewelTypes armortype, int color, LocalizeEnum le){
-		this(armortype, -1, color, le);
+	
+	public RpgInventoryItem setColorState(int colorState) {
+		this.colorState = colorState;
+		return this;
 	}
-
-	public RpgInventoryItem(JewelTypes armortype, LocalizeEnum le){
-		this(armortype, -1, -1, le);
+	
+	public int getColorState() {
+		return colorState;
 	}
+	
 	/**
 	 * 'Bounds' the shield to an armor class. this should be overridden in child
 	 * mods ! If the string is left/set to "none", it will not check for class

@@ -54,8 +54,6 @@ public class RpgInventory {
 
 		//always register items in preInit
 		RpgItems.init();
-		RpgItems.register();
-		RpgItems.registerRecipes();
 		
 		proxy.registerRenders();
 		proxy.registerClientEvents();
