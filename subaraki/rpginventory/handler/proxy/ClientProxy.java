@@ -48,7 +48,7 @@ import subaraki.rpginventory.render.player.RenderNecklaceLayer;
 public class ClientProxy extends ServerProxy {
 
 	public static KeyBinding keyInventory;
-			
+
 	@Override
 	public void registerKey() {
 		keyInventory = new KeyBinding("RPG Inventory Key", KeyConflictContext.IN_GAME, KeyModifier.SHIFT, Minecraft.getMinecraft().gameSettings.keyBindInventory.getKeyCode(), "Rpg Inventory");
@@ -140,17 +140,14 @@ public class ClientProxy extends ServerProxy {
 	}
 
 	public void addRenderLayers(){
-		RenderPlayer p = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("default"));
-		RenderPlayer p2 = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get("slim"));
 
-		//add one layer for both skins (steve and alex)
-		p.addLayer(new RenderCapeLayer(p));
-		p2.addLayer(new RenderCapeLayer(p2));
+		String types[] = new String[]{"default","slim"};
 
-		p.addLayer(new RenderNecklaceLayer(p));
-		p2.addLayer(new RenderNecklaceLayer(p2));
-
-		p.addLayer(new RenderGloveLayer(p));
-		p2.addLayer(new RenderGloveLayer(p2));
+		for(String type : types){
+			RenderPlayer renderer = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get(type));
+			renderer.addLayer(new RenderCapeLayer(renderer));
+			renderer.addLayer(new RenderNecklaceLayer(renderer));
+			renderer.addLayer(new RenderGloveLayer(renderer));
+		}
 	}
 }

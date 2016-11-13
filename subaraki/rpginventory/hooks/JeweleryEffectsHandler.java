@@ -72,7 +72,7 @@ public class JeweleryEffectsHandler {
 	public void onExpEvent(LivingExperienceDropEvent event){
 		getEmeraldNecklaceEffect(event);
 	}
-	
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//////////////////////////////////////End Of Subscribed Events///////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -81,21 +81,17 @@ public class JeweleryEffectsHandler {
 	private void getEmeraldNecklaceEffect(LivingExperienceDropEvent event) {
 		EntityPlayer player = event.getAttackingPlayer();
 
-		if(player == null)
-			return;
-		if(player.getCapability(RpgInventoryCapability.CAPABILITY,null).getNecklace() == null)
+		if(player == null || player.getCapability(RpgInventoryCapability.CAPABILITY,null).getNecklace() == null)
 			return;
 
 		ItemStack necklace = player.getCapability(RpgInventoryCapability.CAPABILITY,null).getNecklace();
 
-		if(necklace.getItem() == null)
+		if(necklace.getItem() == null|| !necklace.getItem().equals(RpgItems.emerald_necklace))
 			return;
-		if(!necklace.getItem().equals(RpgItems.emerald_necklace))
-			return;
-		
+
 		float exp = (float)event.getOriginalExperience();
 		float bonus = (float)exp/4f;
-		
+
 		event.setDroppedExperience((int)(exp+bonus));
 	}
 
@@ -110,21 +106,15 @@ public class JeweleryEffectsHandler {
 
 		float extraDamage = 0;
 
-		if(inventory.getNecklace() != null)
-			if(inventory.getNecklace().getItem().getUnlocalizedName().contains("lapis"))
-				extraDamage +=1.75;
-		if(inventory.getGloves() != null)
-			if(inventory.getGloves().getItem().getUnlocalizedName().contains("lapis"))
-				extraDamage +=1.75;
-		if(inventory.getRing_1() != null)
-			if(inventory.getRing_1().getItem().getUnlocalizedName().contains("lapis"))
-				extraDamage +=1.75;
-		if(inventory.getRing_2() != null)
-			if(inventory.getRing_2().getItem().getUnlocalizedName().contains("lapis"))
-				extraDamage +=1.75;
+		if(inventory.getNecklace()!= null && inventory.getNecklace().getItem().getUnlocalizedName().contains("lapis"))
+			extraDamage +=1.75;
+		if(inventory.getGloves()  != null && inventory.getGloves().getItem().getUnlocalizedName().contains("lapis"))
+			extraDamage +=1.75;
+		if(inventory.getRing_1()  != null && inventory.getRing_1().getItem().getUnlocalizedName().contains("lapis"))
+			extraDamage +=1.75;
+		if(inventory.getRing_2()  != null && inventory.getRing_2().getItem().getUnlocalizedName().contains("lapis"))
+			extraDamage +=1.75;
 
-		//don't set the damage to the same damage if nothing is worn
-		//because that would be stupid i.m.o
 		if(extraDamage > 0)
 			event.setAmount(event.getAmount()+extraDamage);
 	}
@@ -133,14 +123,11 @@ public class JeweleryEffectsHandler {
 		if(!(event.getEntityLiving() instanceof EntityPlayer))
 			return;
 
-		EntityPlayer player = (EntityPlayer)event.getEntityLiving();
+		RpgPlayerInventory inventory = ((EntityPlayer)event.getEntityLiving()).getCapability(RpgInventoryCapability.CAPABILITY, null);
 
-		RpgPlayerInventory inventory = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
+		if(inventory.getGloves() == null || inventory.getGloves().getItem()== null)
+			return;
 
-		if(inventory.getGloves() == null)
-			return;
-		if(inventory.getGloves().getItem()== null)
-			return;
 		if(inventory.getGloves().getItem().getUnlocalizedName().contains("emerald")){
 			//reduce damage by one fifth of the damage
 			//e.g : 5 damage is reduced to 4.
@@ -153,8 +140,7 @@ public class JeweleryEffectsHandler {
 		for(String playername : healEffectMap.keySet()){
 
 			//if the player disconnected, or doesn't exist
-			EntityPlayer player = 
-					event.world.getMinecraftServer().getPlayerList().getPlayerByUsername(playername);
+			EntityPlayer player = event.world.getMinecraftServer().getPlayerList().getPlayerByUsername(playername);
 
 			if(player == null){
 				healEffectMap.remove(playername);
@@ -176,21 +162,14 @@ public class JeweleryEffectsHandler {
 
 			int delay = 75;
 
-			if(inventory.getNecklace() != null)
-				if(inventory.getNecklace().getItem().getUnlocalizedName().contains("diamond"))
-					delay -=10;
-
-			if(inventory.getGloves() != null)
-				if(inventory.getGloves().getItem().getUnlocalizedName().contains("diamond"))
-					delay -=10;
-
-			if(inventory.getRing_1() != null)
-				if(inventory.getRing_1().getItem().getUnlocalizedName().contains("diamond"))
-					delay -=10;
-
-			if(inventory.getRing_2() != null)
-				if(inventory.getRing_2().getItem().getUnlocalizedName().contains("diamond"))
-					delay -=10;
+			if(inventory.getNecklace()!= null && inventory.getNecklace().getItem().getUnlocalizedName().contains("diamond"))
+				delay -=10;
+			if(inventory.getGloves()  != null && inventory.getGloves().getItem().getUnlocalizedName().contains("diamond"))
+				delay -=10;
+			if(inventory.getRing_1()  != null && inventory.getRing_1().getItem().getUnlocalizedName().contains("diamond"))
+				delay -=10;
+			if(inventory.getRing_2()  != null && inventory.getRing_2().getItem().getUnlocalizedName().contains("diamond"))
+				delay -=10;
 
 			if(delay == 75)
 				continue;
@@ -208,11 +187,7 @@ public class JeweleryEffectsHandler {
 		if(event.getEntityPlayer() != null)
 		{
 			RpgPlayerInventory inventory = event.getEntityPlayer().getCapability(RpgInventoryCapability.CAPABILITY, null);
-			if(inventory== null)
-				return;
-			if(inventory.getRing_2() == null)
-				return;
-			if(! (inventory.getRing_2().getItem() instanceof RpgInventoryItem))
+			if(inventory== null || inventory.getRing_2() == null || !(inventory.getRing_2().getItem() instanceof RpgInventoryItem))
 				return;
 
 			if(inventory.getRing_2().getItem().getUnlocalizedName().contains("emerald"))
@@ -229,32 +204,14 @@ public class JeweleryEffectsHandler {
 
 		RpgPlayerInventory inventory = event.player.getCapability(RpgInventoryCapability.CAPABILITY, null);
 
-		if(inventory.getRing_1() == null)
-			return;
-		if(inventory.getRing_1().getItem() == null)
-			return;
-		if(!inventory.getRing_1().getItem().getUnlocalizedName().contains("emerald"))
+		if(inventory.getRing_1() == null || (inventory.getRing_1().getItem() == null || !inventory.getRing_1().getItem().getUnlocalizedName().contains("emerald")))
 			return;
 
 		for(PotionEffect pe : event.player.getActivePotionEffects()){
 			if(pe.getPotion().isBadEffect()){
 				event.player.removePotionEffect(pe.getPotion());
-				break;
+				break;//prevent concurrent modification
 			}
-		}
-	}
-
-	private void breathUnderWater(EntityPlayer player){
-		//		if(!player.isInsideOfMaterial(Material.WATER))
-		//			return;
-
-		RpgPlayerInventory inventory = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
-
-		if(inventory.getNecklace() == null)
-			return;
-		if(inventory.getNecklace().getItem() == null)
-			return;
-		if(inventory.getNecklace().getItem().getUnlocalizedName().contains("emerald")){
 		}
 	}
 
@@ -262,53 +219,48 @@ public class JeweleryEffectsHandler {
 		RpgPlayerInventory inventory = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
 		int numberofgoldjewels = 0;
 
-		if(inventory.getGloves() != null)
-			if(inventory.getGloves().getItem().getUnlocalizedName().contains("gold"))
+		if(inventory.getGloves() != null && inventory.getGloves().getItem().getUnlocalizedName().contains("gold"))
 				numberofgoldjewels++;
-		if(inventory.getNecklace() != null)
-			if(inventory.getNecklace().getItem().getUnlocalizedName().contains("gold"))
+		if(inventory.getNecklace() != null && inventory.getNecklace().getItem().getUnlocalizedName().contains("gold"))
 				numberofgoldjewels++;
-		if(inventory.getRing_1() != null)
-			if(inventory.getRing_1().getItem().getUnlocalizedName().contains("gold"))
+		if(inventory.getRing_1() != null && inventory.getRing_1().getItem().getUnlocalizedName().contains("gold"))
 				numberofgoldjewels++;
-		if(inventory.getRing_2() != null)
-			if(inventory.getRing_2().getItem().getUnlocalizedName().contains("gold"))
+		if(inventory.getRing_2() != null && inventory.getRing_2().getItem().getUnlocalizedName().contains("gold"))
 				numberofgoldjewels++;
 
 		if(numberofgoldjewels == 0)
 			return;
 
 		else{
-			IAttributeInstance attribute = player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+			IAttributeInstance speedAttribute = player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 
 			//reset if number of gold objects worn doesn't match the speed boost
-			if(attribute.getModifier(speedUuid_low)!=null && numberofgoldjewels != 1)
-				attribute.removeModifier(speedUuid_low);
-			if(attribute.getModifier(speedUuid_mid)!= null && numberofgoldjewels != 2)
-				attribute.removeModifier(speedUuid_mid);
-			if(attribute.getModifier(speedUuid_high)!=null && numberofgoldjewels != 3)
-				attribute.removeModifier(speedUuid_high);
-			if(attribute.getModifier(speedUuid_highest)!=null && numberofgoldjewels != 4)
-				attribute.removeModifier(speedUuid_highest);
+			if(speedAttribute.getModifier(speedUuid_low)!=null && numberofgoldjewels != 1)
+				speedAttribute.removeModifier(speedUuid_low);
+			if(speedAttribute.getModifier(speedUuid_mid)!= null && numberofgoldjewels != 2)
+				speedAttribute.removeModifier(speedUuid_mid);
+			if(speedAttribute.getModifier(speedUuid_high)!=null && numberofgoldjewels != 3)
+				speedAttribute.removeModifier(speedUuid_high);
+			if(speedAttribute.getModifier(speedUuid_highest)!=null && numberofgoldjewels != 4)
+				speedAttribute.removeModifier(speedUuid_highest);
 
 			//apply speed boost if needed
 			switch (numberofgoldjewels){
 			case 1:
-
-				if(attribute.getModifier(speedUuid_low)==null)
-					attribute.applyModifier(speed_low);
+				if(speedAttribute.getModifier(speedUuid_low)==null)
+					speedAttribute.applyModifier(speed_low);
 				break;
 			case 2:
-				if(attribute.getModifier(speedUuid_mid)==null)
-					attribute.applyModifier(speed_mid);
+				if(speedAttribute.getModifier(speedUuid_mid)==null)
+					speedAttribute.applyModifier(speed_mid);
 				break;
 			case 3:
-				if(attribute.getModifier(speedUuid_high)==null)
-					attribute.applyModifier(speed_high);
+				if(speedAttribute.getModifier(speedUuid_high)==null)
+					speedAttribute.applyModifier(speed_high);
 				break;
 			case 4:
-				if(attribute.getModifier(speedUuid_highest)==null)
-					attribute.applyModifier(speed_highest);
+				if(speedAttribute.getModifier(speedUuid_highest)==null)
+					speedAttribute.applyModifier(speed_highest);
 				break;
 			}
 		}

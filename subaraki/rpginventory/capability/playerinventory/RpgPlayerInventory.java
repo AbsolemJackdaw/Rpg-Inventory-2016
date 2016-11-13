@@ -12,11 +12,6 @@ public class RpgPlayerInventory {
 
 	private EntityPlayer player;
 
-	/**an integer between 0-16 that determines what kind of wand this person has.*/
-	private int mageIndex = -1;
-	/**an integer between 0-16 that determines what kind of core this person has.*/
-	private int coreIndex = -1;
-	
 	public RpgPlayerInventory(){
 		inventory = new RpgStackHandler(new ItemStack[6]);
 	}
@@ -40,16 +35,13 @@ public class RpgPlayerInventory {
 		//hook into the tagcompound of the ItemStackHandler
 		NBTTagCompound tag = getTheRpgInventory().serializeNBT();
 		//add our own tags
-		tag.setInteger("mage_type", mageIndex);
-		tag.setInteger("core_type", coreIndex);
+		//none here
 		//save mix of itemstacks and personal tags
 		return tag;
 	}
 	
 	public void readData(NBTBase nbt){
 		getTheRpgInventory().deserializeNBT((NBTTagCompound)nbt);
-		mageIndex = ((NBTTagCompound)nbt).getInteger("mage_type");
-		coreIndex = ((NBTTagCompound)nbt).getInteger("core_type");
 
 	}
 	
@@ -75,22 +67,6 @@ public class RpgPlayerInventory {
 	
 	public ItemStack getGloves(){
 		return getTheRpgInventory().getStackInSlot(SlotIndex.SLOT_GLOVES.ordinal());
-	}
-	
-	public int getMageIndex() {
-		return mageIndex;
-	}
-	
-	public void setMageIndex(int mageIndex) {
-		this.mageIndex = mageIndex;
-	}
-	
-	public int getCoreIndex() {
-		return coreIndex;
-	}
-	
-	public void setCoreIndex(int coreIndex) {
-		this.coreIndex = coreIndex;
 	}
 	
 	public void setJewel(SlotIndex type, ItemStack stack){

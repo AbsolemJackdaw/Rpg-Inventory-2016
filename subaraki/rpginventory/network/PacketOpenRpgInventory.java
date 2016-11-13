@@ -26,7 +26,7 @@ public class PacketOpenRpgInventory implements IMessage{
 
 	}
 
-	public static class HandlerOpenRpgInventory implements IMessageHandler<PacketOpenRpgInventory, IMessage>{
+	public static class PacketOpenRpgInventoryHandler implements IMessageHandler<PacketOpenRpgInventory, IMessage>{
 
 		@Override
 		public IMessage onMessage(PacketOpenRpgInventory message, MessageContext ctx) {

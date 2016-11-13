@@ -41,13 +41,11 @@ public class RpgInventoryCapability {
 
 		@Override
 		public NBTBase writeNBT(Capability<RpgPlayerInventory> capability, RpgPlayerInventory instance, EnumFacing side)		{
-			//return instance.getTheRpgInventory().serializeNBT();
 			return instance.writeData();
 		}
 
 		@Override
 		public void readNBT(Capability<RpgPlayerInventory> capability, RpgPlayerInventory instance, EnumFacing side, NBTBase nbt){
-//			instance.getTheRpgInventory().deserializeNBT((NBTTagCompound)nbt);
 			instance.readData(nbt);
 		}
 	}

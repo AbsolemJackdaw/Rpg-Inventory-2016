@@ -5,7 +5,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHandSide;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
 import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
 import subaraki.rpginventory.item.RpgInventoryItem;
@@ -67,5 +66,4 @@ public class RenderGloveLayer implements LayerRenderer<AbstractClientPlayer>{
 	public boolean shouldCombineTextures() {
 		return false;
 	}
-
 }

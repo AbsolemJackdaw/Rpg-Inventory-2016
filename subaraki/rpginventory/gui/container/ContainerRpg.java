@@ -44,15 +44,6 @@ public class ContainerRpg extends Container {
 	}
 
 	@Override
-	public ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn, EntityPlayer player) {
-
-//		if (!player.worldObj.isRemote)
-//			PacketHandler.NETWORK.sendTo(new PacketSyncOwnInventory(player), (EntityPlayerMP) player);
-
-		return super.slotClick(slotId, dragType, clickTypeIn, player);
-	}
-
-	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slotnumber) {
 		// Shift clicked the players inventory
 		int indexPlayerInventory = slotnumber - 6; //6 is isze of custom inv

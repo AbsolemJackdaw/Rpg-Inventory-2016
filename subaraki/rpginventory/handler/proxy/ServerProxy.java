@@ -9,7 +9,7 @@ public class ServerProxy {
 	public void registerColors(){/*empty for serverside*/}
 	public EntityPlayer getClientPlayer(){return null;}
 	public World getClientWorld(){return null;}
-	public void addRenderLayers(){}
-	public void registerClientEvents() {};
-	public void registerKey(){}
+	public void addRenderLayers(){/*empty for serverside*/};
+	public void registerClientEvents(){/*empty for serverside*/};
+	public void registerKey(){/*empty for serverside*/};
 }

@@ -7,6 +7,8 @@ import net.minecraft.util.ResourceLocation;
 import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
 import subaraki.rpginventory.gui.container.ContainerRpg;
 import subaraki.rpginventory.mod.RpgInventory;
+import subaraki.rpginventory.network.PacketHandler;
+import subaraki.rpginventory.network.PacketInventoryToServerAndTrackedPlayers;
 
 public class GuiRpg extends GuiContainer {
 
@@ -43,5 +45,11 @@ public class GuiRpg extends GuiContainer {
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		this.oldMouseX = (float)mouseX;
         this.oldMouseY = (float)mouseY;
+	}
+	
+	@Override
+	public void onGuiClosed() {
+		super.onGuiClosed();
+		PacketHandler.NETWORK.sendToServer(new PacketInventoryToServerAndTrackedPlayers(mc.thePlayer));
 	}
 }

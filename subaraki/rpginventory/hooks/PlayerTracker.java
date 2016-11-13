@@ -8,8 +8,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import subaraki.rpginventory.network.PacketHandler;
-import subaraki.rpginventory.network.PacketSyncOtherInventory;
-import subaraki.rpginventory.network.PacketSyncOwnInventory;
+import subaraki.rpginventory.network.PacketInventoryToClient;
+import subaraki.rpginventory.network.PacketInventoryToTrackedPlayer;
 
 public class PlayerTracker {
 
@@ -23,18 +23,18 @@ public class PlayerTracker {
 			JeweleryEffectsHandler.healEffectMap.put(event.player.getName(), 0);
 
 		if (!event.player.worldObj.isRemote)
-			PacketHandler.NETWORK.sendTo(new PacketSyncOwnInventory((EntityPlayerMP)event.player), (EntityPlayerMP)event.player);
+			PacketHandler.NETWORK.sendTo(new PacketInventoryToClient((EntityPlayerMP)event.player), (EntityPlayerMP)event.player);
 	}
 
 	@SubscribeEvent
 	public void playerChangedDimension(PlayerChangedDimensionEvent event){
 		if (!event.player.worldObj.isRemote)
-			PacketHandler.NETWORK.sendTo(new PacketSyncOwnInventory((EntityPlayerMP)event.player), (EntityPlayerMP)event.player);
+			PacketHandler.NETWORK.sendTo(new PacketInventoryToClient((EntityPlayerMP)event.player), (EntityPlayerMP)event.player);
 	}
 
 	@SubscribeEvent
 	public void incomingPlayer(PlayerEvent.StartTracking e){
 		if(e.getTarget() instanceof EntityPlayer && e.getEntityPlayer() != null)
-			PacketHandler.NETWORK.sendTo(new PacketSyncOtherInventory((EntityPlayer) e.getTarget()), (EntityPlayerMP) e.getEntityPlayer());
+			PacketHandler.NETWORK.sendTo(new PacketInventoryToTrackedPlayer((EntityPlayer) e.getTarget()), (EntityPlayerMP) e.getEntityPlayer());
 	}
 }

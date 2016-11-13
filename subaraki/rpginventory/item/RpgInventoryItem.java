@@ -2,21 +2,28 @@ package subaraki.rpginventory.item;
 
 import java.util.List;
 
+import net.minecraft.entity.EntityTracker;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
 import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
 import subaraki.rpginventory.enums.JewelTypes;
 import subaraki.rpginventory.enums.SlotIndex;
-import subaraki.rpginventory.item.RpgItems.LocalizeEnum;
+import subaraki.rpginventory.item.RpgItems.InventoryItem;
 import subaraki.rpginventory.mod.RpgInventory;
+import subaraki.rpginventory.network.PacketHandler;
+import subaraki.rpginventory.network.PacketInventoryToClient;
+import subaraki.rpginventory.network.PacketInventoryToTrackedPlayer;
 
 public class RpgInventoryItem extends Item {
 
@@ -39,7 +46,7 @@ public class RpgInventoryItem extends Item {
 		this.maxStackSize = 1;
 	}
 	
-	public RpgInventoryItem(JewelTypes armorType, LocalizeEnum le) {
+	public RpgInventoryItem(JewelTypes armorType, InventoryItem le) {
 		super();
 		setUnlocalizedName(RpgInventory.MODID+"."+le.getLocalName());
 		setRegistryName(le.getLocalName());
@@ -64,15 +71,6 @@ public class RpgInventoryItem extends Item {
 		return colorState;
 	}
 	
-	/**
-	 * 'Bounds' the shield to an armor class. this should be overridden in child
-	 * mods ! If the string is left/set to "none", it will not check for class
-	 * armor and can be used by anyone (like Vanilla Shields)
-	 */
-	public String bindShieldToArmorClass() {
-		return "none";
-	}
-
 	public String getModelLocation() {
 		return modelLocation;
 	}
@@ -135,6 +133,17 @@ public class RpgInventoryItem extends Item {
 					break;
 				default:
 					break;
+				}
+				
+				if(!world.isRemote){
+					//sync own inventory
+					PacketHandler.NETWORK.sendTo(new PacketInventoryToClient(player), (EntityPlayerMP) player);
+					//sync around
+					EntityTracker tracker = ((WorldServer)world).getEntityTracker();
+					for (EntityPlayer entityPlayer : tracker.getTrackingPlayers(player)){
+						IMessage packet = new PacketInventoryToTrackedPlayer(player);
+						PacketHandler.NETWORK.sendTo(packet, (EntityPlayerMP) entityPlayer);
+					}
 				}
 			}
 		return super.onItemRightClick(stack, world, player, hand);

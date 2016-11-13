@@ -17,17 +17,17 @@ import subaraki.rpginventory.mod.RpgInventory;
  * This packet is viewed by another player,
  * who is getting your data to know what you have, so otherUser is you
  */
-public class PacketSyncOtherInventory implements IMessage {
+public class PacketInventoryToTrackedPlayer implements IMessage {
 
 
 	public int otherUser;
 	public ItemStack stack[] = new ItemStack[6];
 
-	public PacketSyncOtherInventory() {
+	public PacketInventoryToTrackedPlayer() {
 		//default constructor is needed else the game crashes
 	}
 
-	public PacketSyncOtherInventory(EntityPlayer player) {
+	public PacketInventoryToTrackedPlayer(EntityPlayer player) {
 		RpgPlayerInventory inv = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
 
 		otherUser = player.getEntityId();
@@ -56,10 +56,10 @@ public class PacketSyncOtherInventory implements IMessage {
 
 	}
 
-	public static class HandlerSyncOtherInventory implements IMessageHandler<PacketSyncOtherInventory, IMessage>{
+	public static class PacketInventoryToTrackedPlayerHandler implements IMessageHandler<PacketInventoryToTrackedPlayer, IMessage>{
 
 		@Override
-		public IMessage onMessage(PacketSyncOtherInventory message,MessageContext ctx) {
+		public IMessage onMessage(PacketInventoryToTrackedPlayer message,MessageContext ctx) {
 			Minecraft.getMinecraft().addScheduledTask( ()->{
 				EntityPlayer other = (EntityPlayer)RpgInventory.proxy.getClientWorld().getEntityByID(message.otherUser);
 

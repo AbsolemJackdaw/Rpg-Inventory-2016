@@ -1,25 +1,26 @@
 package subaraki.rpginventory.network;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityTracker;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
 import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
-import subaraki.rpginventory.mod.RpgInventory;
 
-public class PacketSyncOwnInventory implements IMessage {
+public class PacketInventoryToServerAndTrackedPlayers implements IMessage {
 
 	public ItemStack stack[] = new ItemStack[6];
 
-	public PacketSyncOwnInventory() {
+	public PacketInventoryToServerAndTrackedPlayers() {
 	}
 
-	public PacketSyncOwnInventory(EntityPlayer player) {
+	public PacketInventoryToServerAndTrackedPlayers(EntityPlayer player) {
 		RpgPlayerInventory inv = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
 
 		for(int i = 0; i < stack.length; i ++)
@@ -40,28 +41,29 @@ public class PacketSyncOwnInventory implements IMessage {
 		}
 	}
 
-	public static class HandlerSyncOwnInventory implements IMessageHandler<PacketSyncOwnInventory, IMessage>{
+	public static class HandlerPacketInventoryToServerAndTrackedPlayers implements IMessageHandler<PacketInventoryToServerAndTrackedPlayers, IMessage>{
 
 		@Override
-		public IMessage onMessage(PacketSyncOwnInventory message,MessageContext ctx) {
-			Minecraft.getMinecraft().addScheduledTask( ()->{
-				EntityPlayer player = RpgInventory.proxy.getClientPlayer();
+		public IMessage onMessage(PacketInventoryToServerAndTrackedPlayers message,MessageContext ctx) {
 
-				if(player == null)
-					return;
+			EntityPlayer player = (EntityPlayer)ctx.getServerHandler().playerEntity;
+			WorldServer server = (WorldServer)player.worldObj;
 
-				RpgPlayerInventory rpg = 
-						player.
-						getCapability(
-								RpgInventoryCapability.CAPABILITY, null);
+			server.addScheduledTask( ()->{
+
+				RpgPlayerInventory rpg = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
 
 				for (int i = 0; i < message.stack.length; i++){
 					rpg.getTheRpgInventory().setStackInSlot(i,message.stack[i]);
+				}
+				
+				EntityTracker tracker = server.getEntityTracker();
+				for (EntityPlayer entityPlayer : tracker.getTrackingPlayers(player)){
+					IMessage packet = new PacketInventoryToTrackedPlayer(player);
+					PacketHandler.NETWORK.sendTo(packet, (EntityPlayerMP) entityPlayer);
 				}
 			});
 			return null;
 		}
 	}
-
-
 }
