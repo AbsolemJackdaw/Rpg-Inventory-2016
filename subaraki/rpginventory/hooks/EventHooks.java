@@ -45,14 +45,14 @@ public class EventHooks {
 		if(event.getEntityLiving() instanceof EntityPlayer){
 			EntityPlayer player = (EntityPlayer)event.getEntityLiving();
 
-			if (!player.worldObj.getGameRules().getBoolean("keepInventory")){
+			if (!player.world.getGameRules().getBoolean("keepInventory")){
 				RpgPlayerInventory inventory = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
 
-				for(int i = 0; i < inventory.getTheRpgInventory().getStacks().length; i++){
-					ItemStack stack = inventory.getTheRpgInventory().getStacks()[i];
+				for(int slot = 0; slot < inventory.getTheRpgInventory().getSlots(); slot++){
+					ItemStack stack = inventory.getTheRpgInventory().getStackInSlot(slot);
 					if(stack != null){
 						player.dropItem(stack, true, false);
-						inventory.getTheRpgInventory().getStacks()[i] = null;
+						inventory.getTheRpgInventory().setStackInSlot(slot, ItemStack.EMPTY);
 					}
 				}
 			}
@@ -62,7 +62,7 @@ public class EventHooks {
 	@SubscribeEvent
 	public void onClone(Clone event){
 
-		if (event.getEntityPlayer().worldObj.getGameRules().getBoolean("keepInventory")){
+		if (event.getEntityPlayer().world.getGameRules().getBoolean("keepInventory")){
 			RpgPlayerInventory inventory = event.getEntityPlayer().getCapability(RpgInventoryCapability.CAPABILITY, null);
 			RpgPlayerInventory inventory_original = event.getOriginal().getCapability(RpgInventoryCapability.CAPABILITY, null);
 			NBTTagCompound tag = (NBTTagCompound) inventory.writeData();

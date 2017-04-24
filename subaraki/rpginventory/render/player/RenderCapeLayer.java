@@ -51,7 +51,7 @@ public class RenderCapeLayer implements LayerRenderer<AbstractClientPlayer>{
 			double d3 = (double)MathHelper.sin(f * 0.017453292F);
 			double d4 = (double)(-MathHelper.cos(f * 0.017453292F));
 			float xRotation = (float)d1 * 10.0F;
-			xRotation = MathHelper.clamp_float(xRotation, -6.0F, 32.0F);
+			xRotation = MathHelper.clamp(xRotation, -6.0F, 32.0F);
 			float yRotation = (float)(d0 * d3 + d2 * d4) * 100.0F;
 			float zRotation = (float)(d0 * d4 - d2 * d3) * 100.0F;
 
@@ -78,7 +78,7 @@ public class RenderCapeLayer implements LayerRenderer<AbstractClientPlayer>{
 			GlStateManager.rotate(zRotation / 2.0F, 0.0F, 0.0F, 1.0F);
 			GlStateManager.rotate(-zRotation / 2.0F, 0.0F, 1.0F, 0.0F);
 			GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
-			if (player.isSneaking())//this isn't necesairely needed, but the space between cape and player while sneaking was killing me !
+			if (player.isSneaking())//this isn't necessarily needed, but the space between cape and player while sneaking was killing me !
 	            GlStateManager.translate(0.0F, 0.0F, 0.1F);
 			playerRenderer.getMainModel().renderCape(0.0625F);
 			GlStateManager.popMatrix();

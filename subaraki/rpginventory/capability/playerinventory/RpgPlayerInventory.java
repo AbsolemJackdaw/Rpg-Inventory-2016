@@ -13,7 +13,7 @@ public class RpgPlayerInventory {
 	private EntityPlayer player;
 
 	public RpgPlayerInventory(){
-		inventory = new RpgStackHandler(new ItemStack[6]);
+		inventory = new RpgStackHandler();
 	}
 
 	public EntityPlayer getPlayer() { 

@@ -22,13 +22,13 @@ public class PlayerTracker {
 		if(event.player != null)
 			JeweleryEffectsHandler.healEffectMap.put(event.player.getName(), 0);
 
-		if (!event.player.worldObj.isRemote)
+		if (!event.player.world.isRemote)
 			PacketHandler.NETWORK.sendTo(new PacketInventoryToClient((EntityPlayerMP)event.player), (EntityPlayerMP)event.player);
 	}
 
 	@SubscribeEvent
 	public void playerChangedDimension(PlayerChangedDimensionEvent event){
-		if (!event.player.worldObj.isRemote)
+		if (!event.player.world.isRemote)
 			PacketHandler.NETWORK.sendTo(new PacketInventoryToClient((EntityPlayerMP)event.player), (EntityPlayerMP)event.player);
 	}
 

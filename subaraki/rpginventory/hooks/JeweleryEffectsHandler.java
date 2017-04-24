@@ -131,7 +131,7 @@ public class JeweleryEffectsHandler {
 		if(inventory.getGloves().getItem().getUnlocalizedName().contains("emerald")){
 			//reduce damage by one fifth of the damage
 			//e.g : 5 damage is reduced to 4.
-			event.setAmount(event.getAmount() - MathHelper.floor_float(event.getAmount()/5f));
+			event.setAmount(event.getAmount() - MathHelper.floor(event.getAmount()/5f));
 		}
 	}
 

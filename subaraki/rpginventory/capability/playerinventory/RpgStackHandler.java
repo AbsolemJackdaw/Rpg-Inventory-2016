@@ -6,11 +6,9 @@ import net.minecraftforge.items.ItemStackHandler;
 public class RpgStackHandler extends ItemStackHandler{
 
 	public static final int SLOTS = 6;
-	public RpgStackHandler(ItemStack[] stack) {
-		super(stack);
+	
+	public RpgStackHandler() {
+		super(SLOTS);
 	}
 
-	public ItemStack[] getStacks(){
-		return stacks;
-	}
 }

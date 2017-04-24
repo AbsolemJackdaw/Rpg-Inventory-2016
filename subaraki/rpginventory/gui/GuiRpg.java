@@ -31,7 +31,7 @@ public class GuiRpg extends GuiContainer {
 		drawString(fontRendererObj, "Rpg", (this.width / 2) + 39,(this.height / 2) - 23, 0xffffff);
 		drawString(fontRendererObj, "Inventory", (this.width / 2) + 39,(this.height / 2) - 15, 0xffffff);
 
-		DrawEntityOnScreen.drawEntityOnScreen(posX + 51, posY + 75, 30, (float)(posX + 51)-oldMouseX, (float)(posY + 75 - 50)-oldMouseY, this.mc.thePlayer);
+		DrawEntityOnScreen.drawEntityOnScreen(posX + 51, posY + 75, 30, (float)(posX + 51)-oldMouseX, (float)(posY + 75 - 50)-oldMouseY, this.mc.player);
 
 	}
 
@@ -50,6 +50,6 @@ public class GuiRpg extends GuiContainer {
 	@Override
 	public void onGuiClosed() {
 		super.onGuiClosed();
-		PacketHandler.NETWORK.sendToServer(new PacketInventoryToServerAndTrackedPlayers(mc.thePlayer));
+		PacketHandler.NETWORK.sendToServer(new PacketInventoryToServerAndTrackedPlayers(mc.player));
 	}
 }

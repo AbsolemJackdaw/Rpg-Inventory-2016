@@ -1,16 +1,18 @@
 package subaraki.rpginventory.item;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 public class RpgInventoryTab extends CreativeTabs {
 
+	private static ItemStack tabicon = new ItemStack (RpgItems.gold_gloves,1);
+	
 	public RpgInventoryTab() {
 		super("rpgi");
 	}
 
 	@Override
-	public Item getTabIconItem() {
-		return RpgItems.gold_gloves;
+	public ItemStack getTabIconItem() {
+		return tabicon;
 	}
 }

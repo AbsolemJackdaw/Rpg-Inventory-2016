@@ -47,7 +47,7 @@ public class PacketInventoryToServerAndTrackedPlayers implements IMessage {
 		public IMessage onMessage(PacketInventoryToServerAndTrackedPlayers message,MessageContext ctx) {
 
 			EntityPlayer player = (EntityPlayer)ctx.getServerHandler().playerEntity;
-			WorldServer server = (WorldServer)player.worldObj;
+			WorldServer server = (WorldServer)player.world;
 
 			server.addScheduledTask( ()->{
 

@@ -76,9 +76,10 @@ public class RpgInventoryItem extends Item {
 	}
 
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player,
-			EnumHand hand) {
-
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+		
+		ItemStack stack = player.getHeldItem(hand);
+		
 		if(stack != null)
 			if(stack.getItem() instanceof RpgInventoryItem){
 				RpgPlayerInventory inventory = player.getCapability(RpgInventoryCapability.CAPABILITY,null);
@@ -146,7 +147,8 @@ public class RpgInventoryItem extends Item {
 					}
 				}
 			}
-		return super.onItemRightClick(stack, world, player, hand);
+		
+		return super.onItemRightClick(world, player, hand);
 	}
 	
 	@SideOnly(Side.CLIENT)
