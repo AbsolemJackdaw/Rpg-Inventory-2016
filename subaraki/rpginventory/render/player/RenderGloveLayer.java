@@ -30,7 +30,7 @@ public class RenderGloveLayer implements LayerRenderer<AbstractClientPlayer>{
 
 		ItemStack glove = inventory.getGloves();
 
-		if(glove == null)
+		if(glove == ItemStack.EMPTY)
 			return;
 		if (glove.getItem() == null)
 			return;

@@ -22,7 +22,7 @@ public class RenderHandler {
 
 		ItemStack cloak = inventory.getTheRpgInventory().getStackInSlot(SlotIndex.SLOT_CLOAK.ordinal());
 
-		if(cloak != null){
+		if(cloak != ItemStack.EMPTY){
 			if(cloak.getItem() == RpgItems.cloak_Invisible) {
 				evt.setCanceled(true);
 			}

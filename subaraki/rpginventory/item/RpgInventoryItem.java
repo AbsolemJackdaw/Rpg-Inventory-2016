@@ -80,53 +80,53 @@ public class RpgInventoryItem extends Item {
 		
 		ItemStack stack = player.getHeldItem(hand);
 		
-		if(stack != null)
+		if(stack != ItemStack.EMPTY)
 			if(stack.getItem() instanceof RpgInventoryItem){
 				RpgPlayerInventory inventory = player.getCapability(RpgInventoryCapability.CAPABILITY,null);
 				switch(((RpgInventoryItem)stack.getItem()).armorType){
 				case NECKLACE :
-					if(inventory.getNecklace() == null){
+					if(inventory.getNecklace() == ItemStack.EMPTY){
 						inventory.setJewel(SlotIndex.SLOT_NECKLACE, stack);
-						player.setHeldItem(hand, null);
+						player.setHeldItem(hand, ItemStack.EMPTY);
 					}else{
 						player.setHeldItem(hand, inventory.getNecklace());
 						inventory.setJewel(SlotIndex.SLOT_NECKLACE, stack);
 					}
 					break;
 				case CAPE:
-					if(inventory.getCloak() == null){
+					if(inventory.getCloak() == ItemStack.EMPTY){
 						inventory.setJewel(SlotIndex.SLOT_CLOAK, stack);
-						player.setHeldItem(hand, null);
+						player.setHeldItem(hand, ItemStack.EMPTY);
 					}else{
 						player.setHeldItem(hand, inventory.getCloak());
 						inventory.setJewel(SlotIndex.SLOT_CLOAK, stack);
 					}
 					break;
 				case CRYSTAL:
-					if(inventory.getCrystal() == null){
+					if(inventory.getCrystal() == ItemStack.EMPTY){
 						inventory.setJewel(SlotIndex.SLOT_CRYSTAL, stack);
-						player.setHeldItem(hand, null);
+						player.setHeldItem(hand, ItemStack.EMPTY);
 					}else{
 						player.setHeldItem(hand, inventory.getCrystal());
 						inventory.setJewel(SlotIndex.SLOT_CRYSTAL, stack);
 					}
 					break;
 				case GLOVES:
-					if(inventory.getGloves() == null){
+					if(inventory.getGloves() == ItemStack.EMPTY){
 						inventory.setJewel(SlotIndex.SLOT_GLOVES, stack);
-						player.setHeldItem(hand, null);
+						player.setHeldItem(hand, ItemStack.EMPTY);
 					}else{
 						player.setHeldItem(hand, inventory.getGloves());
 						inventory.setJewel(SlotIndex.SLOT_GLOVES, stack);
 					}
 					break;
 				case RING:
-					if(inventory.getRing_1() == null){
+					if(inventory.getRing_1() == ItemStack.EMPTY){
 						inventory.setJewel(SlotIndex.SLOT_RING1, stack);
-						player.setHeldItem(hand, null);
-					}else if(inventory.getRing_2() == null){
+						player.setHeldItem(hand, ItemStack.EMPTY);
+					}else if(inventory.getRing_2() == ItemStack.EMPTY){
 						inventory.setJewel(SlotIndex.SLOT_RING2, stack);
-						player.setHeldItem(hand, null);
+						player.setHeldItem(hand, ItemStack.EMPTY);
 					}else{ //only switches out the first worn ring
 						player.setHeldItem(hand, inventory.getRing_1());
 						inventory.setJewel(SlotIndex.SLOT_RING1, stack);

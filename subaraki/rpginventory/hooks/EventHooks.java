@@ -50,7 +50,7 @@ public class EventHooks {
 
 				for(int slot = 0; slot < inventory.getTheRpgInventory().getSlots(); slot++){
 					ItemStack stack = inventory.getTheRpgInventory().getStackInSlot(slot);
-					if(stack != null){
+					if(stack != ItemStack.EMPTY){
 						player.dropItem(stack, true, false);
 						inventory.getTheRpgInventory().setStackInSlot(slot, ItemStack.EMPTY);
 					}

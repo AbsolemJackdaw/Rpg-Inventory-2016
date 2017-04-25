@@ -49,47 +49,47 @@ public class ContainerRpg extends Container {
 		int indexPlayerInventory = slotnumber - 6; //6 is isze of custom inv
 		if ((indexPlayerInventory) >= 0) {
 			ItemStack tmp1 = player.inventory.getStackInSlot(indexPlayerInventory);
-			if ((tmp1 != null) && (tmp1.getItem() instanceof RpgInventoryItem)) {
+			if ((tmp1.getItem() instanceof RpgInventoryItem)) {
 				RpgInventoryItem tmp = (RpgInventoryItem) tmp1.getItem();
 
 				switch (tmp.armorType) {
 				case NECKLACE:
-					if (((SlotJewels)getSlot(0)).getStack() != null)
-						return null;
+					if (((SlotJewels)getSlot(0)).getStack() != ItemStack.EMPTY)
+						return ItemStack.EMPTY;
 					player.inventory.setItemStack(player.inventory.getStackInSlot(indexPlayerInventory));
-					player.inventory.setInventorySlotContents(indexPlayerInventory, null);
+					player.inventory.setInventorySlotContents(indexPlayerInventory, ItemStack.EMPTY);
 					this.slotClick(0, 0, ClickType.PICKUP, player);
 					break;
 				case CRYSTAL:
-					if (((SlotJewels) this.getSlot(1)).getStack() != null)
-						return null;
+					if (((SlotJewels) this.getSlot(1)).getStack() != ItemStack.EMPTY)
+						return ItemStack.EMPTY;
 					if (tmp1.getItemDamage() == 0)
-						return null;
+						return ItemStack.EMPTY;
 					player.inventory.setItemStack(player.inventory.getStackInSlot(indexPlayerInventory));
-					player.inventory.setInventorySlotContents(indexPlayerInventory,null);
+					player.inventory.setInventorySlotContents(indexPlayerInventory,ItemStack.EMPTY);
 					this.slotClick(1, 0, ClickType.PICKUP, player);
 					break;
 				case CAPE:
-					if (((SlotJewels) this.getSlot(2)).getStack() != null)
-						return null;
+					if (((SlotJewels) this.getSlot(2)).getStack() != ItemStack.EMPTY)
+						return ItemStack.EMPTY;
 					player.inventory.setItemStack(player.inventory.getStackInSlot(indexPlayerInventory));
-					player.inventory.setInventorySlotContents(indexPlayerInventory,null);
+					player.inventory.setInventorySlotContents(indexPlayerInventory,ItemStack.EMPTY);
 					this.slotClick(2, 0, ClickType.PICKUP, player);
 					break;
 				case GLOVES:
-					if (((SlotJewels) this.getSlot(3)).getStack() != null)
-						return null;
+					if (((SlotJewels) this.getSlot(3)).getStack() != ItemStack.EMPTY)
+						return ItemStack.EMPTY;
 					player.inventory.setItemStack(player.inventory.getStackInSlot(indexPlayerInventory));
-					player.inventory.setInventorySlotContents(indexPlayerInventory,null);
+					player.inventory.setInventorySlotContents(indexPlayerInventory,ItemStack.EMPTY);
 					this.slotClick(3, 0, ClickType.PICKUP, player);
 					break;
 				case RING:
-					if ((((SlotJewels) this.getSlot(4)).getStack() != null) &&
-							(((SlotJewels) this.getSlot(5)).getStack() != null))
-						return null;
+					if ((((SlotJewels) this.getSlot(4)).getStack() != ItemStack.EMPTY) &&
+							(((SlotJewels) this.getSlot(5)).getStack() != ItemStack.EMPTY))
+						return ItemStack.EMPTY;
 					player.inventory.setItemStack(player.inventory.getStackInSlot(indexPlayerInventory));
-					player.inventory.setInventorySlotContents(indexPlayerInventory,null);
-					if (((SlotJewels) this.getSlot(4)).getStack() == null)
+					player.inventory.setInventorySlotContents(indexPlayerInventory,ItemStack.EMPTY);
+					if (((SlotJewels) this.getSlot(4)).getStack() == ItemStack.EMPTY)
 						this.slotClick(4, 0, ClickType.PICKUP, player);
 					else
 						this.slotClick(5, 0, ClickType.PICKUP, player);
@@ -100,15 +100,15 @@ public class ContainerRpg extends Container {
 		else if (inventory!= null) {
 			int i = 0;
 			for (ItemStack is : player.inventory.mainInventory) {
-				if (is == null) {
+				if (is == ItemStack.EMPTY) {
 					player.inventory.setInventorySlotContents(i,inventory.getTheRpgInventory().getStackInSlot(slotnumber));
-					inventory.getTheRpgInventory().setStackInSlot(slotnumber, null);
+					inventory.getTheRpgInventory().setStackInSlot(slotnumber, ItemStack.EMPTY);
 
-					return null;
+					return ItemStack.EMPTY;
 				}
 				i++;
 			}
 		}
-		return null;
+		return ItemStack.EMPTY;
 	}
 }

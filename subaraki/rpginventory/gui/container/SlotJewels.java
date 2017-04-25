@@ -15,7 +15,7 @@ public class SlotJewels extends SlotItemHandler{
 	@Override
 	public boolean isItemValid(ItemStack stack) {
 
-		if(stack == null || stack.getItem() == null || !(stack.getItem() instanceof RpgInventoryItem))
+		if(stack == ItemStack.EMPTY || stack.getItem() == null || !(stack.getItem() instanceof RpgInventoryItem))
 			return false;
 
 		RpgInventoryItem jewel = (RpgInventoryItem) stack.getItem();

@@ -29,7 +29,7 @@ public class RenderCapeLayer implements LayerRenderer<AbstractClientPlayer>{
     	ItemStack cloak = inventory.getCloak();
     	
     	
-    	if (cloak == null)
+    	if (cloak == ItemStack.EMPTY)
 			return;
 
 		if (cloak.getItem() == null)
@@ -38,7 +38,7 @@ public class RenderCapeLayer implements LayerRenderer<AbstractClientPlayer>{
 		RpgInventoryItem item = (RpgInventoryItem)cloak.getItem();			
 		ItemStack itemstack = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 
-		if (itemstack == null || itemstack.getItem() != Items.ELYTRA){
+		if (itemstack == ItemStack.EMPTY || itemstack.getItem() != Items.ELYTRA){
 
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			playerRenderer.bindTexture(item.getRenderOnPlayerTexture());

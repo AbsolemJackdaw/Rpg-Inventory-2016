@@ -81,7 +81,7 @@ public class JeweleryEffectsHandler {
 	private void getEmeraldNecklaceEffect(LivingExperienceDropEvent event) {
 		EntityPlayer player = event.getAttackingPlayer();
 
-		if(player == null || player.getCapability(RpgInventoryCapability.CAPABILITY,null).getNecklace() == null)
+		if(player == null || player.getCapability(RpgInventoryCapability.CAPABILITY,null).getNecklace() == ItemStack.EMPTY)
 			return;
 
 		ItemStack necklace = player.getCapability(RpgInventoryCapability.CAPABILITY,null).getNecklace();
@@ -106,13 +106,13 @@ public class JeweleryEffectsHandler {
 
 		float extraDamage = 0;
 
-		if(inventory.getNecklace()!= null && inventory.getNecklace().getItem().getUnlocalizedName().contains("lapis"))
+		if(inventory.getNecklace()!= ItemStack.EMPTY && inventory.getNecklace().getItem().getUnlocalizedName().contains("lapis"))
 			extraDamage +=1.75;
-		if(inventory.getGloves()  != null && inventory.getGloves().getItem().getUnlocalizedName().contains("lapis"))
+		if(inventory.getGloves()  != ItemStack.EMPTY && inventory.getGloves().getItem().getUnlocalizedName().contains("lapis"))
 			extraDamage +=1.75;
-		if(inventory.getRing_1()  != null && inventory.getRing_1().getItem().getUnlocalizedName().contains("lapis"))
+		if(inventory.getRing_1()  != ItemStack.EMPTY && inventory.getRing_1().getItem().getUnlocalizedName().contains("lapis"))
 			extraDamage +=1.75;
-		if(inventory.getRing_2()  != null && inventory.getRing_2().getItem().getUnlocalizedName().contains("lapis"))
+		if(inventory.getRing_2()  != ItemStack.EMPTY && inventory.getRing_2().getItem().getUnlocalizedName().contains("lapis"))
 			extraDamage +=1.75;
 
 		if(extraDamage > 0)
@@ -125,7 +125,7 @@ public class JeweleryEffectsHandler {
 
 		RpgPlayerInventory inventory = ((EntityPlayer)event.getEntityLiving()).getCapability(RpgInventoryCapability.CAPABILITY, null);
 
-		if(inventory.getGloves() == null || inventory.getGloves().getItem()== null)
+		if(inventory.getGloves() == ItemStack.EMPTY || inventory.getGloves().getItem()== null)
 			return;
 
 		if(inventory.getGloves().getItem().getUnlocalizedName().contains("emerald")){
@@ -162,13 +162,13 @@ public class JeweleryEffectsHandler {
 
 			int delay = 75;
 
-			if(inventory.getNecklace()!= null && inventory.getNecklace().getItem().getUnlocalizedName().contains("diamond"))
+			if(inventory.getNecklace()!= ItemStack.EMPTY && inventory.getNecklace().getItem().getUnlocalizedName().contains("diamond"))
 				delay -=10;
-			if(inventory.getGloves()  != null && inventory.getGloves().getItem().getUnlocalizedName().contains("diamond"))
+			if(inventory.getGloves()  != ItemStack.EMPTY && inventory.getGloves().getItem().getUnlocalizedName().contains("diamond"))
 				delay -=10;
-			if(inventory.getRing_1()  != null && inventory.getRing_1().getItem().getUnlocalizedName().contains("diamond"))
+			if(inventory.getRing_1()  != ItemStack.EMPTY && inventory.getRing_1().getItem().getUnlocalizedName().contains("diamond"))
 				delay -=10;
-			if(inventory.getRing_2()  != null && inventory.getRing_2().getItem().getUnlocalizedName().contains("diamond"))
+			if(inventory.getRing_2()  != ItemStack.EMPTY && inventory.getRing_2().getItem().getUnlocalizedName().contains("diamond"))
 				delay -=10;
 
 			if(delay == 75)
@@ -187,7 +187,7 @@ public class JeweleryEffectsHandler {
 		if(event.getEntityPlayer() != null)
 		{
 			RpgPlayerInventory inventory = event.getEntityPlayer().getCapability(RpgInventoryCapability.CAPABILITY, null);
-			if(inventory== null || inventory.getRing_2() == null || !(inventory.getRing_2().getItem() instanceof RpgInventoryItem))
+			if(inventory== null || inventory.getRing_2() == ItemStack.EMPTY || !(inventory.getRing_2().getItem() instanceof RpgInventoryItem))
 				return;
 
 			if(inventory.getRing_2().getItem().getUnlocalizedName().contains("emerald"))
@@ -204,7 +204,7 @@ public class JeweleryEffectsHandler {
 
 		RpgPlayerInventory inventory = event.player.getCapability(RpgInventoryCapability.CAPABILITY, null);
 
-		if(inventory.getRing_1() == null || (inventory.getRing_1().getItem() == null || !inventory.getRing_1().getItem().getUnlocalizedName().contains("emerald")))
+		if(inventory.getRing_1() == ItemStack.EMPTY || (inventory.getRing_1().getItem() == null || !inventory.getRing_1().getItem().getUnlocalizedName().contains("emerald")))
 			return;
 
 		for(PotionEffect pe : event.player.getActivePotionEffects()){
@@ -219,13 +219,13 @@ public class JeweleryEffectsHandler {
 		RpgPlayerInventory inventory = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
 		int numberofgoldjewels = 0;
 
-		if(inventory.getGloves() != null && inventory.getGloves().getItem().getUnlocalizedName().contains("gold"))
+		if(inventory.getGloves() != ItemStack.EMPTY && inventory.getGloves().getItem().getUnlocalizedName().contains("gold"))
 				numberofgoldjewels++;
-		if(inventory.getNecklace() != null && inventory.getNecklace().getItem().getUnlocalizedName().contains("gold"))
+		if(inventory.getNecklace() != ItemStack.EMPTY && inventory.getNecklace().getItem().getUnlocalizedName().contains("gold"))
 				numberofgoldjewels++;
-		if(inventory.getRing_1() != null && inventory.getRing_1().getItem().getUnlocalizedName().contains("gold"))
+		if(inventory.getRing_1() != ItemStack.EMPTY && inventory.getRing_1().getItem().getUnlocalizedName().contains("gold"))
 				numberofgoldjewels++;
-		if(inventory.getRing_2() != null && inventory.getRing_2().getItem().getUnlocalizedName().contains("gold"))
+		if(inventory.getRing_2() != ItemStack.EMPTY && inventory.getRing_2().getItem().getUnlocalizedName().contains("gold"))
 				numberofgoldjewels++;
 
 		if(numberofgoldjewels == 0)

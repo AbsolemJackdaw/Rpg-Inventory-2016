@@ -28,7 +28,7 @@ public class RenderNecklaceLayer implements LayerRenderer<AbstractClientPlayer>{
 		
 		ItemStack necklace = inventory.getNecklace();
 		
-		if(necklace == null)
+		if(necklace == ItemStack.EMPTY)
 			return;
 		if (necklace.getItem() == null)
 			return;
@@ -48,7 +48,7 @@ public class RenderNecklaceLayer implements LayerRenderer<AbstractClientPlayer>{
 		
 		rp.getMainModel().bipedBody.postRender(0.0625f);
 	
-		if (chest != null)
+		if (chest != ItemStack.EMPTY)
 			GlStateManager.translate(0F, -0.005F, -0.06F);
 		else
 			GlStateManager.translate(0F, -0.005F, 0.0F);
