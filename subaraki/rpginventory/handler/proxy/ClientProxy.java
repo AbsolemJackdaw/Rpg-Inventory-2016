@@ -26,6 +26,7 @@ import static subaraki.rpginventory.item.RpgItems.lapis_gloves;
 import static subaraki.rpginventory.item.RpgItems.lapis_necklace;
 import static subaraki.rpginventory.item.RpgItems.lapis_ring;
 
+import lib.fashion.LayerInjector;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
@@ -145,9 +146,13 @@ public class ClientProxy extends ServerProxy {
 
 		for(String type : types){
 			RenderPlayer renderer = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get(type));
-			renderer.addLayer(new RenderCapeLayer(renderer));
 			renderer.addLayer(new RenderNecklaceLayer(renderer));
 			renderer.addLayer(new RenderGloveLayer(renderer));
+			
+			RenderCapeLayer cape = new RenderCapeLayer(renderer);
+			renderer.addLayer(cape);
+			
+			LayerInjector.injectLayerToFashionRendering(cape);
 		}
 	}
 }
