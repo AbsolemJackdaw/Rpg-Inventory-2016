@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
-import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
+import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 
 public class PacketInventoryToServerAndTrackedPlayers implements IMessage {
 
@@ -21,10 +21,10 @@ public class PacketInventoryToServerAndTrackedPlayers implements IMessage {
 	}
 
 	public PacketInventoryToServerAndTrackedPlayers(EntityPlayer player) {
-		RpgPlayerInventory inv = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
+		RpgInventoryData inv = RpgInventoryData.get(player);
 
 		for(int i = 0; i < stack.length; i ++)
-			stack[i] = inv.getTheRpgInventory().getStackInSlot(i);
+			stack[i] = inv.getInventory().getStackInSlot(i);
 	}
 
 	@Override
@@ -46,15 +46,15 @@ public class PacketInventoryToServerAndTrackedPlayers implements IMessage {
 		@Override
 		public IMessage onMessage(PacketInventoryToServerAndTrackedPlayers message,MessageContext ctx) {
 
-			EntityPlayer player = (EntityPlayer)ctx.getServerHandler().playerEntity;
+			EntityPlayer player = (EntityPlayer)ctx.getServerHandler().player;
 			WorldServer server = (WorldServer)player.world;
 
 			server.addScheduledTask( ()->{
 
-				RpgPlayerInventory rpg = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
+				RpgInventoryData rpg = RpgInventoryData.get(player);
 
 				for (int i = 0; i < message.stack.length; i++){
-					rpg.getTheRpgInventory().setStackInSlot(i,message.stack[i]);
+					rpg.getInventory().setStackInSlot(i,message.stack[i]);
 				}
 				
 				EntityTracker tracker = server.getEntityTracker();

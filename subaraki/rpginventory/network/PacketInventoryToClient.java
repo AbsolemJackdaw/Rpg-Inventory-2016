@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
-import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
+import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.mod.RpgInventory;
 
 public class PacketInventoryToClient implements IMessage {
@@ -20,10 +20,8 @@ public class PacketInventoryToClient implements IMessage {
 	}
 
 	public PacketInventoryToClient(EntityPlayer player) {
-		RpgPlayerInventory inv = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
-
 		for(int i = 0; i < stack.length; i ++)
-			stack[i] = inv.getTheRpgInventory().getStackInSlot(i);
+			stack[i] = RpgInventoryData.get(player).getInventory().getStackInSlot(i);
 	}
 
 	@Override
@@ -48,12 +46,13 @@ public class PacketInventoryToClient implements IMessage {
 				EntityPlayer player = RpgInventory.proxy.getClientPlayer();
 
 				if(player == null)
+				{
+					RpgInventory.log.error("could not sync client with inventory !");
 					return;
-
-				RpgPlayerInventory rpg = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
-
+				}
+				
 				for (int i = 0; i < message.stack.length; i++){
-					rpg.getTheRpgInventory().setStackInSlot(i,message.stack[i]);
+					RpgInventoryData.get(player).getInventory().setStackInSlot(i,message.stack[i]);
 				}
 			});
 			return null;

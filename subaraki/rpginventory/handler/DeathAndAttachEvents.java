@@ -1,4 +1,4 @@
-package subaraki.rpginventory.hooks;
+package subaraki.rpginventory.handler;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,11 +12,11 @@ import net.minecraftforge.event.entity.player.PlayerEvent.Clone;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import subaraki.rpginventory.capability.playerinventory.CapabilityInventoryProvider;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
-import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
+import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 
-public class EventHooks {
+public class DeathAndAttachEvents {
 
-	public EventHooks() {
+	public DeathAndAttachEvents() {
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
@@ -29,30 +29,20 @@ public class EventHooks {
 	}
 
 	@SubscribeEvent
-	public void onLivingUpdateEvent(LivingUpdateEvent event){
-		if (!(event.getEntityLiving() instanceof EntityPlayer))
-			return;
-
-		EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-
-		if (player == null)
-			return;
-
-	}
-
-	@SubscribeEvent
 	public void onDeathEvent(LivingDeathEvent event){
 		if(event.getEntityLiving() instanceof EntityPlayer){
 			EntityPlayer player = (EntityPlayer)event.getEntityLiving();
 
 			if (!player.world.getGameRules().getBoolean("keepInventory")){
-				RpgPlayerInventory inventory = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
+				RpgInventoryData data = RpgInventoryData.get(player);
 
-				for(int slot = 0; slot < inventory.getTheRpgInventory().getSlots(); slot++){
-					ItemStack stack = inventory.getTheRpgInventory().getStackInSlot(slot);
-					if(stack != ItemStack.EMPTY){
+				for(int slot = 0; slot < data.getInventory().getSlots(); slot++)
+				{
+					ItemStack stack = data.getInventory().getStackInSlot(slot);
+					if(!stack.isEmpty())
+					{
 						player.dropItem(stack, true, false);
-						inventory.getTheRpgInventory().setStackInSlot(slot, ItemStack.EMPTY);
+						data.getInventory().setStackInSlot(slot, ItemStack.EMPTY);
 					}
 				}
 			}
@@ -62,9 +52,10 @@ public class EventHooks {
 	@SubscribeEvent
 	public void onClone(Clone event){
 
-		if (event.getEntityPlayer().world.getGameRules().getBoolean("keepInventory")){
-			RpgPlayerInventory inventory = event.getEntityPlayer().getCapability(RpgInventoryCapability.CAPABILITY, null);
-			RpgPlayerInventory inventory_original = event.getOriginal().getCapability(RpgInventoryCapability.CAPABILITY, null);
+		if (event.getEntityPlayer().world.getGameRules().getBoolean("keepInventory"))
+		{
+			RpgInventoryData inventory = RpgInventoryData.get(event.getEntityPlayer());
+			RpgInventoryData inventory_original = RpgInventoryData.get(event.getOriginal());
 			NBTTagCompound tag = (NBTTagCompound) inventory.writeData();
 			inventory_original.readData(tag);
 		}

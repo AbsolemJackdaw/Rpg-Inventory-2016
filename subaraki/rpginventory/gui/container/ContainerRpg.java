@@ -5,14 +5,14 @@ import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
+import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.item.RpgInventoryItem;
 
 public class ContainerRpg extends Container {
 
-	private RpgPlayerInventory inventory;
+	private RpgInventoryData inventory;
 
-	public ContainerRpg(EntityPlayer player, RpgPlayerInventory inv) {
+	public ContainerRpg(EntityPlayer player, RpgInventoryData inv) {
 		inventory = inv;
 
 		this.addSlotToContainer(new SlotJewels(inventory, 0, 6, 16));// necklace
@@ -101,8 +101,8 @@ public class ContainerRpg extends Container {
 			int i = 0;
 			for (ItemStack is : player.inventory.mainInventory) {
 				if (is == ItemStack.EMPTY) {
-					player.inventory.setInventorySlotContents(i,inventory.getTheRpgInventory().getStackInSlot(slotnumber));
-					inventory.getTheRpgInventory().setStackInSlot(slotnumber, ItemStack.EMPTY);
+					player.inventory.setInventorySlotContents(i,inventory.getInventory().getStackInSlot(slotnumber));
+					inventory.getInventory().setStackInSlot(slotnumber, ItemStack.EMPTY);
 
 					return ItemStack.EMPTY;
 				}

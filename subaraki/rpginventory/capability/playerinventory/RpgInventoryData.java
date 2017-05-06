@@ -6,13 +6,15 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import subaraki.rpginventory.enums.SlotIndex;
 
-public class RpgPlayerInventory {
+public class RpgInventoryData {
 
 	private RpgStackHandler inventory;
-
+	
+	private int healCounter = 0;
+	
 	private EntityPlayer player;
 
-	public RpgPlayerInventory(){
+	public RpgInventoryData(){
 		inventory = new RpgStackHandler();
 	}
 
@@ -24,16 +26,20 @@ public class RpgPlayerInventory {
 		this.player = newPlayer;
 	}
 
+	public static RpgInventoryData get(EntityPlayer player)
+	{
+		return player.getCapability(RpgInventoryCapability.CAPABILITY, null);
+	}
 	/*
 	 * Internal method used by IStorage in the capability
 	 */
-	public RpgStackHandler getTheRpgInventory(){
+	public RpgStackHandler getInventory(){
 		return inventory;
 	}
 
 	public NBTBase writeData(){
 		//hook into the tagcompound of the ItemStackHandler
-		NBTTagCompound tag = getTheRpgInventory().serializeNBT();
+		NBTTagCompound tag = getInventory().serializeNBT();
 		//add our own tags
 		//none here
 		//save mix of itemstacks and personal tags
@@ -41,35 +47,47 @@ public class RpgPlayerInventory {
 	}
 	
 	public void readData(NBTBase nbt){
-		getTheRpgInventory().deserializeNBT((NBTTagCompound)nbt);
+		getInventory().deserializeNBT((NBTTagCompound)nbt);
 
 	}
 	
 	public ItemStack getCloak(){
-		return getTheRpgInventory().getStackInSlot(SlotIndex.SLOT_CLOAK.ordinal());
+		return getInventory().getStackInSlot(SlotIndex.SLOT_CLOAK.ordinal());
 	}
 	
 	public ItemStack getNecklace(){
-		return getTheRpgInventory().getStackInSlot(SlotIndex.SLOT_NECKLACE.ordinal());
+		return getInventory().getStackInSlot(SlotIndex.SLOT_NECKLACE.ordinal());
 	}
 	
 	public ItemStack getCrystal(){
-		return getTheRpgInventory().getStackInSlot(SlotIndex.SLOT_CRYSTAL.ordinal());
+		return getInventory().getStackInSlot(SlotIndex.SLOT_CRYSTAL.ordinal());
 	}
 	
 	public ItemStack getRing_1(){
-		return getTheRpgInventory().getStackInSlot(SlotIndex.SLOT_RING1.ordinal());
+		return getInventory().getStackInSlot(SlotIndex.SLOT_RING1.ordinal());
 	}
 	
 	public ItemStack getRing_2(){
-		return getTheRpgInventory().getStackInSlot(SlotIndex.SLOT_RING2.ordinal());
+		return getInventory().getStackInSlot(SlotIndex.SLOT_RING2.ordinal());
 	}
 	
 	public ItemStack getGloves(){
-		return getTheRpgInventory().getStackInSlot(SlotIndex.SLOT_GLOVES.ordinal());
+		return getInventory().getStackInSlot(SlotIndex.SLOT_GLOVES.ordinal());
 	}
 	
 	public void setJewel(SlotIndex type, ItemStack stack){
-		getTheRpgInventory().setStackInSlot(type.ordinal(), stack);
+		getInventory().setStackInSlot(type.ordinal(), stack);
+	}
+	
+	public int getHealCounter() {
+		return healCounter;
+	}
+	
+	public void setHealCounter(int healCounter) {
+		this.healCounter = healCounter;
+	}
+	
+	public void tickHealCounter(){
+		this.healCounter--;
 	}
 }

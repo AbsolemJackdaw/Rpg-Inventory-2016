@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
-import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
+import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.mod.RpgInventory;
 
 /**
@@ -28,12 +28,12 @@ public class PacketInventoryToTrackedPlayer implements IMessage {
 	}
 
 	public PacketInventoryToTrackedPlayer(EntityPlayer player) {
-		RpgPlayerInventory inv = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
+		RpgInventoryData inv = RpgInventoryData.get(player);
 
 		otherUser = player.getEntityId();
 
 		for (int i = 0; i < stack.length; i++){
-			stack[i] = inv.getTheRpgInventory().getStackInSlot(i);
+			stack[i] = inv.getInventory().getStackInSlot(i);
 		}
 	}
 
@@ -64,10 +64,10 @@ public class PacketInventoryToTrackedPlayer implements IMessage {
 				EntityPlayer other = (EntityPlayer)RpgInventory.proxy.getClientWorld().getEntityByID(message.otherUser);
 
 				if(other != null){
-					RpgPlayerInventory rpg = other.getCapability(RpgInventoryCapability.CAPABILITY, null);
+					RpgInventoryData rpg = RpgInventoryData.get(other);
 					if(rpg != null)
 						for (int i = 0; i < message.stack.length; i++)
-							rpg.getTheRpgInventory().setStackInSlot(i,message.stack[i]);
+							rpg.getInventory().setStackInSlot(i,message.stack[i]);
 					else
 						FMLLog.getLogger().info("packet info. 'inventory' was null. dropping packet");
 				}else

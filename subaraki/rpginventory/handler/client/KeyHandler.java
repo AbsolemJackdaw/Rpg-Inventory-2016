@@ -1,4 +1,4 @@
-package subaraki.rpginventory.handler;
+package subaraki.rpginventory.handler.client;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

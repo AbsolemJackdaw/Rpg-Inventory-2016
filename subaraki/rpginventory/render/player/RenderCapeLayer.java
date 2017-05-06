@@ -9,7 +9,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
-import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
+import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.item.RpgInventoryItem;
 
 public class RenderCapeLayer implements LayerRenderer<AbstractClientPlayer>{
@@ -25,7 +25,7 @@ public class RenderCapeLayer implements LayerRenderer<AbstractClientPlayer>{
     public void doRenderLayer(AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale)
     {
     	/**copy of @Link LayerCape*/
-    	RpgPlayerInventory inventory = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
+    	RpgInventoryData inventory = RpgInventoryData.get(player);
     	ItemStack cloak = inventory.getCloak();
     	
     	

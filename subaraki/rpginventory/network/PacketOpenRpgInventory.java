@@ -30,8 +30,8 @@ public class PacketOpenRpgInventory implements IMessage{
 
 		@Override
 		public IMessage onMessage(PacketOpenRpgInventory message, MessageContext ctx) {
-			((WorldServer)ctx.getServerHandler().playerEntity.world).addScheduledTask(() -> {
-				EntityPlayerMP player_mp = ctx.getServerHandler().playerEntity;
+			((WorldServer)ctx.getServerHandler().player.world).addScheduledTask(() -> {
+				EntityPlayerMP player_mp = ctx.getServerHandler().player;
 				World world = player_mp.world;
 
 				FMLNetworkHandler.openGui(

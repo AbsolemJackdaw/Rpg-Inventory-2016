@@ -1,4 +1,4 @@
-package subaraki.rpginventory.hooks;
+package subaraki.rpginventory.handler;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,13 +21,12 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
-import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
+import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.item.RpgInventoryItem;
 import subaraki.rpginventory.item.RpgItems;
+import subaraki.rpginventory.mod.RpgInventory;
 
 public class JeweleryEffectsHandler {
-
-	public static final Map<String, Integer> healEffectMap = new HashMap<String /*playername*/, Integer/*ticktime*/>();
 
 	public static final UUID speedUuid_low = UUID.randomUUID();
 	public static final UUID speedUuid_mid = UUID.randomUUID();
@@ -41,13 +40,6 @@ public class JeweleryEffectsHandler {
 
 	public JeweleryEffectsHandler() {
 		MinecraftForge.EVENT_BUS.register(this);
-	}
-
-	@SubscribeEvent
-	public void serverTick(WorldTickEvent event){
-		if(!event.side.equals(Side.SERVER))
-			return;
-		getRegenFromDiamondJewelry(event);
 	}
 
 	@SubscribeEvent
@@ -66,6 +58,7 @@ public class JeweleryEffectsHandler {
 
 		getGoldenSpeedBoost(event.player);
 		getEmeraldRingEffect2(event);
+		getRegenFromDiamondJewelry(event);
 	}
 
 	@SubscribeEvent
@@ -81,10 +74,10 @@ public class JeweleryEffectsHandler {
 	private void getEmeraldNecklaceEffect(LivingExperienceDropEvent event) {
 		EntityPlayer player = event.getAttackingPlayer();
 
-		if(player == null || player.getCapability(RpgInventoryCapability.CAPABILITY,null).getNecklace() == ItemStack.EMPTY)
+		if(player == null || RpgInventoryData.get(player).getNecklace() == ItemStack.EMPTY)
 			return;
 
-		ItemStack necklace = player.getCapability(RpgInventoryCapability.CAPABILITY,null).getNecklace();
+		ItemStack necklace = RpgInventoryData.get(player).getNecklace();
 
 		if(necklace.getItem() == null|| !necklace.getItem().equals(RpgItems.emerald_necklace))
 			return;
@@ -102,7 +95,7 @@ public class JeweleryEffectsHandler {
 
 		EntityPlayer player = (EntityPlayer)damager;
 
-		RpgPlayerInventory inventory = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
+		RpgInventoryData inventory = RpgInventoryData.get(player);
 
 		float extraDamage = 0;
 
@@ -123,7 +116,7 @@ public class JeweleryEffectsHandler {
 		if(!(event.getEntityLiving() instanceof EntityPlayer))
 			return;
 
-		RpgPlayerInventory inventory = ((EntityPlayer)event.getEntityLiving()).getCapability(RpgInventoryCapability.CAPABILITY, null);
+		RpgInventoryData inventory = RpgInventoryData.get(((EntityPlayer)event.getEntityLiving()));
 
 		if(inventory.getGloves() == ItemStack.EMPTY || inventory.getGloves().getItem()== null)
 			return;
@@ -135,58 +128,48 @@ public class JeweleryEffectsHandler {
 		}
 	}
 
-	private void getRegenFromDiamondJewelry(WorldTickEvent event){
+	private void getRegenFromDiamondJewelry(PlayerTickEvent event){
 
-		for(String playername : healEffectMap.keySet()){
-
-			//if the player disconnected, or doesn't exist
-			EntityPlayer player = event.world.getMinecraftServer().getPlayerList().getPlayerByUsername(playername);
-
-			if(player == null){
-				healEffectMap.remove(playername);
-				break;//break to prevent concurrent modification
-			}
-
-			//if the player has a counter, subtract 1 from counter
-			if(healEffectMap.get(playername) > 0){
-				healEffectMap.put(playername, healEffectMap.get(playername) - 1);
-				continue;
-			}
-
-			//only calculate new timer when the player needs healing !
-			if (player.getHealth() >= player.getMaxHealth())
-				continue;
-
-			//if the player has lost health and has no counter : calculate time, and put it in map.
-			RpgPlayerInventory inventory = player.getCapability(RpgInventoryCapability.CAPABILITY,null);
-
-			int delay = 75;
-
-			if(inventory.getNecklace()!= ItemStack.EMPTY && inventory.getNecklace().getItem().getUnlocalizedName().contains("diamond"))
-				delay -=10;
-			if(inventory.getGloves()  != ItemStack.EMPTY && inventory.getGloves().getItem().getUnlocalizedName().contains("diamond"))
-				delay -=10;
-			if(inventory.getRing_1()  != ItemStack.EMPTY && inventory.getRing_1().getItem().getUnlocalizedName().contains("diamond"))
-				delay -=10;
-			if(inventory.getRing_2()  != ItemStack.EMPTY && inventory.getRing_2().getItem().getUnlocalizedName().contains("diamond"))
-				delay -=10;
-
-			if(delay == 75)
-				continue;
-
-			//at this point, the player needs healing, and the timer is zero 
-			if(healEffectMap.get(playername) == 0)
-				player.heal(1);
-
-			//reset timer to calculated delay
-			healEffectMap.put(playername, delay);
+		EntityPlayer player = event.player;
+		RpgInventoryData data = RpgInventoryData.get(player);
+		
+		if(data.getHealCounter() > 0)
+		{
+			data.tickHealCounter();
+			return; //continue till it reaches 0
 		}
+		
+		//only calculate new timer when the player needs healing !
+		if (player.getHealth() >= player.getMaxHealth())
+			return;
+
+		//if the player has lost health and counter = 0 : calculate time, and put it in map.
+
+		int delay = 75;
+
+		if(data.getNecklace()!= ItemStack.EMPTY && data.getNecklace().getItem().getUnlocalizedName().contains("diamond"))
+			delay -=10;
+		if(data.getGloves()  != ItemStack.EMPTY && data.getGloves().getItem().getUnlocalizedName().contains("diamond"))
+			delay -=10;
+		if(data.getRing_1()  != ItemStack.EMPTY && data.getRing_1().getItem().getUnlocalizedName().contains("diamond"))
+			delay -=10;
+		if(data.getRing_2()  != ItemStack.EMPTY && data.getRing_2().getItem().getUnlocalizedName().contains("diamond"))
+			delay -=10;
+
+		if(delay == 75)
+			return; // no need for healing if nothing is equipped
+
+		//at this point, the player needs healing, and the timer is zero 
+		player.heal(1);
+
+		//reset timer to calculated delay
+		data.setHealCounter(delay);
 	}
 
 	private void getEmeraldRingEffect1(BreakSpeed event) {
 		if(event.getEntityPlayer() != null)
 		{
-			RpgPlayerInventory inventory = event.getEntityPlayer().getCapability(RpgInventoryCapability.CAPABILITY, null);
+			RpgInventoryData inventory = RpgInventoryData.get(event.getEntityPlayer());
 			if(inventory== null || inventory.getRing_2() == ItemStack.EMPTY || !(inventory.getRing_2().getItem() instanceof RpgInventoryItem))
 				return;
 
@@ -202,7 +185,7 @@ public class JeweleryEffectsHandler {
 		if(event.player.getActivePotionEffects().isEmpty())
 			return;
 
-		RpgPlayerInventory inventory = event.player.getCapability(RpgInventoryCapability.CAPABILITY, null);
+		RpgInventoryData inventory = RpgInventoryData.get(event.player);
 
 		if(inventory.getRing_1() == ItemStack.EMPTY || (inventory.getRing_1().getItem() == null || !inventory.getRing_1().getItem().getUnlocalizedName().contains("emerald")))
 			return;
@@ -216,17 +199,17 @@ public class JeweleryEffectsHandler {
 	}
 
 	private void getGoldenSpeedBoost(EntityPlayer player){
-		RpgPlayerInventory inventory = player.getCapability(RpgInventoryCapability.CAPABILITY, null);
+		RpgInventoryData inventory = RpgInventoryData.get(player);
 		int numberofgoldjewels = 0;
 
 		if(inventory.getGloves() != ItemStack.EMPTY && inventory.getGloves().getItem().getUnlocalizedName().contains("gold"))
-				numberofgoldjewels++;
+			numberofgoldjewels++;
 		if(inventory.getNecklace() != ItemStack.EMPTY && inventory.getNecklace().getItem().getUnlocalizedName().contains("gold"))
-				numberofgoldjewels++;
+			numberofgoldjewels++;
 		if(inventory.getRing_1() != ItemStack.EMPTY && inventory.getRing_1().getItem().getUnlocalizedName().contains("gold"))
-				numberofgoldjewels++;
+			numberofgoldjewels++;
 		if(inventory.getRing_2() != ItemStack.EMPTY && inventory.getRing_2().getItem().getUnlocalizedName().contains("gold"))
-				numberofgoldjewels++;
+			numberofgoldjewels++;
 
 		if(numberofgoldjewels == 0)
 			return;

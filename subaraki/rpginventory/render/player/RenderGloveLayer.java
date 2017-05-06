@@ -5,8 +5,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.item.ItemStack;
-import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
-import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
+import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.item.RpgInventoryItem;
 import subaraki.rpginventory.render.models.ModelGloveLeft;
 import subaraki.rpginventory.render.models.ModelGloveRight;
@@ -26,7 +25,7 @@ public class RenderGloveLayer implements LayerRenderer<AbstractClientPlayer>{
 	public void doRenderLayer(AbstractClientPlayer entitylivingbaseIn, float limbSwing, float limbSwingAmount,
 			float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 
-		RpgPlayerInventory inventory = entitylivingbaseIn.getCapability(RpgInventoryCapability.CAPABILITY, null);
+		RpgInventoryData inventory = RpgInventoryData.get(entitylivingbaseIn);
 
 		ItemStack glove = inventory.getGloves();
 

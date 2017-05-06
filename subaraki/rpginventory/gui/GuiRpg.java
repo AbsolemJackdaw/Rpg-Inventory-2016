@@ -4,7 +4,7 @@ import lib.util.DrawEntityOnScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
+import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.gui.container.ContainerRpg;
 import subaraki.rpginventory.mod.RpgInventory;
 import subaraki.rpginventory.network.PacketHandler;
@@ -17,7 +17,7 @@ public class GuiRpg extends GuiContainer {
 	private float oldMouseX;
 	private float oldMouseY;
 
-	public GuiRpg(EntityPlayer player, RpgPlayerInventory inv) {
+	public GuiRpg(EntityPlayer player, RpgInventoryData inv) {
 		super(new ContainerRpg(player, inv));
 	}
 
@@ -28,8 +28,8 @@ public class GuiRpg extends GuiContainer {
 		int posX = (this.width - xSize) / 2;
 		int posY = (this.height - ySize) / 2;
 		drawTexturedModalRect(posX, posY, 0, 0, xSize, ySize);
-		drawString(fontRendererObj, "Rpg", (this.width / 2) + 39,(this.height / 2) - 23, 0xffffff);
-		drawString(fontRendererObj, "Inventory", (this.width / 2) + 39,(this.height / 2) - 15, 0xffffff);
+		drawString(fontRenderer, "Rpg", (this.width / 2) + 39,(this.height / 2) - 23, 0xffffff);
+		drawString(fontRenderer, "Inventory", (this.width / 2) + 39,(this.height / 2) - 15, 0xffffff);
 
 		DrawEntityOnScreen.drawEntityOnScreen(posX + 51, posY + 75, 30, (float)(posX + 51)-oldMouseX, (float)(posY + 75 - 50)-oldMouseY, this.mc.player);
 

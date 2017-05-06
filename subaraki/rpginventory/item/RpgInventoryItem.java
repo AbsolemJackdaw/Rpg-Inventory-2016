@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
-import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
+import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.enums.JewelTypes;
 import subaraki.rpginventory.enums.SlotIndex;
 import subaraki.rpginventory.item.RpgItems.InventoryItem;
@@ -82,7 +82,7 @@ public class RpgInventoryItem extends Item {
 		
 		if(stack != ItemStack.EMPTY)
 			if(stack.getItem() instanceof RpgInventoryItem){
-				RpgPlayerInventory inventory = player.getCapability(RpgInventoryCapability.CAPABILITY,null);
+				RpgInventoryData inventory = RpgInventoryData.get(player);
 				switch(((RpgInventoryItem)stack.getItem()).armorType){
 				case NECKLACE :
 					if(inventory.getNecklace() == ItemStack.EMPTY){

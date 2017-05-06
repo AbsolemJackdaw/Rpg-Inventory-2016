@@ -1,11 +1,11 @@
-package subaraki.rpginventory.handler;
+package subaraki.rpginventory.handler.client;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
-import subaraki.rpginventory.capability.playerinventory.RpgPlayerInventory;
+import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.enums.SlotIndex;
 import subaraki.rpginventory.item.RpgItems;
 
@@ -18,9 +18,9 @@ public class RenderHandler {
 	@SubscribeEvent
 	public void playerPreRendering(RenderPlayerEvent.Pre evt){
 
-		RpgPlayerInventory inventory = evt.getEntityPlayer().getCapability(RpgInventoryCapability.CAPABILITY, null);
+		RpgInventoryData inventory = RpgInventoryData.get(evt.getEntityPlayer());
 
-		ItemStack cloak = inventory.getTheRpgInventory().getStackInSlot(SlotIndex.SLOT_CLOAK.ordinal());
+		ItemStack cloak = inventory.getInventory().getStackInSlot(SlotIndex.SLOT_CLOAK.ordinal());
 
 		if(cloak != ItemStack.EMPTY){
 			if(cloak.getItem() == RpgItems.cloak_Invisible) {

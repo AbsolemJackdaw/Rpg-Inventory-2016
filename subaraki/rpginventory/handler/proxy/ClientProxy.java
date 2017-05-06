@@ -39,7 +39,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.client.settings.KeyModifier;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import subaraki.rpginventory.handler.RenderHandler;
+import subaraki.rpginventory.handler.client.RenderHandler;
 import subaraki.rpginventory.item.RpgInventoryItem;
 import subaraki.rpginventory.item.RpgItems;
 import subaraki.rpginventory.render.player.RenderCapeLayer;

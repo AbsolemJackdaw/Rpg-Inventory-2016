@@ -20,7 +20,7 @@ public class CapabilityInventoryProvider implements ICapabilitySerializable<NBTT
     /**
      * The instance that we are providing
      */
-    final RpgPlayerInventory slots = new RpgPlayerInventory();
+    final RpgInventoryData slots = new RpgInventoryData();
 
     /**gets called before world is initiated. player.worldObj will return null here !*/
     public CapabilityInventoryProvider(EntityPlayer player){
