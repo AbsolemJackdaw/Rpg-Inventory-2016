@@ -9,6 +9,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import subaraki.rpginventory.enums.JewelTypes;
 import subaraki.rpginventory.mod.RpgInventory;
 
@@ -158,10 +159,10 @@ public class RpgItems {
 		};
 
 		for(int i = 0; i <16;i++)
-			GameRegistry.addRecipe(new ItemStack(cloaks[i], 1),
+			GameRegistry.addRecipe(new ShapedOreRecipe( new ItemStack(cloaks[i], 1),
 					new Object[] {"SS", "WW", "WW", 
-							'S', Items.STRING,
-							'W', new ItemStack(Blocks.WOOL, 1, 15-i) });
+							'S', "string",
+							'W', new ItemStack(Blocks.WOOL, 1, 15-i)}));
 
 		for(int i = 0; i <15;i++)
 			GameRegistry.addRecipe(new ItemStack(cloaks[i], 1),
@@ -169,7 +170,8 @@ public class RpgItems {
 							'C', cloakWhite,
 							'D', new ItemStack(Items.DYE, 1, i) });
 
-		ItemStack component[] = new ItemStack[]{new ItemStack(Items.GOLD_NUGGET),new ItemStack(Items.EMERALD),new ItemStack(Items.DIAMOND),new ItemStack(Items.DYE, 4)};
+		//ItemStack component[] = new ItemStack[]{new ItemStack(Items.GOLD_NUGGET),new ItemStack(Items.EMERALD),new ItemStack(Items.DIAMOND),new ItemStack(Items.DYE, 4)};
+		String componentOreDict[] = new String[]{"nuggetGold", "gemEmerald", "gemDiamond", "dyeBlue"};
 		String recipe[][] = new String[][]{{"#IM","I#I","#I#"},/*ring*/{"SS#","SI#","##M"},/*necklace*/{"II#","IMI","#II"}/*gloves*/};
 		ItemStack jewelry[][] = new ItemStack[][]{{new ItemStack(gold_ring),new ItemStack(emerald_ring),new ItemStack(diamond_ring),new ItemStack(lapis_ring)},
 			{new ItemStack(gold_necklace),new ItemStack(emerald_necklace),new ItemStack(diamond_necklace),new ItemStack(lapis_necklace)},
@@ -178,13 +180,13 @@ public class RpgItems {
 
 		for(int i = 0; i < 3 ; i++)
 			for(int j = 0 ; j < 4 ;j++){
-				GameRegistry.addRecipe(jewelry[i][j],
+				GameRegistry.addRecipe(new ShapedOreRecipe(jewelry[i][j],
 						new Object[]{
 								recipe[i][0],recipe[i][1],recipe[i][2],
-								'I',Items.GOLD_INGOT,
-								'S',Items.STRING,
-								'M',component[j]
-				});
+								'I', "ingotGold",
+								'S', "string",
+								'M', componentOreDict[j]
+				}));
 			}
 	}
 	
