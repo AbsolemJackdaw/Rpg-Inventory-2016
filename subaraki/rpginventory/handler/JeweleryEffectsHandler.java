@@ -1,7 +1,5 @@
 package subaraki.rpginventory.handler;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 import net.minecraft.entity.Entity;
@@ -18,13 +16,9 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import subaraki.rpginventory.capability.playerinventory.RpgInventoryCapability;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.item.RpgInventoryItem;
 import subaraki.rpginventory.item.RpgItems;
-import subaraki.rpginventory.mod.RpgInventory;
 
 public class JeweleryEffectsHandler {
 

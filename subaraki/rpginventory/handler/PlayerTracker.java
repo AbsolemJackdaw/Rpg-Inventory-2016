@@ -2,14 +2,11 @@ package subaraki.rpginventory.handler;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent.Clone;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.network.PacketHandler;
 import subaraki.rpginventory.network.PacketInventoryToClient;
 import subaraki.rpginventory.network.PacketInventoryToTrackedPlayer;

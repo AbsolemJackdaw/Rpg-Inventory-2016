@@ -1,6 +1,5 @@
 package subaraki.rpginventory.capability.playerinventory;
 
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class RpgStackHandler extends ItemStackHandler{
