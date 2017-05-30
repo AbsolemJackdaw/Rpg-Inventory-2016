@@ -5,9 +5,11 @@ import java.util.List;
 import net.minecraft.entity.EntityTracker;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -34,7 +36,7 @@ public class RpgInventoryItem extends Item {
 	private int colorState;
 
 	private String modelLocation;
-	
+
 	/**Constructor for external items*/
 	public RpgInventoryItem(JewelTypes armortype, String registerylocalizeName){
 		super();
@@ -44,12 +46,12 @@ public class RpgInventoryItem extends Item {
 		this.armorType = armortype;
 		this.maxStackSize = 1;
 	}
-	
+
 	public RpgInventoryItem(JewelTypes armorType, InventoryItem le) {
 		super();
 		setUnlocalizedName(RpgInventory.MODID+"."+le.getLocalName());
 		setRegistryName(le.getLocalName());
-		
+
 		if(le.getRenderTexture().length() > 0)
 			RENDER3D_TEXTURE = new ResourceLocation(le.getRenderTexture());
 		else
@@ -60,27 +62,29 @@ public class RpgInventoryItem extends Item {
 		this.armorType = armorType;
 		this.maxStackSize = 1;
 	}
-	
+
 	public RpgInventoryItem setColorState(int colorState) {
 		this.colorState = colorState;
 		return this;
 	}
-	
+
 	public int getColorState() {
 		return colorState;
 	}
-	
+
 	public String getModelLocation() {
 		return modelLocation;
 	}
 
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-		
+
 		ItemStack stack = player.getHeldItem(hand);
-		
+
 		if(stack != ItemStack.EMPTY)
-			if(stack.getItem() instanceof RpgInventoryItem){
+		{
+			if(stack.getItem() instanceof RpgInventoryItem)
+			{
 				RpgInventoryData inventory = RpgInventoryData.get(player);
 				switch(((RpgInventoryItem)stack.getItem()).armorType){
 				case NECKLACE :
@@ -134,7 +138,7 @@ public class RpgInventoryItem extends Item {
 				default:
 					break;
 				}
-				
+
 				if(!world.isRemote){
 					//sync own inventory
 					PacketHandler.NETWORK.sendTo(new PacketInventoryToClient(player), (EntityPlayerMP) player);
@@ -145,11 +149,13 @@ public class RpgInventoryItem extends Item {
 						PacketHandler.NETWORK.sendTo(packet, (EntityPlayerMP) entityPlayer);
 					}
 				}
+				return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 			}
-		
+		}
+
 		return super.onItemRightClick(world, player, hand);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	@Override
 	public boolean hasEffect(ItemStack stack)
@@ -196,7 +202,7 @@ public class RpgInventoryItem extends Item {
 				|| (stack.getItem() == RpgItems.lapis_gloves)
 				|| (stack.getItem() == RpgItems.lapis_necklace)) {
 			tooltip.add(("Strength"));
-				tooltip.add(("+0.875"));
+			tooltip.add(("+0.875"));
 		}
 	}
 }
