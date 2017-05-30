@@ -139,6 +139,7 @@ public class ClientProxy extends ServerProxy {
 		return Minecraft.getMinecraft().world;
 	}
 
+	@Override
 	public void addRenderLayers(){
 
 		String types[] = new String[]{"default","slim"};
