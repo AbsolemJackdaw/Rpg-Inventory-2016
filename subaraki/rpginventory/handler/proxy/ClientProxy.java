@@ -41,9 +41,9 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import subaraki.rpginventory.handler.client.RenderHandler;
 import subaraki.rpginventory.item.RpgInventoryItem;
 import subaraki.rpginventory.item.RpgItems;
-import subaraki.rpginventory.render.player.RenderCapeLayer;
-import subaraki.rpginventory.render.player.RenderGloveLayer;
-import subaraki.rpginventory.render.player.RenderNecklaceLayer;
+import subaraki.rpginventory.render.player.LayerRpgCape;
+import subaraki.rpginventory.render.player.LayerRpgGlove;
+import subaraki.rpginventory.render.player.LayerRpgNecklace;
 
 public class ClientProxy extends ServerProxy {
 
@@ -145,10 +145,10 @@ public class ClientProxy extends ServerProxy {
 
 		for(String type : types){
 			RenderPlayer renderer = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get(type));
-			renderer.addLayer(new RenderNecklaceLayer(renderer));
-			renderer.addLayer(new RenderGloveLayer(renderer));
+			renderer.addLayer(new LayerRpgNecklace(renderer));
+			renderer.addLayer(new LayerRpgGlove(renderer));
 			
-			RenderCapeLayer cape = new RenderCapeLayer(renderer);
+			LayerRpgCape cape = new LayerRpgCape(renderer);
 			renderer.addLayer(cape);
 		}
 	}

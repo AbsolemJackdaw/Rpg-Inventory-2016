@@ -9,13 +9,13 @@ import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.item.RpgInventoryItem;
 import subaraki.rpginventory.render.models.ModelNecklace;
 
-public class RenderNecklaceLayer implements LayerRenderer<AbstractClientPlayer>{
+public class LayerRpgNecklace implements LayerRenderer<AbstractClientPlayer>{
 
 	private static final ModelNecklace NECKLACE_MODEL = new ModelNecklace();
 
 	RenderPlayer rp;
 	
-	public RenderNecklaceLayer(RenderPlayer rp) {
+	public LayerRpgNecklace(RenderPlayer rp) {
 		this.rp = rp;
 	}
 	

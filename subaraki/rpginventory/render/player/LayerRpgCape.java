@@ -14,12 +14,12 @@ import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.item.RpgInventoryItem;
 import subaraki.rpginventory.mod.RpgInventory;
 
-public class RenderCapeLayer implements LayerRenderer<AbstractClientPlayer>{
+public class LayerRpgCape implements LayerRenderer<AbstractClientPlayer>{
 
 	private final RenderPlayer playerRenderer;
 	private ModelHandle cape = ModelHandle.of(RpgInventory.MODID+":render/cape");
 
-	public RenderCapeLayer(RenderPlayer playerRendererIn)
+	public LayerRpgCape(RenderPlayer playerRendererIn)
 	{
 		this.playerRenderer = playerRendererIn;
 	}

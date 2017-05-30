@@ -10,14 +10,14 @@ import subaraki.rpginventory.item.RpgInventoryItem;
 import subaraki.rpginventory.render.models.ModelGloveLeft;
 import subaraki.rpginventory.render.models.ModelGloveRight;
 
-public class RenderGloveLayer implements LayerRenderer<AbstractClientPlayer>{
+public class LayerRpgGlove implements LayerRenderer<AbstractClientPlayer>{
 
 	private static final ModelGloveLeft GLOVE_MODEL_LEFT = new ModelGloveLeft();
 	private static final ModelGloveRight GLOVE_MODEL_RIGHT = new ModelGloveRight();
 
 	RenderPlayer rp;
 
-	public RenderGloveLayer(RenderPlayer rp) {
+	public LayerRpgGlove(RenderPlayer rp) {
 		this.rp = rp;
 	}
 
