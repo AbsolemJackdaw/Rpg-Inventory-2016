@@ -22,12 +22,12 @@ import subaraki.rpginventory.handler.proxy.ServerProxy;
 import subaraki.rpginventory.item.RpgItems;
 import subaraki.rpginventory.network.PacketHandler;
 
-@Mod(modid = RpgInventory.MODID, name = RpgInventory.NAME, version = RpgInventory.VERSION, dependencies="required-after:subcommonlib")
+@Mod(modid = RpgInventory.MODID, name = RpgInventory.NAME, version = RpgInventory.VERSION, dependencies= "required-after:subcommonlib@[1.2,)")
 public class RpgInventory {
 
 	public static final String MODID = "rpginventory";
 	public static final String NAME = "Rpg Inventory";
-	public static final String VERSION = "1.11.2 5.1.0.0";
+	public static final String VERSION = "1.11.2 5.1.0.1";
 
 	@SidedProxy(clientSide = 
 			"subaraki.rpginventory.handler.proxy.ClientProxy",
