@@ -36,7 +36,7 @@ public class RpgItems {
 	public static void init(){
 		tab = new RpgInventoryTab();
 
-		gold_gloves = (RpgInventoryItem) (RpgInventoryItem) new RpgInventoryItem(JewelTypes.GLOVES,InventoryItem.gold_gloves).setCreativeTab(tab);		
+		gold_gloves = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.GLOVES,InventoryItem.gold_gloves).setCreativeTab(tab);		
 		diamond_gloves = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.GLOVES, InventoryItem.diamond_gloves).setCreativeTab(tab);
 		emerald_gloves = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.GLOVES, InventoryItem.emerald_gloves).setCreativeTab(tab);
 		lapis_gloves = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.GLOVES, InventoryItem.lapis_gloves).setCreativeTab(tab);
