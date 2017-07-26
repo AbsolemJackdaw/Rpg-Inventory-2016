@@ -1,0 +1,17 @@
+{
+	"comment": "output is actually a dyed cape. internal custom recipe does this. The output is basicly irrelevant",
+    "type": "rpginventory:cape_dye_recipe",
+    "group": "subaraki",
+    "pattern": [
+        "DDD",
+        "DCD",
+        "DDD"
+    ],
+    "key": {
+        "C": { "item": "rpginventory:white_cape"},
+        "D": { "item": "minecraft:dye" , "data": 32767}
+    },
+    "result": {
+        "item": "rpginventory:white_cape"
+	}
+}

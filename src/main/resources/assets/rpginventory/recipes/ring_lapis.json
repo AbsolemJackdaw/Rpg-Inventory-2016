@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "subaraki",
+    "pattern": [
+        " IM",
+        "I I",
+        " I "
+    ],
+    "key": {
+        "I": { "item": "minecraft:gold_ingot"},
+        "M": { "ore": "dyeBlue", "type": "forge:ore_dict"}
+    },
+    "result": {
+        "item": "rpginventory:lapis_ring"
+	}
+}

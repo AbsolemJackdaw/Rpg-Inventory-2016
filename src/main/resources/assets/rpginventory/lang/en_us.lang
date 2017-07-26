@@ -1,0 +1,45 @@
+#capes
+item.rpginventory.white_cape.name=White Cape
+item.rpginventory.black_cape.name=Black Cape
+item.rpginventory.red_cape.name=Red Cape
+item.rpginventory.green_cape.name=Green Cape
+item.rpginventory.brown_cape.name=Brown Cape
+item.rpginventory.blue_cape.name=Blue Cape
+item.rpginventory.purple_cape.name=Purple Cape
+item.rpginventory.cyan_cape.name=Cyan Cape
+item.rpginventory.silver_cape.name=Silver Cape
+item.rpginventory.grey_cape.name=Grey Cape
+item.rpginventory.pink_cape.name=Pink Cape
+item.rpginventory.lime_cape.name=Lime Cape
+item.rpginventory.yellow_cape.name=Yellow Cape
+item.rpginventory.lightblue_cape.name=Light Blue Cape
+item.rpginventory.magenta_cape.name=Magenta Cape
+item.rpginventory.orange_cape.name=Orange Cape
+item.rpginventory.invisible_cape.name=Invisibility Cloak
+
+#jewels necklace
+item.rpginventory.diamond_necklace.name=Health Necklace
+item.rpginventory.emerald_necklace.name=Buffed Necklace
+item.rpginventory.lapis_necklace.name=Strength Necklace
+item.rpginventory.gold_necklace.name=Speed Necklace
+
+#jewels ring
+item.rpginventory.diamond_ring.name=Health Ring
+item.rpginventory.emerald_ring.name=Buffed Ring
+item.rpginventory.lapis_ring.name=Strength Ring
+item.rpginventory.gold_ring.name=Speed Ring
+
+#jewels gloves
+item.rpginventory.diamond_glove.name=Health Gloves
+item.rpginventory.emerald_glove.name=Buffed Gloves
+item.rpginventory.lapis_glove.name=Strength Gloves
+item.rpginventory.gold_glove.name=Speed Gloves
+
+itemGroup.rpgi=Rpg Inventory Jewels
+
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+{
+	"comment": "output is actually a dyed cape. internal custom recipe does this. The output is basicly irrelevant",
+    "type": "rpginventory:cape_recipe",
+    "group": "subaraki",
+    "pattern": [
+        "SS",
+        "WW",
+        "WW"
+    ],
+    "key": {
+        "S": { "ore": "string", "type": "forge:ore_dict" },
+        "W": { "item": "minecraft:wool" , "data": 32767}
+    },
+    "result": {
+        "item": "rpginventory:white_cape"
+	}
+}

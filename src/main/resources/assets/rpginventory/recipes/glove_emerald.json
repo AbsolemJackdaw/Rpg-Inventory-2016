@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "subaraki",
+    "pattern": [
+        "II ",
+        "IMI",
+        " II"
+    ],
+    "key": {
+        "I": { "item": "minecraft:gold_ingot"},
+        "M": { "ore": "gemEmerald", "type": "forge:ore_dict"}
+    },
+    "result": {
+        "item": "rpginventory:emerald_glove"
+	}
+}
