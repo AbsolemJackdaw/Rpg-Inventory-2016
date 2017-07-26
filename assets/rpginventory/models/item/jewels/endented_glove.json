@@ -1,7 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "rpginventory:item/jewels/gold_glove",
-        "layer1": "rpginventory:item/jewels/glove_over"
-    }
-}
