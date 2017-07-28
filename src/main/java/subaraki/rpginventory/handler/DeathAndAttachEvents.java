@@ -54,8 +54,8 @@ public class DeathAndAttachEvents {
 		{
 			RpgInventoryData inventory = RpgInventoryData.get(event.getEntityPlayer());
 			RpgInventoryData inventory_original = RpgInventoryData.get(event.getOriginal());
-			NBTTagCompound tag = (NBTTagCompound) inventory.writeData();
-			inventory_original.readData(tag);
+			NBTTagCompound tag = (NBTTagCompound) inventory_original.writeData();
+			inventory.readData(tag);
 		}
 	}
 }
