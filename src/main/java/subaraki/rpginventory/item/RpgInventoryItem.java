@@ -37,16 +37,6 @@ public class RpgInventoryItem extends Item {
 
 	private String modelLocation;
 
-	/**Constructor for external items*/
-	public RpgInventoryItem(JewelTypes armortype, String registerylocalizeName){
-		super();
-		setUnlocalizedName(registerylocalizeName);
-		setRegistryName(registerylocalizeName);
-		RENDER3D_TEXTURE = null;
-		this.armorType = armortype;
-		this.maxStackSize = 1;
-	}
-
 	public RpgInventoryItem(JewelTypes armorType, InventoryItem le) {
 		super();
 		setUnlocalizedName(RpgInventory.MODID+"."+le.getLocalName());

@@ -5,6 +5,9 @@ import java.util.Arrays;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.ModMetadata;
@@ -18,6 +21,7 @@ import subaraki.rpginventory.handler.GuiHandler;
 import subaraki.rpginventory.handler.JeweleryEffectsHandler;
 import subaraki.rpginventory.handler.PlayerTracker;
 import subaraki.rpginventory.handler.client.KeyHandler;
+import subaraki.rpginventory.handler.loot.LootEvent;
 import subaraki.rpginventory.handler.proxy.ServerProxy;
 import subaraki.rpginventory.item.RpgItems;
 import subaraki.rpginventory.network.PacketHandler;
@@ -72,6 +76,8 @@ public class RpgInventory {
 		new KeyHandler();
 		new JeweleryEffectsHandler();
 		new PlayerTracker();
+		
+		new LootEvent();
 	}
 
 	@EventHandler

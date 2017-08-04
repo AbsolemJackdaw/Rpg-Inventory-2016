@@ -16,6 +16,7 @@ item.rpginventory.lightblue_cape.name=Light Blue Cape
 item.rpginventory.magenta_cape.name=Magenta Cape
 item.rpginventory.orange_cape.name=Orange Cape
 item.rpginventory.invisible_cape.name=Invisibility Cloak
+item.rpginventory.ult_cape.name=Ultimate Cape
 
 #jewels necklace
 item.rpginventory.diamond_necklace.name=Health Necklace

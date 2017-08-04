@@ -25,6 +25,8 @@ public class RpgItems {
 	cloakWhite, cloakBlack,	cloakRed, cloakGreen, cloakBrown, cloakBlue,
 	cloakPurple, cloakCyan, cloakSilver, cloakGray, cloakPink, cloakLime, 
 	cloakYellow, cloakLightblue, cloakMagenta, cloakOrange, cloak_Invisible,
+	
+	cloak_ult,
 
 	/* ====molds==== */
 	mold_necklace, mold_ring, mold_gloves
@@ -70,6 +72,8 @@ public class RpgItems {
 
 		cloak_Invisible = (RpgInventoryItem) new RpgInventoryItem(JewelTypes.CAPE,InventoryItem.cape_invisible).setCreativeTab(tab);
 
+		cloak_ult = (ItemUltraCape) new ItemUltraCape(JewelTypes.CAPE, InventoryItem.cape_ult).setCreativeTab(tab);
+		
 		register();
 	}
 
@@ -106,6 +110,7 @@ public class RpgItems {
 		registerItem(cloakWhite);
 		registerItem(cloakYellow);
 		registerItem(cloak_Invisible);
+		registerItem(cloak_ult);
 
 	}
 
@@ -142,6 +147,7 @@ public class RpgItems {
 		registerRender(cloakWhite);
 		registerRender(cloakYellow);
 		registerRender(cloak_Invisible);
+		registerRender(cloak_ult);
 	}
 
 	public static void registerRender(Item item){
@@ -183,8 +189,8 @@ public class RpgItems {
 		cape_white("white_cape","jewels/cape","blocks/wool_colored_white"),
 
 		cape_invisible("invisible_cape","jewels/cape","blocks/wool_colored_white"),
-
-		shield("test_shield","","textures/blocks/wool_colored_white.png");
+		
+		cape_ult("ult_cape","jewels/cape","blocks/wool_colored_red");
 
 		private final String name;
 		private final String modelLocation;

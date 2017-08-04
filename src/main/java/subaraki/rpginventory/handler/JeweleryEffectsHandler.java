@@ -1,5 +1,6 @@
 package subaraki.rpginventory.handler;
 
+import java.lang.ref.Reference;
 import java.util.UUID;
 
 import net.minecraft.entity.Entity;
@@ -8,17 +9,29 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.storage.loot.LootEntry;
+import net.minecraft.world.storage.loot.LootEntryItem;
+import net.minecraft.world.storage.loot.LootEntryTable;
+import net.minecraft.world.storage.loot.LootPool;
+import net.minecraft.world.storage.loot.RandomValueRange;
+import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
+import subaraki.rpginventory.handler.loot.LootEvent;
+import subaraki.rpginventory.item.ItemUltraCape;
 import subaraki.rpginventory.item.RpgInventoryItem;
 import subaraki.rpginventory.item.RpgItems;
+import subaraki.rpginventory.mod.RpgInventory;
 
 public class JeweleryEffectsHandler {
 
@@ -68,16 +81,16 @@ public class JeweleryEffectsHandler {
 	private void getEmeraldNecklaceEffect(LivingExperienceDropEvent event) {
 		EntityPlayer player = event.getAttackingPlayer();
 
-		if(player == null || RpgInventoryData.get(player).getNecklace() == ItemStack.EMPTY)
-			return;
-
-		ItemStack necklace = RpgInventoryData.get(player).getNecklace();
-
-		if(necklace.getItem() == null|| !necklace.getItem().equals(RpgItems.emerald_necklace))
-			return;
-
+		float bonus = 0f;
 		float exp = (float)event.getOriginalExperience();
-		float bonus = (float)exp/4f;
+		RpgInventoryData inventory = RpgInventoryData.get(player);
+
+		ItemStack necklace = inventory.getNecklace();
+
+		if(!necklace.isEmpty() && necklace.getItem().getUnlocalizedName().contains("emerald"))
+			bonus += (float)exp/4f;
+
+		bonus += (float)exp/(4f-(float)cloakLevel(inventory, LootEvent.CAPE_EXP)) ;
 
 		event.setDroppedExperience((int)(exp+bonus));
 	}
@@ -93,14 +106,16 @@ public class JeweleryEffectsHandler {
 
 		float extraDamage = 0;
 
-		if(inventory.getNecklace()!= ItemStack.EMPTY && inventory.getNecklace().getItem().getUnlocalizedName().contains("lapis"))
+		if(!inventory.getNecklace().isEmpty() && inventory.getNecklace().getItem().getUnlocalizedName().contains("lapis"))
 			extraDamage +=1.75;
-		if(inventory.getGloves()  != ItemStack.EMPTY && inventory.getGloves().getItem().getUnlocalizedName().contains("lapis"))
+		if(!inventory.getGloves().isEmpty() && inventory.getGloves().getItem().getUnlocalizedName().contains("lapis"))
 			extraDamage +=1.75;
-		if(inventory.getRing_1()  != ItemStack.EMPTY && inventory.getRing_1().getItem().getUnlocalizedName().contains("lapis"))
+		if(!inventory.getRing_1().isEmpty() && inventory.getRing_1().getItem().getUnlocalizedName().contains("lapis"))
 			extraDamage +=1.75;
-		if(inventory.getRing_2()  != ItemStack.EMPTY && inventory.getRing_2().getItem().getUnlocalizedName().contains("lapis"))
+		if(!inventory.getRing_2().isEmpty() && inventory.getRing_2().getItem().getUnlocalizedName().contains("lapis"))
 			extraDamage +=1.75;
+
+		extraDamage += 1.75*(float)cloakLevel(inventory, LootEvent.CAPE_STRENGHT);
 
 		if(extraDamage > 0)
 			event.setAmount(event.getAmount()+extraDamage);
@@ -112,27 +127,42 @@ public class JeweleryEffectsHandler {
 
 		RpgInventoryData inventory = RpgInventoryData.get(((EntityPlayer)event.getEntityLiving()));
 
-		if(inventory.getGloves() == ItemStack.EMPTY || inventory.getGloves().getItem()== null)
-			return;
+		ItemStack gloves = inventory.getGloves();
 
-		if(inventory.getGloves().getItem().getUnlocalizedName().contains("emerald")){
+		float received = event.getAmount();
+		float reduction = -1;
+
+		if(!gloves.isEmpty() && gloves.getItem().getUnlocalizedName().contains("emerald")){
 			//reduce damage by one fifth of the damage
 			//e.g : 5 damage is reduced to 4.
-			event.setAmount(event.getAmount() - MathHelper.floor(event.getAmount()/5f));
+			reduction = 5f;
 		}
+
+		float level = (float)cloakLevel(inventory, LootEvent.CAPE_DMG_REDUCTION);
+		if(level > 0)
+		{
+			if (reduction > 0)
+				reduction -= level;
+			else
+				reduction = 6-level; // 5 at level 1 , 4 at 2, and 3 at level 3.
+		}
+
+		//reduces damage by half if level 3 cape and gloves are equiped.
+		if(reduction > 0)
+			event.setAmount(received - MathHelper.floor(received/reduction));
 	}
 
 	private void getRegenFromDiamondJewelry(PlayerTickEvent event){
 
 		EntityPlayer player = event.player;
 		RpgInventoryData data = RpgInventoryData.get(player);
-		
+
 		if(data.getHealCounter() > 0)
 		{
 			data.tickHealCounter();
 			return; //continue till it reaches 0
 		}
-		
+
 		//only calculate new timer when the player needs healing !
 		if (player.getHealth() >= player.getMaxHealth())
 			return;
@@ -141,14 +171,19 @@ public class JeweleryEffectsHandler {
 
 		int delay = 75;
 
-		if(data.getNecklace()!= ItemStack.EMPTY && data.getNecklace().getItem().getUnlocalizedName().contains("diamond"))
+		if(!data.getNecklace().isEmpty() && data.getNecklace().getItem().getUnlocalizedName().contains("diamond"))
 			delay -=10;
-		if(data.getGloves()  != ItemStack.EMPTY && data.getGloves().getItem().getUnlocalizedName().contains("diamond"))
+		if(!data.getGloves().isEmpty()   && data.getGloves().getItem().getUnlocalizedName().contains("diamond"))
 			delay -=10;
-		if(data.getRing_1()  != ItemStack.EMPTY && data.getRing_1().getItem().getUnlocalizedName().contains("diamond"))
+		if(!data.getRing_1().isEmpty()   && data.getRing_1().getItem().getUnlocalizedName().contains("diamond"))
 			delay -=10;
-		if(data.getRing_2()  != ItemStack.EMPTY && data.getRing_2().getItem().getUnlocalizedName().contains("diamond"))
+		if(!data.getRing_2().isEmpty()   && data.getRing_2().getItem().getUnlocalizedName().contains("diamond"))
 			delay -=10;
+
+		float level = (float)cloakLevel(data, LootEvent.CAPE_HEALING);
+
+		if(level > 0)
+			delay -= 10 * level;  
 
 		if(delay == 75)
 			return; // no need for healing if nothing is equipped
@@ -164,14 +199,22 @@ public class JeweleryEffectsHandler {
 		if(event.getEntityPlayer() != null)
 		{
 			RpgInventoryData inventory = RpgInventoryData.get(event.getEntityPlayer());
-			if(inventory== null || inventory.getRing_2() == ItemStack.EMPTY || !(inventory.getRing_2().getItem() instanceof RpgInventoryItem))
-				return;
 
-			if(inventory.getRing_2().getItem().getUnlocalizedName().contains("emerald"))
-			{
-				float speed = event.getOriginalSpeed();
-				event.setNewSpeed(speed*4);
-			}
+			ItemStack ring = inventory.getRing_2();
+
+			float modifier = 1;
+			float speed = event.getOriginalSpeed();
+
+			if (!ring.isEmpty())				
+				if(inventory.getRing_2().getItem().getUnlocalizedName().contains("emerald"))
+					modifier = 4;
+
+			float level = (float)cloakLevel(inventory, LootEvent.CAPE_MINING);
+
+			if(level > 0)
+				modifier = modifier == 1 ? level*1.35f : 2 + level * 1.35f;
+
+			event.setNewSpeed(speed*modifier);
 		}
 	}
 
@@ -180,9 +223,10 @@ public class JeweleryEffectsHandler {
 			return;
 
 		RpgInventoryData inventory = RpgInventoryData.get(event.player);
+		ItemStack ring = inventory.getRing_1();
 
-		if(inventory.getRing_1() == ItemStack.EMPTY || (inventory.getRing_1().getItem() == null || !inventory.getRing_1().getItem().getUnlocalizedName().contains("emerald")))
-			return;
+		if(!ring.isEmpty() && ring.getItem().getUnlocalizedName().contains("emerald") 
+				|| cloakLevel(inventory, LootEvent.CAPE_MILK) > 0)	
 
 		for(PotionEffect pe : event.player.getActivePotionEffects()){
 			if(pe.getPotion().isBadEffect()){
@@ -196,14 +240,21 @@ public class JeweleryEffectsHandler {
 		RpgInventoryData inventory = RpgInventoryData.get(player);
 		int numberofgoldjewels = 0;
 
-		if(inventory.getGloves() != ItemStack.EMPTY && inventory.getGloves().getItem().getUnlocalizedName().contains("gold"))
+		if(!inventory.getGloves().isEmpty() && inventory.getGloves().getItem().getUnlocalizedName().contains("gold"))
 			numberofgoldjewels++;
-		if(inventory.getNecklace() != ItemStack.EMPTY && inventory.getNecklace().getItem().getUnlocalizedName().contains("gold"))
+		if(!inventory.getNecklace().isEmpty() && inventory.getNecklace().getItem().getUnlocalizedName().contains("gold"))
 			numberofgoldjewels++;
-		if(inventory.getRing_1() != ItemStack.EMPTY && inventory.getRing_1().getItem().getUnlocalizedName().contains("gold"))
+		if(!inventory.getRing_1().isEmpty() && inventory.getRing_1().getItem().getUnlocalizedName().contains("gold"))
 			numberofgoldjewels++;
-		if(inventory.getRing_2() != ItemStack.EMPTY && inventory.getRing_2().getItem().getUnlocalizedName().contains("gold"))
+		if(!inventory.getRing_2().isEmpty() && inventory.getRing_2().getItem().getUnlocalizedName().contains("gold"))
 			numberofgoldjewels++;
+		
+		int level = cloakLevel(inventory, LootEvent.CAPE_SPEED);
+		
+		numberofgoldjewels+=level;
+		
+		if(numberofgoldjewels > 4)
+			numberofgoldjewels = 4;
 
 		if(numberofgoldjewels == 0)
 			return;
@@ -241,5 +292,37 @@ public class JeweleryEffectsHandler {
 				break;
 			}
 		}
+	}
+
+	private int cloakLevel(RpgInventoryData inventory, String capetype){
+		ItemStack ult_cape = inventory.getCloak();
+
+		if(!ult_cape.isEmpty()&&ult_cape.getItem().equals(RpgItems.cloak_ult))
+		{
+			if(ult_cape.hasTagCompound())
+			{
+				NBTTagCompound tag = ult_cape.getTagCompound();
+
+				if(tag.hasKey(LootEvent.TAG_AMOUNT))
+				{
+					int loop = tag.getInteger(LootEvent.TAG_AMOUNT);
+					boolean hasCapeNeededCape = false;
+					for(int i = 0; i < loop; i++)
+					{
+						if(tag.getString(LootEvent.TAG_AFFINITY+i).equals(capetype))
+						{
+							hasCapeNeededCape=true;
+							break;
+						}
+					}
+					if(hasCapeNeededCape)
+					{
+						int level = tag.getInteger(LootEvent.TAG_LVL);
+						return level;
+					}
+				}
+			}
+		}
+		return -1;
 	}
 }
