@@ -54,14 +54,14 @@ public class ContainerRpg extends Container {
 
 				switch (tmp.armorType) {
 				case NECKLACE:
-					if (((SlotJewels)getSlot(0)).getStack() != ItemStack.EMPTY)
+					if (!getSlot(0).getStack().isEmpty())
 						return ItemStack.EMPTY;
 					player.inventory.setItemStack(player.inventory.getStackInSlot(indexPlayerInventory));
 					player.inventory.setInventorySlotContents(indexPlayerInventory, ItemStack.EMPTY);
 					this.slotClick(0, 0, ClickType.PICKUP, player);
 					break;
 				case CRYSTAL:
-					if (((SlotJewels) this.getSlot(1)).getStack() != ItemStack.EMPTY)
+					if (!this.getSlot(1).getStack().isEmpty())
 						return ItemStack.EMPTY;
 					if (tmp1.getItemDamage() == 0)
 						return ItemStack.EMPTY;
@@ -69,27 +69,26 @@ public class ContainerRpg extends Container {
 					player.inventory.setInventorySlotContents(indexPlayerInventory,ItemStack.EMPTY);
 					this.slotClick(1, 0, ClickType.PICKUP, player);
 					break;
-				case CAPE:
-					if (((SlotJewels) this.getSlot(2)).getStack() != ItemStack.EMPTY)
+				case CLOAK:
+					if (!this.getSlot(2).getStack().isEmpty())
 						return ItemStack.EMPTY;
 					player.inventory.setItemStack(player.inventory.getStackInSlot(indexPlayerInventory));
 					player.inventory.setInventorySlotContents(indexPlayerInventory,ItemStack.EMPTY);
 					this.slotClick(2, 0, ClickType.PICKUP, player);
 					break;
 				case GLOVES:
-					if (((SlotJewels) this.getSlot(3)).getStack() != ItemStack.EMPTY)
+					if (!this.getSlot(3).getStack().isEmpty())
 						return ItemStack.EMPTY;
 					player.inventory.setItemStack(player.inventory.getStackInSlot(indexPlayerInventory));
 					player.inventory.setInventorySlotContents(indexPlayerInventory,ItemStack.EMPTY);
 					this.slotClick(3, 0, ClickType.PICKUP, player);
 					break;
 				case RING:
-					if ((((SlotJewels) this.getSlot(4)).getStack() != ItemStack.EMPTY) &&
-							(((SlotJewels) this.getSlot(5)).getStack() != ItemStack.EMPTY))
+					if (!this.getSlot(4).getStack().isEmpty() && !this.getSlot(5).getStack().isEmpty())
 						return ItemStack.EMPTY;
 					player.inventory.setItemStack(player.inventory.getStackInSlot(indexPlayerInventory));
 					player.inventory.setInventorySlotContents(indexPlayerInventory,ItemStack.EMPTY);
-					if (((SlotJewels) this.getSlot(4)).getStack() == ItemStack.EMPTY)
+					if ((this.getSlot(4)).getStack().isEmpty())
 						this.slotClick(4, 0, ClickType.PICKUP, player);
 					else
 						this.slotClick(5, 0, ClickType.PICKUP, player);
@@ -100,7 +99,7 @@ public class ContainerRpg extends Container {
 		else if (inventory!= null) {
 			int i = 0;
 			for (ItemStack is : player.inventory.mainInventory) {
-				if (is == ItemStack.EMPTY) {
+				if (is.isEmpty()) {
 					player.inventory.setInventorySlotContents(i,inventory.getInventory().getStackInSlot(slotnumber));
 					inventory.getInventory().setStackInSlot(slotnumber, ItemStack.EMPTY);
 

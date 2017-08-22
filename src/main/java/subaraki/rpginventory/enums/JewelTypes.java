@@ -5,6 +5,6 @@ public enum JewelTypes {
 	RING,
 	NECKLACE,
 	GLOVES,
-	CAPE,
+	CLOAK,
 	CRYSTAL
 }

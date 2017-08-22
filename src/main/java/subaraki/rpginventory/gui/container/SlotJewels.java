@@ -15,7 +15,7 @@ public class SlotJewels extends SlotItemHandler{
 	@Override
 	public boolean isItemValid(ItemStack stack) {
 
-		if(stack == ItemStack.EMPTY || stack.getItem() == null || !(stack.getItem() instanceof RpgInventoryItem))
+		if(stack.isEmpty() || !(stack.getItem() instanceof RpgInventoryItem))
 			return false;
 
 		RpgInventoryItem jewel = (RpgInventoryItem) stack.getItem();
@@ -26,7 +26,7 @@ public class SlotJewels extends SlotItemHandler{
 		case 1:
 			return jewel.armorType == JewelTypes.CRYSTAL;
 		case 2: 
-			return jewel.armorType == JewelTypes.CAPE;
+			return jewel.armorType == JewelTypes.CLOAK;
 		case 3:
 			return jewel.armorType == JewelTypes.GLOVES;
 		case 4:

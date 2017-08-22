@@ -2,8 +2,10 @@ package subaraki.rpginventory.item;
 
 import java.util.List;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityTracker;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
@@ -15,12 +17,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.enums.JewelTypes;
 import subaraki.rpginventory.enums.SlotIndex;
-import subaraki.rpginventory.item.RpgItems.InventoryItem;
 import subaraki.rpginventory.mod.RpgInventory;
 import subaraki.rpginventory.network.PacketHandler;
 import subaraki.rpginventory.network.PacketInventoryToClient;
@@ -30,40 +29,23 @@ public class RpgInventoryItem extends Item {
 
 	public JewelTypes armorType;
 
-	private final ResourceLocation RENDER3D_TEXTURE;
+	private ResourceLocation RENDER3D_TEXTURE;
 
-	/**for capes*/
-	private int colorState;
-
-	private String modelLocation;
-
-	public RpgInventoryItem(JewelTypes armorType, InventoryItem le) {
+	public RpgInventoryItem(JewelTypes armorType) {
 		super();
-		setUnlocalizedName(RpgInventory.MODID+"."+le.getLocalName());
-		setRegistryName(le.getLocalName());
-
-		if(le.getRenderTexture().length() > 0)
-			RENDER3D_TEXTURE = new ResourceLocation(le.getRenderTexture());
-		else
-			RENDER3D_TEXTURE = null;
-
-		modelLocation = le.getModelPath();
 
 		this.armorType = armorType;
 		this.maxStackSize = 1;
 	}
+	
+	public RpgInventoryItem set3DTexture(String path){
 
-	public RpgInventoryItem setColorState(int colorState) {
-		this.colorState = colorState;
+		if(path.length() > 0)
+			RENDER3D_TEXTURE = new ResourceLocation(RpgInventory.MODID, path);
+		else
+			RENDER3D_TEXTURE = null;
+
 		return this;
-	}
-
-	public int getColorState() {
-		return colorState;
-	}
-
-	public String getModelLocation() {
-		return modelLocation;
 	}
 
 	@Override
@@ -71,14 +53,14 @@ public class RpgInventoryItem extends Item {
 
 		ItemStack stack = player.getHeldItem(hand);
 
-		if(stack != ItemStack.EMPTY)
+		if(stack.isEmpty())
 		{
 			if(stack.getItem() instanceof RpgInventoryItem)
 			{
 				RpgInventoryData inventory = RpgInventoryData.get(player);
 				switch(((RpgInventoryItem)stack.getItem()).armorType){
 				case NECKLACE :
-					if(inventory.getNecklace() == ItemStack.EMPTY){
+					if(inventory.getNecklace().isEmpty()){
 						inventory.setJewel(SlotIndex.SLOT_NECKLACE, stack);
 						player.setHeldItem(hand, ItemStack.EMPTY);
 					}else{
@@ -86,8 +68,8 @@ public class RpgInventoryItem extends Item {
 						inventory.setJewel(SlotIndex.SLOT_NECKLACE, stack);
 					}
 					break;
-				case CAPE:
-					if(inventory.getCloak() == ItemStack.EMPTY){
+				case CLOAK:
+					if(inventory.getCloak().isEmpty()){
 						inventory.setJewel(SlotIndex.SLOT_CLOAK, stack);
 						player.setHeldItem(hand, ItemStack.EMPTY);
 					}else{
@@ -96,7 +78,7 @@ public class RpgInventoryItem extends Item {
 					}
 					break;
 				case CRYSTAL:
-					if(inventory.getCrystal() == ItemStack.EMPTY){
+					if(inventory.getCrystal().isEmpty()){
 						inventory.setJewel(SlotIndex.SLOT_CRYSTAL, stack);
 						player.setHeldItem(hand, ItemStack.EMPTY);
 					}else{
@@ -105,7 +87,7 @@ public class RpgInventoryItem extends Item {
 					}
 					break;
 				case GLOVES:
-					if(inventory.getGloves() == ItemStack.EMPTY){
+					if(inventory.getGloves().isEmpty()){
 						inventory.setJewel(SlotIndex.SLOT_GLOVES, stack);
 						player.setHeldItem(hand, ItemStack.EMPTY);
 					}else{
@@ -114,10 +96,10 @@ public class RpgInventoryItem extends Item {
 					}
 					break;
 				case RING:
-					if(inventory.getRing_1() == ItemStack.EMPTY){
+					if(inventory.getRing_1().isEmpty()){
 						inventory.setJewel(SlotIndex.SLOT_RING1, stack);
 						player.setHeldItem(hand, ItemStack.EMPTY);
-					}else if(inventory.getRing_2() == ItemStack.EMPTY){
+					}else if(inventory.getRing_2().isEmpty()){
 						inventory.setJewel(SlotIndex.SLOT_RING2, stack);
 						player.setHeldItem(hand, ItemStack.EMPTY);
 					}else{ //only switches out the first worn ring
@@ -146,14 +128,7 @@ public class RpgInventoryItem extends Item {
 		return super.onItemRightClick(world, player, hand);
 	}
 
-	@SideOnly(Side.CLIENT)
-	@Override
-	public boolean hasEffect(ItemStack stack)
-	{
-		return stack.getItem().equals(RpgItems.cloak_Invisible);
-	}
-
-	public ResourceLocation getRenderOnPlayerTexture() {
+	public ResourceLocation getRenderOnPlayerTexture(ItemStack stack) {
 		return RENDER3D_TEXTURE;
 	}
 
@@ -162,37 +137,30 @@ public class RpgInventoryItem extends Item {
 		super.addInformation(stack, world, tooltip, advanced);
 
 		if (stack.getItem() == RpgItems.emerald_ring) {
-			tooltip.add(("Left: Dispell Negative Effects"));
-			tooltip.add(("Right: Increased Mining Speed x4"));
+			tooltip.add(I18n.format("dispell.ring"));
+			tooltip.add(I18n.format("mining.ring"));
 		}
 
-		if (stack.getItem() == RpgItems.emerald_necklace) {
-			tooltip.add(("1/4th Exp Bonus on Kill"));
+		else if (stack.getItem() == RpgItems.emerald_necklace) {
+			tooltip.add(I18n.format("exp.necklace"));
 		}
 
-		if (stack.getItem() == RpgItems.emerald_gloves) {
-			tooltip.add(("Resistance"));
-			tooltip.add(("Damage reduced by 20%"));
+		else if (stack.getItem() == RpgItems.emerald_gloves) {
+			tooltip.add(I18n.format("effect.resistance")+ " +20%");
 		}
 
-		if ((stack.getItem() == RpgItems.diamond_ring)
-				|| (stack.getItem() == RpgItems.diamond_gloves)
-				|| (stack.getItem() == RpgItems.diamond_necklace)) {
-			tooltip.add(("Healing"));
-			tooltip.add(("+15% Heal Speed"));
+		else if (stack.getItem().getUnlocalizedName().contains("diamond")) {
+			tooltip.add(I18n.format("diamond.healing"));
+			tooltip.add("+15% "+I18n.format("diamond.info"));
 		}
 
-		if ((stack.getItem() == RpgItems.gold_ring)
-				|| (stack.getItem() == RpgItems.gold_gloves)
-				|| (stack.getItem() == RpgItems.gold_necklace)) {
-			tooltip.add(("Speed + 12.5%"));
+		else if (stack.getItem().getUnlocalizedName().contains("gold")) {
+			tooltip.add(I18n.format("effect.moveSpeed") + " +12.5%");
 		}
 
-		if ((stack.getItem() == RpgItems.lapis_ring)
-				|| (stack.getItem() == RpgItems.lapis_gloves)
-				|| (stack.getItem() == RpgItems.lapis_necklace)) {
-			tooltip.add(("Strength"));
-			tooltip.add(("+0.875"));
+		else if (stack.getItem().getUnlocalizedName().contains("lapis")){
+			tooltip.add(I18n.format("effect.damageBoost"));
+			tooltip.add("+3"+ " " + I18n.format("attribute.name.generic.attackDamage"));
 		}
 	}
 }

@@ -27,7 +27,7 @@ public class LayerRpgNecklace implements LayerRenderer<AbstractClientPlayer>{
 		
 		ItemStack necklace = inventory.getNecklace();
 		
-		if(necklace == ItemStack.EMPTY)
+		if(necklace.isEmpty())
 			return;
 		if (necklace.getItem() == null)
 			return;
@@ -37,7 +37,7 @@ public class LayerRpgNecklace implements LayerRenderer<AbstractClientPlayer>{
 		ItemStack chest = entitylivingbaseIn.inventory.armorItemInSlot(2);
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		rp.bindTexture(item.getRenderOnPlayerTexture());
+		rp.bindTexture(item.getRenderOnPlayerTexture(necklace));
 		
 		GlStateManager.pushMatrix();
 		

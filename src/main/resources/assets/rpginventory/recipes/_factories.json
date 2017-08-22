@@ -1,6 +1,4 @@
 {
   "recipes": {
-    "cape_recipe": "subaraki.rpginventory.handler.recipe.Recipe_CapeFromScratch",
-    "cape_dye_recipe": "subaraki.rpginventory.handler.recipe.Recipe_CapeFromDye"
   }
 }

@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "rpginventory",
+  "name": "Rpg Inventory",
+  "description": "The Rpg Inventory Experience ! Cloaks, jewels, buffs and bonuses for wearing them",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["Subaraki"],
+  "credits": "Richards Digits and ZetaHunter to have developped a long time with me in the early days of the mod !",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

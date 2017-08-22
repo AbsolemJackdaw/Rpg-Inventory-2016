@@ -32,7 +32,6 @@ public class GuiRpg extends GuiContainer {
 		drawString(fontRenderer, "Inventory", (this.width / 2) + 39,(this.height / 2) - 15, 0xffffff);
 
 		DrawEntityOnScreen.drawEntityOnScreen(posX + 51, posY + 75, 30, (float)(posX + 51)-oldMouseX, (float)(posY + 75 - 50)-oldMouseY, this.mc.player);
-
 	}
 
 	@Override
@@ -43,6 +42,7 @@ public class GuiRpg extends GuiContainer {
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		super.drawScreen(mouseX, mouseY, partialTicks);
+		this.renderHoveredToolTip(mouseX, mouseY);
 		this.oldMouseX = (float)mouseX;
         this.oldMouseY = (float)mouseY;
 	}

@@ -29,7 +29,7 @@ public class LayerRpgGlove implements LayerRenderer<AbstractClientPlayer>{
 
 		ItemStack glove = inventory.getGloves();
 
-		if(glove == ItemStack.EMPTY)
+		if(glove.isEmpty())
 			return;
 		if (glove.getItem() == null)
 			return;
@@ -37,7 +37,7 @@ public class LayerRpgGlove implements LayerRenderer<AbstractClientPlayer>{
 		RpgInventoryItem item = (RpgInventoryItem)glove.getItem();	
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		rp.bindTexture(item.getRenderOnPlayerTexture());
+		rp.bindTexture(item.getRenderOnPlayerTexture(glove));
 
 		GlStateManager.pushMatrix();
 

@@ -1,6 +1,5 @@
 package subaraki.rpginventory.handler;
 
-import java.lang.ref.Reference;
 import java.util.UUID;
 
 import net.minecraft.entity.Entity;
@@ -11,16 +10,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.storage.loot.LootEntry;
-import net.minecraft.world.storage.loot.LootEntryItem;
-import net.minecraft.world.storage.loot.LootEntryTable;
-import net.minecraft.world.storage.loot.LootPool;
-import net.minecraft.world.storage.loot.RandomValueRange;
-import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
@@ -28,8 +19,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.handler.loot.LootEvent;
-import subaraki.rpginventory.item.ItemUltraCape;
-import subaraki.rpginventory.item.RpgInventoryItem;
 import subaraki.rpginventory.item.RpgItems;
 import subaraki.rpginventory.mod.RpgInventory;
 
@@ -90,7 +79,7 @@ public class JeweleryEffectsHandler {
 		if(!necklace.isEmpty() && necklace.getItem().getUnlocalizedName().contains("emerald"))
 			bonus += (float)exp/4f;
 
-		bonus += (float)exp/(4f-(float)cloakLevel(inventory, LootEvent.CAPE_EXP)) ;
+		bonus += (float)exp/(4f-(float)cloakLevel(inventory, LootEvent.CLOAK_EXP)) ;
 
 		event.setDroppedExperience((int)(exp+bonus));
 	}
@@ -107,15 +96,15 @@ public class JeweleryEffectsHandler {
 		float extraDamage = 0;
 
 		if(!inventory.getNecklace().isEmpty() && inventory.getNecklace().getItem().getUnlocalizedName().contains("lapis"))
-			extraDamage +=1.75;
+			extraDamage +=1.5;
 		if(!inventory.getGloves().isEmpty() && inventory.getGloves().getItem().getUnlocalizedName().contains("lapis"))
-			extraDamage +=1.75;
+			extraDamage +=1.5;
 		if(!inventory.getRing_1().isEmpty() && inventory.getRing_1().getItem().getUnlocalizedName().contains("lapis"))
-			extraDamage +=1.75;
+			extraDamage +=1.5;
 		if(!inventory.getRing_2().isEmpty() && inventory.getRing_2().getItem().getUnlocalizedName().contains("lapis"))
-			extraDamage +=1.75;
+			extraDamage +=1.5;
 
-		extraDamage += 1.75*(float)cloakLevel(inventory, LootEvent.CAPE_STRENGHT);
+		extraDamage += 1.5*(float)cloakLevel(inventory, LootEvent.CLOAK_STRENGHT);
 
 		if(extraDamage > 0)
 			event.setAmount(event.getAmount()+extraDamage);
@@ -138,7 +127,7 @@ public class JeweleryEffectsHandler {
 			reduction = 5f;
 		}
 
-		float level = (float)cloakLevel(inventory, LootEvent.CAPE_DMG_REDUCTION);
+		float level = (float)cloakLevel(inventory, LootEvent.CLOAK_DMG_REDUCTION);
 		if(level > 0)
 		{
 			if (reduction > 0)
@@ -147,7 +136,7 @@ public class JeweleryEffectsHandler {
 				reduction = 6-level; // 5 at level 1 , 4 at 2, and 3 at level 3.
 		}
 
-		//reduces damage by half if level 3 cape and gloves are equiped.
+		//reduces damage by half if level 3 cloak and gloves are equiped.
 		if(reduction > 0)
 			event.setAmount(received - MathHelper.floor(received/reduction));
 	}
@@ -180,7 +169,7 @@ public class JeweleryEffectsHandler {
 		if(!data.getRing_2().isEmpty()   && data.getRing_2().getItem().getUnlocalizedName().contains("diamond"))
 			delay -=10;
 
-		float level = (float)cloakLevel(data, LootEvent.CAPE_HEALING);
+		float level = (float)cloakLevel(data, LootEvent.CLOAK_HEALING);
 
 		if(level > 0)
 			delay -= 10 * level;  
@@ -209,7 +198,7 @@ public class JeweleryEffectsHandler {
 				if(inventory.getRing_2().getItem().getUnlocalizedName().contains("emerald"))
 					modifier = 4;
 
-			float level = (float)cloakLevel(inventory, LootEvent.CAPE_MINING);
+			float level = (float)cloakLevel(inventory, LootEvent.CLOAK_MINING);
 
 			if(level > 0)
 				modifier = modifier == 1 ? level*1.35f : 2 + level * 1.35f;
@@ -226,14 +215,14 @@ public class JeweleryEffectsHandler {
 		ItemStack ring = inventory.getRing_1();
 
 		if(!ring.isEmpty() && ring.getItem().getUnlocalizedName().contains("emerald") 
-				|| cloakLevel(inventory, LootEvent.CAPE_MILK) > 0)	
+				|| cloakLevel(inventory, LootEvent.CLOAK_MILK) > 0)	
 
-		for(PotionEffect pe : event.player.getActivePotionEffects()){
-			if(pe.getPotion().isBadEffect()){
-				event.player.removePotionEffect(pe.getPotion());
-				break;//prevent concurrent modification
+			for(PotionEffect pe : event.player.getActivePotionEffects()){
+				if(pe.getPotion().isBadEffect()){
+					event.player.removePotionEffect(pe.getPotion());
+					break;//prevent concurrent modification
+				}
 			}
-		}
 	}
 
 	private void getGoldenSpeedBoost(EntityPlayer player){
@@ -248,20 +237,35 @@ public class JeweleryEffectsHandler {
 			numberofgoldjewels++;
 		if(!inventory.getRing_2().isEmpty() && inventory.getRing_2().getItem().getUnlocalizedName().contains("gold"))
 			numberofgoldjewels++;
-		
-		int level = cloakLevel(inventory, LootEvent.CAPE_SPEED);
-		
+
+		int level = cloakLevel(inventory, LootEvent.CLOAK_SPEED);
+
 		numberofgoldjewels+=level;
-		
+
 		if(numberofgoldjewels > 4)
 			numberofgoldjewels = 4;
 
 		if(numberofgoldjewels == 0)
+		{
+			IAttributeInstance speedAttribute = player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+			
+			//reset if number of gold objects worn doesn't match the speed boost
+			if(speedAttribute.getModifier(speedUuid_low)!=null)
+				speedAttribute.removeModifier(speedUuid_low);
+			if(speedAttribute.getModifier(speedUuid_mid)!= null)
+				speedAttribute.removeModifier(speedUuid_mid);
+			if(speedAttribute.getModifier(speedUuid_high)!=null)
+				speedAttribute.removeModifier(speedUuid_high);
+			if(speedAttribute.getModifier(speedUuid_highest)!=null)
+				speedAttribute.removeModifier(speedUuid_highest);
+			
 			return;
+		}
 
 		else{
-			IAttributeInstance speedAttribute = player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 
+			IAttributeInstance speedAttribute = player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+		
 			//reset if number of gold objects worn doesn't match the speed boost
 			if(speedAttribute.getModifier(speedUuid_low)!=null && numberofgoldjewels != 1)
 				speedAttribute.removeModifier(speedUuid_low);
@@ -271,6 +275,7 @@ public class JeweleryEffectsHandler {
 				speedAttribute.removeModifier(speedUuid_high);
 			if(speedAttribute.getModifier(speedUuid_highest)!=null && numberofgoldjewels != 4)
 				speedAttribute.removeModifier(speedUuid_highest);
+
 
 			//apply speed boost if needed
 			switch (numberofgoldjewels){
@@ -294,35 +299,37 @@ public class JeweleryEffectsHandler {
 		}
 	}
 
-	private int cloakLevel(RpgInventoryData inventory, String capetype){
-		ItemStack ult_cape = inventory.getCloak();
+	private int cloakLevel(RpgInventoryData inventory, String cloaktype){
+		ItemStack cloak = inventory.getCloak();
 
-		if(!ult_cape.isEmpty()&&ult_cape.getItem().equals(RpgItems.cloak_ult))
+		if(!cloak.isEmpty() && cloak.getItem().equals(RpgItems.cloak))
 		{
-			if(ult_cape.hasTagCompound())
+			if(cloak.hasTagCompound())
 			{
-				NBTTagCompound tag = ult_cape.getTagCompound();
+				NBTTagCompound tag = cloak.getTagCompound();
 
 				if(tag.hasKey(LootEvent.TAG_AMOUNT))
 				{
 					int loop = tag.getInteger(LootEvent.TAG_AMOUNT);
-					boolean hasCapeNeededCape = false;
+					boolean hasCloak = false;
+					int entry = 0;
 					for(int i = 0; i < loop; i++)
 					{
-						if(tag.getString(LootEvent.TAG_AFFINITY+i).equals(capetype))
+						if(tag.getString(LootEvent.TAG_AFFINITY+i).equals(cloaktype))
 						{
-							hasCapeNeededCape=true;
+							hasCloak=true;
+							entry = i;
 							break;
 						}
 					}
-					if(hasCapeNeededCape)
+					if(hasCloak)
 					{
-						int level = tag.getInteger(LootEvent.TAG_LVL);
+						int level = tag.getInteger(LootEvent.TAG_LVL+entry);
 						return level;
 					}
 				}
 			}
 		}
-		return -1;
+		return 0;
 	}
 }

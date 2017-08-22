@@ -1,30 +1,6 @@
 package subaraki.rpginventory.handler.proxy;
 
-import static subaraki.rpginventory.item.RpgItems.cloakBlack;
-import static subaraki.rpginventory.item.RpgItems.cloakBlue;
-import static subaraki.rpginventory.item.RpgItems.cloakBrown;
-import static subaraki.rpginventory.item.RpgItems.cloakCyan;
-import static subaraki.rpginventory.item.RpgItems.cloakGray;
-import static subaraki.rpginventory.item.RpgItems.cloakGreen;
-import static subaraki.rpginventory.item.RpgItems.cloakLightblue;
-import static subaraki.rpginventory.item.RpgItems.cloakLime;
-import static subaraki.rpginventory.item.RpgItems.cloakMagenta;
-import static subaraki.rpginventory.item.RpgItems.cloakOrange;
-import static subaraki.rpginventory.item.RpgItems.cloakPink;
-import static subaraki.rpginventory.item.RpgItems.cloakPurple;
-import static subaraki.rpginventory.item.RpgItems.cloakRed;
-import static subaraki.rpginventory.item.RpgItems.cloakSilver;
-import static subaraki.rpginventory.item.RpgItems.cloakWhite;
-import static subaraki.rpginventory.item.RpgItems.cloakYellow;
-import static subaraki.rpginventory.item.RpgItems.diamond_gloves;
-import static subaraki.rpginventory.item.RpgItems.diamond_necklace;
-import static subaraki.rpginventory.item.RpgItems.diamond_ring;
-import static subaraki.rpginventory.item.RpgItems.emerald_gloves;
-import static subaraki.rpginventory.item.RpgItems.emerald_necklace;
-import static subaraki.rpginventory.item.RpgItems.emerald_ring;
-import static subaraki.rpginventory.item.RpgItems.lapis_gloves;
-import static subaraki.rpginventory.item.RpgItems.lapis_necklace;
-import static subaraki.rpginventory.item.RpgItems.lapis_ring;
+import static subaraki.rpginventory.item.RpgItems.*;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
@@ -32,8 +8,10 @@ import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.client.settings.KeyModifier;
@@ -41,7 +19,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import subaraki.rpginventory.handler.client.RenderHandler;
 import subaraki.rpginventory.item.RpgInventoryItem;
 import subaraki.rpginventory.item.RpgItems;
-import subaraki.rpginventory.render.player.LayerRpgCape;
+import subaraki.rpginventory.render.player.LayerRpgCloak;
 import subaraki.rpginventory.render.player.LayerRpgGlove;
 import subaraki.rpginventory.render.player.LayerRpgNecklace;
 
@@ -68,36 +46,14 @@ public class ClientProxy extends ServerProxy {
 	public void registerColors(){
 		ItemColors ic = Minecraft.getMinecraft().getItemColors();
 
-		//for capes
+		//for cloaks
 		ic.registerItemColorHandler(new IItemColor() {
 			@Override
 			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
-				if(stack.getItem() != null)
-					if(stack.getItem() instanceof RpgInventoryItem){
-						RpgInventoryItem i = (RpgInventoryItem)stack.getItem();
-						if((i.getColorState() < 16) && (i.getColorState() >= 0)){
-							return ItemDye.DYE_COLORS[i.getColorState()];
-						}
-					}
-				return 0xffffff;
+				return ItemDye.DYE_COLORS[15-stack.getMetadata()];
 			}
 		}, 
-				cloakBlack,
-				cloakBlue,
-				cloakBrown,
-				cloakCyan,
-				cloakGray,
-				cloakGreen,
-				cloakLightblue,
-				cloakLime,
-				cloakMagenta,
-				cloakOrange,
-				cloakPink,
-				cloakPurple,
-				cloakRed,
-				cloakSilver,
-				cloakWhite,
-				cloakYellow);
+				cloak);
 
 		ic.registerItemColorHandler(new IItemColor() {
 			@Override
@@ -148,9 +104,9 @@ public class ClientProxy extends ServerProxy {
 			RenderPlayer renderer = ((RenderPlayer)Minecraft.getMinecraft().getRenderManager().getSkinMap().get(type));
 			renderer.addLayer(new LayerRpgNecklace(renderer));
 			renderer.addLayer(new LayerRpgGlove(renderer));
-			
-			LayerRpgCape cape = new LayerRpgCape(renderer);
-			renderer.addLayer(cape);
+
+			LayerRpgCloak cloak = new LayerRpgCloak(renderer);
+			renderer.addLayer(cloak);
 		}
 	}
 }
