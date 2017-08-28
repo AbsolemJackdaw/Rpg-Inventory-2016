@@ -69,7 +69,10 @@ public class JeweleryEffectsHandler {
 
 	private void getEmeraldNecklaceEffect(LivingExperienceDropEvent event) {
 		EntityPlayer player = event.getAttackingPlayer();
-
+		
+		if (player == null)
+			return;
+		
 		float bonus = 0f;
 		float exp = (float)event.getOriginalExperience();
 		RpgInventoryData inventory = RpgInventoryData.get(player);
@@ -144,6 +147,10 @@ public class JeweleryEffectsHandler {
 	private void getRegenFromDiamondJewelry(PlayerTickEvent event){
 
 		EntityPlayer player = event.player;
+		
+		if(player == null)
+			return;
+		
 		RpgInventoryData data = RpgInventoryData.get(player);
 
 		if(data.getHealCounter() > 0)
@@ -208,7 +215,7 @@ public class JeweleryEffectsHandler {
 	}
 
 	private void getEmeraldRingEffect2(PlayerTickEvent event) {
-		if(event.player.getActivePotionEffects().isEmpty())
+		if(event.player == null || event.player.getActivePotionEffects().isEmpty())
 			return;
 
 		RpgInventoryData inventory = RpgInventoryData.get(event.player);
