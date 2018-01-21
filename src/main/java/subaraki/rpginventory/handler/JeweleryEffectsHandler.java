@@ -154,7 +154,7 @@ public class JeweleryEffectsHandler {
 
 		////////heal tracker/////////
 		double prevHealth = data.getPrevHealth();
-		if(prevHealth != player.getHealth())
+		if(prevHealth != player.getHealth()) 
 		{
 			data.setPrevHealth(player.getHealth()); //reset prev health and restart counting
 			data.resetTracker(); //set tracker to 0, set tracked counter to constant variable

@@ -111,6 +111,10 @@ public class RpgInventoryData {
 	{
 		this.healingRateTracker++;
 	}
+	public int getTracker()
+	{
+		return healingRateTracker;
+	}
 	
 	public int getAverageHealingRate() {
 		return averageHealingRate;

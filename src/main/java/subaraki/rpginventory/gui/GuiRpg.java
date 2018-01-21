@@ -50,7 +50,7 @@ public class GuiRpg extends GuiContainer {
 		drawTexturedModalRect(posX, posY, 0, 0, xSize, ySize);
 		drawString(fontRenderer, "Rpg Inventory", guiLeft+5, guiTop-5, 0xffffff);
 
-		DrawEntityOnScreen.drawEntityOnScreen(posX + 51, posY + 75, 30, (float)(posX + 51)-oldMouseX, (float)(posY + 75 - 50)-oldMouseY, this.mc.player);
+		DrawEntityOnScreen.drawEntityOnScreen(posX + 51, posY + 75, 30, (float)(posX + 51)-oldMouseX, (float)(posY + 75 - 50)-oldMouseY, player);
 
 		double heartsMax = player.getMaxHealth() + player.getAbsorptionAmount();
 		double hearts = player.getHealth() + player.getAbsorptionAmount();
@@ -65,9 +65,9 @@ public class GuiRpg extends GuiContainer {
 		{
 			float mat = 0f;
 			if(heldItem.getItem()  instanceof ItemSword)
-				mat = ((ItemSword)heldItem.getItem()).getDamageVsEntity() + 3.0F;
+				mat = ((ItemSword)heldItem.getItem()).getAttackDamage() + 3.0F;
 			if(heldItem .getItem() instanceof ItemTool)
-				mat = ToolMaterial.valueOf(((ItemTool)heldItem.getItem()).getToolMaterialName()).getDamageVsEntity();
+				mat = ToolMaterial.valueOf(((ItemTool)heldItem.getItem()).getToolMaterialName()).getAttackDamage();
 			strength+=mat;
 		}
 
@@ -87,7 +87,10 @@ public class GuiRpg extends GuiContainer {
 		/////////////////////////////////////////
 		int averageHealRate = RpgInventoryData.get(player).getAverageHealingRate();
 		double seconds = (double)averageHealRate/20;
-		fontRenderer.drawStringWithShadow("1/"+Double.toString(seconds).substring(0, 4) + "s", guiLeft+this.xSize-32, guiTop+50, 0xffffff);
+		double health = 1d / seconds;
+		String s = Double.toString(health);
+		//fontRenderer.drawStringWithShadow((s.length() > 3 ? s.substring(0, 3) : s)+"/1s", guiLeft+this.xSize-32, guiTop+50, 0xffffff);
+		fontRenderer.drawStringWithShadow("1/"+Double.toString(seconds).substring(0, Math.min(Double.toString(seconds).length(), 3))+"s", guiLeft+this.xSize-32, guiTop+50, 0xffffff);
 
 	}
 
