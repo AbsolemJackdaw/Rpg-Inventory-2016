@@ -1,7 +1,5 @@
 package subaraki.rpginventory.handler.loot;
 
-import java.util.ArrayList;
-
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootEntryTable;
@@ -13,7 +11,6 @@ import net.minecraft.world.storage.loot.functions.LootFunctionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import subaraki.rpginventory.handler.loot.LootCloakFunction.Serializer;
 import subaraki.rpginventory.mod.RpgInventory;
 
 public class LootEvent {

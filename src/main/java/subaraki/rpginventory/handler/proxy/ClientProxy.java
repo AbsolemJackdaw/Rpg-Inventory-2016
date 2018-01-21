@@ -1,6 +1,15 @@
 package subaraki.rpginventory.handler.proxy;
 
-import static subaraki.rpginventory.item.RpgItems.*;
+import static subaraki.rpginventory.item.RpgItems.cloak;
+import static subaraki.rpginventory.item.RpgItems.diamond_gloves;
+import static subaraki.rpginventory.item.RpgItems.diamond_necklace;
+import static subaraki.rpginventory.item.RpgItems.diamond_ring;
+import static subaraki.rpginventory.item.RpgItems.emerald_gloves;
+import static subaraki.rpginventory.item.RpgItems.emerald_necklace;
+import static subaraki.rpginventory.item.RpgItems.emerald_ring;
+import static subaraki.rpginventory.item.RpgItems.lapis_gloves;
+import static subaraki.rpginventory.item.RpgItems.lapis_necklace;
+import static subaraki.rpginventory.item.RpgItems.lapis_ring;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
@@ -8,10 +17,8 @@ import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.client.settings.KeyModifier;

@@ -1,15 +1,9 @@
 package subaraki.rpginventory.item;
 
 import static lib.item.ItemRegistry.registerItem;
+import static lib.item.ItemRegistry.registerRender;
 
-import static lib.item.ItemRegistry.*;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 import subaraki.rpginventory.enums.JewelTypes;
 import subaraki.rpginventory.mod.RpgInventory;
 

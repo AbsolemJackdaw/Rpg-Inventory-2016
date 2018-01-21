@@ -6,7 +6,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.enums.SlotIndex;
-import subaraki.rpginventory.item.RpgItems;
 
 public class RenderHandler {
 
