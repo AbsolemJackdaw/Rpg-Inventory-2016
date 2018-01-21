@@ -56,7 +56,7 @@ public class ClientProxy extends ServerProxy {
 		//for cloaks
 		ic.registerItemColorHandler(new IItemColor() {
 			@Override
-			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+			public int colorMultiplier(ItemStack stack, int tintIndex) {
 				return ItemDye.DYE_COLORS[15-stack.getMetadata()];
 			}
 		}, 
@@ -64,7 +64,7 @@ public class ClientProxy extends ServerProxy {
 
 		ic.registerItemColorHandler(new IItemColor() {
 			@Override
-			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+			public int colorMultiplier(ItemStack stack, int tintIndex) {
 				if(stack.getItem() != null)
 					if(stack.getItem() instanceof RpgInventoryItem){
 						RpgInventoryItem i = (RpgInventoryItem)stack.getItem();
