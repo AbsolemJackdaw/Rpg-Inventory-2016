@@ -10,6 +10,10 @@ public class RpgInventoryData {
 
 	private RpgStackHandler inventory;
 	
+	private int healingRateTracker = 0;
+	private int averageHealingRate = 0;
+	private double prevHealth = 0;
+	
 	private int healCounter = 0;
 	
 	private EntityPlayer player;
@@ -90,4 +94,25 @@ public class RpgInventoryData {
 	public void tickHealCounter(){
 		this.healCounter--;
 	}
+	
+	public double getPrevHealth() {
+		return prevHealth;
+	}
+	
+	public void setPrevHealth(double prevHealth) {
+		this.prevHealth = prevHealth;
+	}
+	
+	public void resetTracker(){
+		averageHealingRate = healingRateTracker;
+		healingRateTracker = 0;
+	}
+	public void countTracker()
+	{
+		this.healingRateTracker++;
+	}
+	
+	public int getAverageHealingRate() {
+		return averageHealingRate;
+	}	
 }

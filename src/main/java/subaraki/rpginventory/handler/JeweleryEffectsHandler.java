@@ -20,7 +20,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import subaraki.rpginventory.capability.playerinventory.RpgInventoryData;
 import subaraki.rpginventory.handler.loot.LootEvent;
 import subaraki.rpginventory.item.RpgItems;
-import subaraki.rpginventory.mod.RpgInventory;
 
 public class JeweleryEffectsHandler {
 
@@ -69,10 +68,10 @@ public class JeweleryEffectsHandler {
 
 	private void getEmeraldNecklaceEffect(LivingExperienceDropEvent event) {
 		EntityPlayer player = event.getAttackingPlayer();
-		
+
 		if (player == null)
 			return;
-		
+
 		float bonus = 0f;
 		float exp = (float)event.getOriginalExperience();
 		RpgInventoryData inventory = RpgInventoryData.get(player);
@@ -147,11 +146,22 @@ public class JeweleryEffectsHandler {
 	private void getRegenFromDiamondJewelry(PlayerTickEvent event){
 
 		EntityPlayer player = event.player;
-		
+
 		if(player == null)
 			return;
-		
+
 		RpgInventoryData data = RpgInventoryData.get(player);
+
+		////////heal tracker/////////
+		double prevHealth = data.getPrevHealth();
+		if(prevHealth != player.getHealth())
+		{
+			data.setPrevHealth(player.getHealth()); //reset prev health and restart counting
+			data.resetTracker(); //set tracker to 0, set tracked counter to constant variable
+		}
+		else
+			data.countTracker(); //count tracker up
+		/////////////////
 
 		if(data.getHealCounter() > 0)
 		{
@@ -255,7 +265,7 @@ public class JeweleryEffectsHandler {
 		if(numberofgoldjewels == 0)
 		{
 			IAttributeInstance speedAttribute = player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
-			
+
 			//reset if number of gold objects worn doesn't match the speed boost
 			if(speedAttribute.getModifier(speedUuid_low)!=null)
 				speedAttribute.removeModifier(speedUuid_low);
@@ -265,14 +275,14 @@ public class JeweleryEffectsHandler {
 				speedAttribute.removeModifier(speedUuid_high);
 			if(speedAttribute.getModifier(speedUuid_highest)!=null)
 				speedAttribute.removeModifier(speedUuid_highest);
-			
+
 			return;
 		}
 
 		else{
 
 			IAttributeInstance speedAttribute = player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
-		
+
 			//reset if number of gold objects worn doesn't match the speed boost
 			if(speedAttribute.getModifier(speedUuid_low)!=null && numberofgoldjewels != 1)
 				speedAttribute.removeModifier(speedUuid_low);
