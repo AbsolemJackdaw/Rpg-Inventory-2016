@@ -27,3 +27,6 @@ run
 /saves/
 /config/
 *.json
+/crash-reports/
+/world/
+*.properties
