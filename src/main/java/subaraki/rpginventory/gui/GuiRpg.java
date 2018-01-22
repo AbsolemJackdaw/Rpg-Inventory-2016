@@ -89,8 +89,8 @@ public class GuiRpg extends GuiContainer {
 		double seconds = (double)averageHealRate/20;
 		double health = 1d / seconds;
 		String s = Double.toString(health);
-		//fontRenderer.drawStringWithShadow((s.length() > 3 ? s.substring(0, 3) : s)+"/1s", guiLeft+this.xSize-32, guiTop+50, 0xffffff);
-		fontRenderer.drawStringWithShadow("1/"+Double.toString(seconds).substring(0, Math.min(Double.toString(seconds).length(), 3))+"s", guiLeft+this.xSize-32, guiTop+50, 0xffffff);
+		fontRenderer.drawStringWithShadow((s.length() > 3 ? s.substring(0, 3) : s)+"/s", guiLeft+this.xSize-35, guiTop+51, 0xffffff);
+//		fontRenderer.drawStringWithShadow("1/"+Double.toString(seconds).substring(0, Math.min(Double.toString(seconds).length(), 3))+"s", guiLeft+this.xSize-40, guiTop+51, 0xffffff);
 
 	}
 
