@@ -35,7 +35,6 @@ public class CapabilityInventoryProvider implements ICapabilitySerializable<NBTT
         return false;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing){
         if (capability == RpgInventoryCapability.CAPABILITY)
