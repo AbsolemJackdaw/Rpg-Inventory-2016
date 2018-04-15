@@ -209,7 +209,7 @@ public class JeweleryEffectsHandler {
 			ItemStack ring = inventory.getRing_2();
 
 			float modifier = 1;
-			float speed = event.getOriginalSpeed();
+			float speed = event.getNewSpeed();
 
 			if (!ring.isEmpty())				
 				if(inventory.getRing_2().getItem().getUnlocalizedName().contains("emerald"))
